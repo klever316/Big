@@ -39013,3 +39013,14 @@ Processing by HomeController#index as HTML
   Rendered layouts/_topnavbar.html.erb (0.3ms)
   Rendered layouts/_footer.html.erb (0.0ms)
 Completed 200 OK in 106ms (Views: 104.8ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/home/index" for 127.0.0.1 at 2017-08-17 16:26:04 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by HomeController#index as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  Rendered home/index.html.erb within layouts/application (748.2ms)
+  Rendered layouts/_navigation.html.erb (5.2ms)
+  Rendered layouts/_topnavbar.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 1093ms (Views: 1035.8ms | ActiveRecord: 1.0ms)
