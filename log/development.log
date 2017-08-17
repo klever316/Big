@@ -6,7 +6,7 @@ ActiveRecord::PendingMigrationError (
 
 Migrations are pending. To resolve this issue, run:
 
-	bin/rake db:migrate RAILS_ENV=development
+	bin/rake db:migrate RAILS_ENV=development 
 
 ):
   activerecord (4.2.8) lib/active_record/migration.rb:392:in `check_pending!'
@@ -39484,3 +39484,20 @@ Processing by HomeController#index as HTML
   Rendered layouts/_topnavbar.html.erb (0.3ms)
   Rendered layouts/_footer.html.erb (0.1ms)
 Completed 200 OK in 182ms (Views: 180.6ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-17 17:11:00 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by HomeController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  Rendered home/index.html.erb within layouts/application (242.4ms)
+  Rendered layouts/_navigation.html.erb (7.1ms)
+  Rendered layouts/_topnavbar.html.erb (1.0ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 379ms (Views: 361.2ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/style.self-3f1e6679ee856ce3f8d1448e241ed596325242ec10c2de06422b5f0965167339.css?body=1" for 127.0.0.1 at 2017-08-17 17:11:01 -0300
+
+
+Started GET "/assets/logo_tj_favicon-691eca4ca99d9aaedf2c45fbb9bbb7c5713a66b19a05e37e49e62cc929810d70.png" for 127.0.0.1 at 2017-08-17 17:11:02 -0300
