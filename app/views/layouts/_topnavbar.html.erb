@@ -1,10 +1,7 @@
 <div class="row border-bottom">
     <nav class="navbar navbar-static-top gray-bg" role="navigation" style="margin-bottom: 0">   
              <ul class="nav navbar-top-links navbar-right">   
-            <li>
-                teste
-            </li>
-            <li>    
+                        <li>    
                 <% if user_signed_in? %>
                   <%= link_to('Sair', destroy_user_session_path, :class => "fa fa-sign-out" )%>
                 <% end %>
