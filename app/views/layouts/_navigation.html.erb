@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                        <%= link_to "/home/index" do %>
+                            <img alt="image" class="img-circle" src="<%= image_url 'big.png' %>"/>
+                        <% end %>
+                    </span>
+                </div>
+
+                <div class="logo-element">
+                    BIG
+                </div>
+            </li>
+
+            <li class="<%= is_active_controller('diretoria') %>">
+                <a href=""><i class="fa fa-address-card" style="font-size:18px"></i> <span class="nav-label">Diretoria</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
+                        <li class="<%= is_active_action('taxa') %>"><%= link_to "/diretoria/taxa" do %>
+                            <span class="nav-label">Taxa de Congestionamento</span>
+                        <% end %>
+                        </li>
+
+                        <li class="<%= is_active_action('julgados') %>"><%= link_to "/diretoria/julgados" do %>
+                            <span class="nav-label">Julgados</span>
+                        <% end %>
+                        </li>
+
+                        <li class="<%= is_active_action('pendentes') %>"><%= link_to "/diretoria/pendentes" do %>
+                            <span class="nav-label">Pendentes</span>
+                        <% end %>
+                        </li>
+
+                        <li class="<%= is_active_action('baixados') %>"><%= link_to "/diretoria/baixados" do %>
+                            <span class="nav-label">Baixados</span>
+                        <% end %>
+                        </li>
+
+                    </ul>
+            </li>            
+            
+            <li class="<%= is_active_controller('judicial') %>">
+                <a href=""><i class="fa fa-balance-scale" style="font-size:18px"></i> <span class="nav-label">Área Judicial</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
+                        <li class="<%= is_active_action('civel') %>"><%= link_to "/judicial/civel" do %>
+                            <span class="nav-label">Área Cível</span>
+                        <% end %>
+                        </li>
+                        <li class="<%= is_active_action('criminal') %>"><%= link_to "/judicial/criminal" do %>
+                            <span class="nav-label">Área Criminal</span>
+                        <% end %>
+                        </li>
+                        <li class="<%= is_active_action('apoio') %>"><%= link_to "/judicial/apoio" do %>
+                            <span class="nav-label">Apoio</span>
+                        <% end %>
+                        </li>
+                    </ul>
+            </li>            
+
+            <li class="<%= is_active_controller('admin') %>">
+                <a href=""><i class="fa fa-book" style="font-size:18px"></i> <span class="nav-label">Área Administrativa</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
+                        <li class="<%= is_active_action('pessoas') %>"><%= link_to "/administrar/pessoas" do %>
+                            <span class="nav-label">Gestão de Pessoas</span>
+                        <% end %>
+                        </li>
+                        <li class="<%= is_active_action('patrimonio') %>"><%= link_to "/administrar/patrimonio" do %>
+                            <span class="nav-label">Gestão de Patrimônio</span>
+                        <% end %>
+                        </li>
+                    </ul>
+            </li>                
+        </ul>
+    </div>
+</nav>
