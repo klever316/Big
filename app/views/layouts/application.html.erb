@@ -10,7 +10,8 @@
 
     <!-- Main javascript files -->
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    <%= csrf_meta_tags %>
+    <%= favicon_link_tag 'logo_tj_favicon.png' %>
+    <%= csrf_meta_tags  %>
 
 </head>
 <body>
@@ -22,7 +23,7 @@
         <%= render 'layouts/navigation' %>
 
         <!-- Page wraper -->
-        <div id="page-wrapper" class="gray-bg">
+        <div id="page-wrapper" style="background: linear-gradient(#9dcbc1,#e6f2f0 40%, #FFFFFF)">
 
             <!-- Page wrapper -->
             <%= render 'layouts/topnavbar' %>

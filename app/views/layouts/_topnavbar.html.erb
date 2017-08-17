@@ -1,12 +1,16 @@
 <div class="row border-bottom">
-    <nav class="navbar navbar-static-top gray-bg" role="navigation" style="margin-bottom: 0">   
-             <ul class="nav navbar-top-links navbar-right">   
-                        <li>    
-                <% if user_signed_in? %>
-                  <%= link_to('Sair', destroy_user_session_path, :class => "fa fa-sign-out" )%>
-                <% end %>
-            </li>
-
-        </ul>
-    </nav>
+	<nav class="navbar navbar-static-top gray-bg" role="navigation" style="margin-bottom: 0; background: linear-gradient(#75B1B4,#B1D6CE 25%)">
+				<div class="navbar-header">
+				</div>
+				<ul class="nav navbar-top-links" style="text-align: center;">
+					<li>    
+						<%= link_to('BIG - Banco de Informações Gerenciais', home_index_path, :style => "color: #257752; font-size: 18px; margin: -5px" )%>
+					</li>
+					<li class="pull-right" >    
+						<% if user_signed_in? %>
+						<%= link_to('Sair', destroy_user_session_path, :class => "fa fa-sign-out", :style => "color: #257752" )%>
+						<% end %>
+					</li>
+				</ul>
+	</nav>
 </div>
