@@ -79,9 +79,9 @@
                                 </div> -->
 
                                 <div class="field">
-                                  <%= f.label :email %><br/>
+                                  <%= f.label :email, "E-mail" %><br/>
 
-                                  <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Username" %>
+                                  <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Usuário" %>
                                 </div>
 
                                 <br/>
@@ -92,8 +92,8 @@
                               -->
 
                               <div class="field">
-                                <%= f.label :password %><br />
-                                <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+                                <%= f.label :password, "Senha" %><br />
+                                <%= f.password_field :password, class: "form-control", placeholder: "Senha" %>
                               </div>
 
                               <br/>
@@ -104,7 +104,7 @@
 
                                 <!-- <button type="submit" class="btn btn-primary block full-width m-b">Login</button> -->
 
-                                <%= f.submit "Log in", class: "btn btn-primary block full-width m-b" %>
+                                <%= f.submit "Entrar", class: "btn btn-primary block full-width m-b" %>
 
 
                                 <!-- <a href="#">
