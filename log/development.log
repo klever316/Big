@@ -39903,3 +39903,309 @@ Processing by DiretoriaController#taxa as HTML
   Rendered layouts/_topnavbar.html.erb (0.4ms)
   Rendered layouts/_footer.html.erb (0.0ms)
 Completed 200 OK in 69ms (Views: 67.7ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-22 08:23:08 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by HomeController#index as HTML
+Completed 401 Unauthorized in 25ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2017-08-22 08:23:08 -0300
+Processing by Devise::SessionsController#new as HTML
+  Rendered /home/tj.ce.gov.br/900826/.rvm/gems/ruby-2.4.1/gems/devise-4.3.0/app/views/devise/shared/_links.html.erb (2.0ms)
+  Rendered /home/tj.ce.gov.br/900826/.rvm/gems/ruby-2.4.1/gems/devise-4.3.0/app/views/devise/sessions/new.html.erb within layouts/login (106.6ms)
+Completed 200 OK in 7938ms (Views: 7920.0ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/application.self-4ca33576395a98ec5875e4a90ce780334f452e9c85e4dbc7a64b158b0d54f3d7.css?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/jquery/dist/jquery.self-06c43429d1047ce3f355da574d8a9750209971b8b1b8f264f91f5518c5fcc060.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/animate/animate.self-570992b3ad6a262de1924aa4ecc17a6f9cf45cb8fd0daaf3cfe5a9f2f3e08e2e.css?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/font-awesome.self-2d17540bab3759939e910ca38a695f014e0c777ded3ad7a01c4658b9d3fc980d.css?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/highcharts/css/highcharts.self-23e2528515c426e736a56c74b5574f5f5b0312b57f13dc20cc9b8935a75dc949.css?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/style.self-3f1e6679ee856ce3f8d1448e241ed596325242ec10c2de06422b5f0965167339.css?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/bootstrap/transition.self-6ad2488465135ab731a045a8ebbe3ea2fc501aed286042496eda1664fdd07ba9.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/bootstrap/alert.self-742145c5bb847aafdadc6e339be795628f8bc25f177e851f03a8c42278eb0312.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/bootstrap/button.self-126ac9bf0e7f2d8568f8da3a00fd5f0fac6eae0946331003370161fbf8d7975e.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/bootstrap/carousel.self-e47323f363ceb3dc0bdbce05e36e709ed428e339833a41140a85cb0af24b8127.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/bootstrap/collapse.self-2eb697f62b587bb786ff940d82dd4be88cdeeaf13ca128e3da3850c5fcaec301.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/bootstrap/dropdown.self-561cca1cbaf67474e01e9536f106bad541594860a6df997004591c1c1957a147.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/bootstrap/modal.self-3e78617ade5663314b7ee0ea10375a5b34d59ffbade44939e3f2a4e4ef2019b3.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/bootstrap/tab.self-5bf7078b682f8b131332eefa46b45fa5eff2eca745fc0d03e2991450888f7c28.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/bootstrap/affix.self-6d6f1a7fc5c8aabf3547fa1b794fab6268f54bc55ad815e55873c71f52513517.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/bootstrap/scrollspy.self-969f3c5f48cdf1e439c7fa1154c13b948715f5c689f87837c0b64521d3b46ef6.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/bootstrap/tooltip.self-05afb177e08f98997ccfc84fa08a215e4b27d48d5fe4d049080675e9dffd8199.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/bootstrap/popover.self-0aa93860b59fe7393f1dd490f54b3cb994f9d6155adffce034d4e14ae361b041.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/bootstrap-sprockets.self-fbfa5ad7d9aa0afe439ec4ff3883acc4cb92b62cb67c40d674320c9aa1d4642d.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/metisMenu/jquery.metisMenu.self-587029531d977fc7fa10623dd670189a298bd606124c23fc2edd051da5b0c914.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/pace/pace.min.self-9bf6d667514a59744d5db2c9392aaf5595dec9c131a425ababa1cb8cddb814f2.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/slimscroll/jquery.slimscroll.min.self-a2008e2992d055fbe5108d326a54c3083f843da1a30240d2b2e1f706716fa03e.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/jquery-maskedinput/src/jquery.maskedinput.self-32f6abb99dae2d2488a7ee8257cd54274dc94667253e51149870de518018f01b.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/highcharts/highcharts.self-410755c3f05f3754d1aa7e183f5ed33bd8d3305ab6b794fa5efc67fd79c3597c.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/highcharts/modules/drilldown.self-bbfeb5b48ed139564334979231cef1165bfb9c3edaa851948f7d8ce78a23857c.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/highcharts/modules/exporting.self-9dc78ff0cbb62d5013f52bd61598163aab539cd51f0a7a0cba862d6151a25b07.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/inspinia.self-00d44c61472e02a04c05d1e833fbd3137551b564a55bf83211261e360b56d771.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/application.self-cdb0ad458c65589c083cfb45a0d0ad897390667ab103d12f6f09848135ace311.js?body=1" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/logo_tj-627db004f2ee4a2b7657bd9a0a42a5b1cfe39a0409ffa49f14bb0cd21c81a373.png" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started GET "/assets/logo_tj_favicon-691eca4ca99d9aaedf2c45fbb9bbb7c5713a66b19a05e37e49e62cc929810d70.png" for 127.0.0.1 at 2017-08-22 08:23:16 -0300
+
+
+Started POST "/users/sign_in" for 127.0.0.1 at 2017-08-22 08:23:36 -0300
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"s2wM7O0stNJfSAMWkoq0d2jOL5xtTfTGNaH65/OQv5rPOH6p8aO/WFKxpdEEFRSfHdQ9XLPOkjcwlViV1NtZLw==", "user"=>{"email"=>"leo@tjce.jus.br", "password"=>"[FILTERED]"}, "commit"=>"Entrar"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["email", "leo@tjce.jus.br"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.8ms)[0m  UPDATE "users" SET "last_sign_in_at" = ?, "current_sign_in_at" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?  [["last_sign_in_at", "2017-08-21 14:20:18.994298"], ["current_sign_in_at", "2017-08-22 11:23:36.813380"], ["sign_in_count", 29], ["updated_at", "2017-08-22 11:23:36.814124"], ["id", 1]]
+  [1m[36m (92.8ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 376ms (ActiveRecord: 93.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-22 08:23:36 -0300
+Processing by HomeController#index as HTML
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  Rendered home/index.html.erb within layouts/application (3.0ms)
+  Rendered layouts/_navigation.html.erb (6.9ms)
+  Rendered layouts/_topnavbar.html.erb (1.3ms)
+  Rendered layouts/_footer.html.erb (0.5ms)
+Completed 200 OK in 183ms (Views: 180.7ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/big-3f64a3821811c1c242761b43ea96428b9c4968c56717b1eef91bc260deae4562.png" for 127.0.0.1 at 2017-08-22 08:23:37 -0300
+
+
+Started GET "/assets/patterns/header-profile-c05909898218a521d3bd19ba09a9a43338de6de5fdf1d3fc771b0ec28ae416c5.png" for 127.0.0.1 at 2017-08-22 08:23:37 -0300
+
+
+Started GET "/assets/fontawesome-webfont-aadc3580d2b64ff5a7e6f1425587db4e8b033efcbf8f5c332ca52a5ed580c87c.woff2?v=4.3.0" for 127.0.0.1 at 2017-08-22 08:23:37 -0300
+
+
+Started GET "/" for 127.0.0.1 at 2017-08-24 16:56:56 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by HomeController#index as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  Rendered home/index.html.erb within layouts/application (2577.8ms)
+  Rendered layouts/_navigation.html.erb (7.4ms)
+  Rendered layouts/_topnavbar.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.4ms)
+Completed 200 OK in 3547ms (Views: 3509.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/application.self-4ca33576395a98ec5875e4a90ce780334f452e9c85e4dbc7a64b158b0d54f3d7.css?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/font-awesome.self-2d17540bab3759939e910ca38a695f014e0c777ded3ad7a01c4658b9d3fc980d.css?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/highcharts/css/highcharts.self-23e2528515c426e736a56c74b5574f5f5b0312b57f13dc20cc9b8935a75dc949.css?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/animate/animate.self-570992b3ad6a262de1924aa4ecc17a6f9cf45cb8fd0daaf3cfe5a9f2f3e08e2e.css?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/style.self-3f1e6679ee856ce3f8d1448e241ed596325242ec10c2de06422b5f0965167339.css?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/jquery/dist/jquery.self-06c43429d1047ce3f355da574d8a9750209971b8b1b8f264f91f5518c5fcc060.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/bootstrap/transition.self-6ad2488465135ab731a045a8ebbe3ea2fc501aed286042496eda1664fdd07ba9.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/bootstrap/alert.self-742145c5bb847aafdadc6e339be795628f8bc25f177e851f03a8c42278eb0312.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/bootstrap/button.self-126ac9bf0e7f2d8568f8da3a00fd5f0fac6eae0946331003370161fbf8d7975e.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/bootstrap/carousel.self-e47323f363ceb3dc0bdbce05e36e709ed428e339833a41140a85cb0af24b8127.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/bootstrap/collapse.self-2eb697f62b587bb786ff940d82dd4be88cdeeaf13ca128e3da3850c5fcaec301.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/bootstrap/dropdown.self-561cca1cbaf67474e01e9536f106bad541594860a6df997004591c1c1957a147.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/bootstrap/modal.self-3e78617ade5663314b7ee0ea10375a5b34d59ffbade44939e3f2a4e4ef2019b3.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/bootstrap/tab.self-5bf7078b682f8b131332eefa46b45fa5eff2eca745fc0d03e2991450888f7c28.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/bootstrap/affix.self-6d6f1a7fc5c8aabf3547fa1b794fab6268f54bc55ad815e55873c71f52513517.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/bootstrap/scrollspy.self-969f3c5f48cdf1e439c7fa1154c13b948715f5c689f87837c0b64521d3b46ef6.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/bootstrap/tooltip.self-05afb177e08f98997ccfc84fa08a215e4b27d48d5fe4d049080675e9dffd8199.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/bootstrap/popover.self-0aa93860b59fe7393f1dd490f54b3cb994f9d6155adffce034d4e14ae361b041.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/bootstrap-sprockets.self-fbfa5ad7d9aa0afe439ec4ff3883acc4cb92b62cb67c40d674320c9aa1d4642d.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/metisMenu/jquery.metisMenu.self-587029531d977fc7fa10623dd670189a298bd606124c23fc2edd051da5b0c914.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/pace/pace.min.self-9bf6d667514a59744d5db2c9392aaf5595dec9c131a425ababa1cb8cddb814f2.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/slimscroll/jquery.slimscroll.min.self-a2008e2992d055fbe5108d326a54c3083f843da1a30240d2b2e1f706716fa03e.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/jquery-maskedinput/src/jquery.maskedinput.self-32f6abb99dae2d2488a7ee8257cd54274dc94667253e51149870de518018f01b.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/highcharts/highcharts.self-410755c3f05f3754d1aa7e183f5ed33bd8d3305ab6b794fa5efc67fd79c3597c.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/highcharts/modules/drilldown.self-bbfeb5b48ed139564334979231cef1165bfb9c3edaa851948f7d8ce78a23857c.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/highcharts/modules/exporting.self-9dc78ff0cbb62d5013f52bd61598163aab539cd51f0a7a0cba862d6151a25b07.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/inspinia.self-00d44c61472e02a04c05d1e833fbd3137551b564a55bf83211261e360b56d771.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/application.self-cdb0ad458c65589c083cfb45a0d0ad897390667ab103d12f6f09848135ace311.js?body=1" for 127.0.0.1 at 2017-08-24 16:57:00 -0300
+
+
+Started GET "/assets/big-3f64a3821811c1c242761b43ea96428b9c4968c56717b1eef91bc260deae4562.png" for 127.0.0.1 at 2017-08-24 16:57:01 -0300
+
+
+Started GET "/assets/logo_tj-627db004f2ee4a2b7657bd9a0a42a5b1cfe39a0409ffa49f14bb0cd21c81a373.png" for 127.0.0.1 at 2017-08-24 16:57:01 -0300
+
+
+Started GET "/assets/patterns/header-profile-c05909898218a521d3bd19ba09a9a43338de6de5fdf1d3fc771b0ec28ae416c5.png" for 127.0.0.1 at 2017-08-24 16:57:01 -0300
+
+
+Started GET "/assets/fontawesome-webfont-aadc3580d2b64ff5a7e6f1425587db4e8b033efcbf8f5c332ca52a5ed580c87c.woff2?v=4.3.0" for 127.0.0.1 at 2017-08-24 16:57:01 -0300
+
+
+Started GET "/assets/logo_tj_favicon-691eca4ca99d9aaedf2c45fbb9bbb7c5713a66b19a05e37e49e62cc929810d70.png" for 127.0.0.1 at 2017-08-24 16:57:01 -0300
+Started GET "/" for ::1 at 2017-08-28 16:16:44 -0300
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+Completed 401 Unauthorized in 12ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2017-08-28 16:16:44 -0300
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/login
+  Rendered devise/shared/_links.html.erb (1.6ms)
+  Rendered devise/sessions/new.html.erb within layouts/login (63.7ms)
+Completed 200 OK in 7765ms (Views: 7744.4ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/application.self-4ca33576395a98ec5875e4a90ce780334f452e9c85e4dbc7a64b158b0d54f3d7.css?body=1" for ::1 at 2017-08-28 16:16:52 -0300
+Started GET "/assets/style.self-3f1e6679ee856ce3f8d1448e241ed596325242ec10c2de06422b5f0965167339.css?body=1" for ::1 at 2017-08-28 16:16:52 -0300
+Started GET "/assets/logo_tj_favicon-691eca4ca99d9aaedf2c45fbb9bbb7c5713a66b19a05e37e49e62cc929810d70.png" for ::1 at 2017-08-28 16:16:52 -0300
+Started POST "/users/sign_in" for ::1 at 2017-08-28 16:16:57 -0300
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Uh1Ko1PKhPYECcjL7dGm2DddOamTwYn5fIfDj2Q+JJUe7TwxVXlymlaJguh0jHcYxiAKb1sxyl2a2DVxTAnXWw==", "user"=>{"email"=>"leo@tjce.jus.br", "password"=>"[FILTERED]"}, "commit"=>"Entrar"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["email", "leo@tjce.jus.br"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[33mUPDATE "users" SET "current_sign_in_at" = ?, "last_sign_in_at" = ?, "current_sign_in_ip" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "users"."id" = ?[0m  [["current_sign_in_at", "2017-08-28 19:16:57.573516"], ["last_sign_in_at", "2017-08-22 11:23:36.813380"], ["current_sign_in_ip", "::1"], ["sign_in_count", 30], ["updated_at", "2017-08-28 19:16:57.574429"], ["id", 1]]
+  [1m[35m (82.2ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 278ms (ActiveRecord: 83.6ms)
+
+
+Started GET "/" for ::1 at 2017-08-28 16:16:57 -0300
+Processing by HomeController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (5.2ms)
+  Rendered layouts/_navigation.html.erb (7.1ms)
+  Rendered layouts/_topnavbar.html.erb (0.8ms)
+  Rendered layouts/_footer.html.erb (0.5ms)
+Completed 200 OK in 267ms (Views: 239.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/big-3f64a3821811c1c242761b43ea96428b9c4968c56717b1eef91bc260deae4562.png" for ::1 at 2017-08-28 16:16:57 -0300
+Started GET "/assets/patterns/header-profile-c05909898218a521d3bd19ba09a9a43338de6de5fdf1d3fc771b0ec28ae416c5.png" for ::1 at 2017-08-28 16:16:58 -0300
+Started GET "/users/sign_out" for ::1 at 2017-08-28 16:17:04 -0300
+Processing by Devise::SessionsController#destroy as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 13ms (ActiveRecord: 0.4ms)
+
+
+Started GET "/" for ::1 at 2017-08-28 16:17:04 -0300
+Processing by HomeController#index as HTML
+Completed 401 Unauthorized in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/users/sign_in" for ::1 at 2017-08-28 16:17:04 -0300
+Processing by Devise::SessionsController#new as HTML
+  Rendering devise/sessions/new.html.erb within layouts/login
+  Rendered devise/shared/_links.html.erb (1.3ms)
+  Rendered devise/sessions/new.html.erb within layouts/login (5.4ms)
+Completed 200 OK in 208ms (Views: 206.7ms | ActiveRecord: 0.0ms)
+
+
