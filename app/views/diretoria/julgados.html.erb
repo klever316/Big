@@ -25,7 +25,7 @@
 </div>
 
 <script type="text/javascript">
- Highcharts.chart('container', {
+Highcharts.chart('container', {
     chart: {
         type: 'column'
     },
@@ -72,25 +72,22 @@
             borderWidth: 0
         }
     },
-
     credits: {
       enabled: false
     },
     
     series: [{
         name: '2015',
-        data: [4840, 6293, 6892, 6763, 7216, 7297, 6394, 7467, 8395, 7868, 8169, 5452],
-        color: '#187251'
-
+        data: <%= @processos_julgados_2015 %>,
+        color: '#106043'
     }, {
         name: '2016',
-        data: [6267, 7266, 8328, 6390, 8510, 8130, 6360, 8078, 8393, 7321, 8252, 4121],
-        color: '#379e78'
+        data: <%= @processos_julgados_2016 %>,
+        color: '#39a87f'
     }, {
         name: '2017',
-        data: [5780, 7031, 9337, 6517, 9502, 8696],
-        color: '#6ccca8'
+        data: <%= @processos_julgados_2017 %>,
+        color: '#7fe8c0'
     }]
 });
-
 </script>

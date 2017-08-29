@@ -23,3 +23,12 @@ production:
   database: db/production.sqlite3
   pool: 5
   timeout: 5000
+
+database_big:
+  adapter: oracle_enhanced
+  database: "(DESCRIPTION=
+    (ADDRESS_LIST=(ADDRESS=(PROTOCOL=tcp)(HOST=10.1.1.161)(PORT=1521)))
+    (CONNECT_DATA=(SERVICE_NAME=SPROCDW))
+  )"
+  username: dbfcb
+  password: dbfcb
