@@ -4,6 +4,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title" style="">
                     <h5>Julgados</h5>
+                    <span class="label label-info">2017</span>
                     <div class="ibox-tools"  style="margin-top: -4px">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -14,7 +15,7 @@
                     </div>
                 </div> 
                 <div class="ibox-content">
-                    <h1 class="no-margins">46.863</h1>
+                    <h1 class="no-margins"><%= number_with_delimiter(@total_julgados.first["qtd_julgado_conhecimento"].to_i, delimiter: ".") %></h1>
                     <small>Processos</small>
                 </div>   
             </div>
@@ -34,7 +35,7 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">318.720</h1>
+                    <h1 class="no-margins"><%= number_with_delimiter(@total_pendentes.first["qtd_pendente_baixa_conh"].to_i, delimiter: ".") %></h1>
                     <small>Processos</small>
                 </div> 
             </div>       
@@ -55,7 +56,7 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins">53.061</h1>
+                    <h1 class="no-margins"><%= number_with_delimiter(@total_baixados.first["qtd_baixado_conhecimento"].to_i, delimiter: ".") %></h1>
                     <small>Processos</small>
                 </div> 
             </div>       
@@ -140,8 +141,8 @@
         crosshair: true
     },
     yAxis: {
-        min: 9,
-        max: 10,
+        min: 90,
+        max: 100,
         title: {
             text: 'Taxa (%)'
         }
@@ -167,16 +168,16 @@
 
     series: [{
         name: '2015',
-        data: [9.8177, 9.7880, 9.7392, 9.7440, 9.7145, 9.7196, 9.7982, 9.7673, 9.7487, 9.7224, 9.6494, 9.6288],
+        data: <%= @taxa_congestionamento_2015 %>,
         color: '#187251'
 
     }, {
         name: '2016',
-        data: [9.8174, 9.7570, 9.7442, 9.7322, 9.6936, 9.6990, 9.8239, 9.7371, 9.7082, 9.7226, 9.6866, 9.8135],
+        data: <%= @taxa_congestionamento_2016 %>,
         color: '#379e78'
     }, {
         name: '2017',
-        data: [9.8620, 9.7596, 9.6503, 9.7558, 9.6847, 9.6882],
+        data: <%= @taxa_congestionamento_2017 %>,
         color: '#6ccca8'
 
     }]

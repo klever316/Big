@@ -15,7 +15,7 @@
                 </div>
                 <div class="ibox-content">
                     <div class="row wrapper border-bottom white-bg page-heading">
-                        <div id="container"> </div>
+                        <div id="container"> </div>                
                     </div>
                 </div> 
             </div>
@@ -79,16 +79,16 @@
 
     series: [ {
         name: '2015',
-        data: [6156, 7206, 8936, 8787, 9818, 9637, 6942, 8054, 8736, 9637, 12146, 12969],
+        data: <%= @processos_baixados_2015 %>,
         color: '#187251'
 
     }, {
         name: '2016',
-        data: [6291, 8423, 8889, 9275, 10557, 10313, 597, 9016, 9968, 9379, 10536, 6193],
+        data: <%= @processos_baixados_2016 %>,
         color: '#379e78'
     }, {
         name: '2017',
-        data: [4582, 8028, 11702, 8048, 10444, 10257],
+        data: <%= @processos_baixados_2017 %>,
         color: '#6ccca8'
 
     }]
