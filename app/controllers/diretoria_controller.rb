@@ -1,4 +1,5 @@
 class DiretoriaController < ApplicationController
+	
   def taxa
   	#conexão com o banco
 		conn = BigDB.connection
