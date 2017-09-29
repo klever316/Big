@@ -14,10 +14,10 @@ Myapp::Application.routes.draw do
   get "administrar/patrimonio"
 
   # Diretoria
-  get "diretoria/taxa"
-  get "diretoria/julgados"
-  get "diretoria/pendentes"
-  get "diretoria/baixados"
+  match "diretoria/taxa" => "diretoria#taxa", via: [:get, :post]
+  match "/diretoria/julgados" => "diretoria#julgados", via: [:get, :post]
+  match "diretoria/pendentes" => "diretoria#pendentes", via: [:get, :post]
+  match "diretoria/baixados" => "diretoria#baixados", via: [:get, :post]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
