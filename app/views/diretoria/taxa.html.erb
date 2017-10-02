@@ -105,9 +105,70 @@
                     </div>
                 </div> 
             </div>    
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h4>Ano</h4>
+                    <div class="ibox-tools" style="margin-top: -4px">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>                    
+                </div>
+                <div class="ibox-content">
+                    <div class="row wrapper border-bottom white-bg page-heading">
+                        <div class="radio" style="margin-left: -5px;margin-top:-5px;margin-bottom: -10px">
+                            <%= form_for :taxa, :method => "POST"  do |f| %>
+                            <%= f.radio_button :ano,  :'2017', :checked => "checked",:onclick => "this.form.submit()", :id => "2017", :style => "margin-left: 1px" %>
+                            <%= f.label "2017", :for => :'2017', :style =>"margin-left:5px;margin-top:3px" %><br />
+                            <%= f.radio_button :ano, :'2016', :checked => (!@result.nil?) && (@result[:ano] == "2016") ? true : false , :onclick => "this.form.submit()", :id => "2016",:style => "margin-left: 1px" %>
+                            <%= f.label "2016", :for => :'2016', :style =>"margin-left:5px;margin-top:3px" %><br />
+                            <%= f.radio_button :ano, :'2015', :checked => (!@result.nil?) && (@result[:ano] == "2015") ? true : false , :onclick => "this.form.submit()", :id => "2015", :style => "margin-left: 1px" %>
+                            <%= f.label "2015", :for => :'2015', :style =>"margin-left:5px;margin-top:3px" %><br />
+                            <% end %>
+                            <!--<%= @result[:ano] if !@result.nil? %>-->
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h4>Gráfico</h4>
+                    <div class="ibox-tools" style="margin-top: -4px">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>                    
+                </div>
+                <div class="ibox-content">
+                    <div class="row wrapper border-bottom white-bg page-heading">
+                        <% if !@result.nil? %>
+                            <% if @result[:ano] == "2017" %>
+                                <div id="container2"> </div>
+                            <% elsif @result[:ano] == '2016' %>
+                                <div id="container3"> </div>
+                            <% elsif @result[:ano] == '2015' %>
+                                <div id="container2"> </div>
+                            <% end %>
+                        <% else %>  
+                                <div id="container2"> </div>
+                        <% end %>
+                    </div>
+                </div> 
+            </div>    
 
         </div>
-
     </div>
 </div>
 
@@ -164,23 +225,1005 @@
 
     credits: {
       enabled: false
+  },
+
+  series: [{
+    name: '2015',
+    data: <%= @taxa_congestionamento_2015 %>,
+    color: '#187251'
+
+}, {
+    name: '2016',
+    data: <%= @taxa_congestionamento_2016 %>,
+    color: '#379e78'
+}, {
+    name: '2017',
+    data: <%= @taxa_congestionamento_2017 %>,
+    color: '#6ccca8'
+
+}]
+});
+
+</script>
+
+<script type="text/javascript">
+    Highcharts.chart('container2', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Taxa de Congestionamento Por Competência'
+        },
+        subtitle: {
+            text: 'Taxa de Congestionamento Por Competência no ano de 2017'
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Julgados (n)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.0f}'
+                }
+            }
+        },
+
+        credits: {
+          enabled: false
+      },
+
+      tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
     },
 
     series: [{
-        name: '2015',
-        data: <%= @taxa_congestionamento_2015 %>,
-        color: '#187251'
-
-    }, {
-        name: '2016',
-        data: <%= @taxa_congestionamento_2016 %>,
-        color: '#379e78'
-    }, {
         name: '2017',
-        data: <%= @taxa_congestionamento_2017 %>,
-        color: '#6ccca8'
+        colorByPoint: true,
+        data: [{
+            name: 'Cível',
+            y: 4500,
+            drilldown: 'Cível'
+        }, {
+            name: 'Família',
+            y: 5000,
+            drilldown: 'Família'
+        }, {
+            name: 'Falência',
+            y: 3500,
+            drilldown: 'Falência'
+        }, {
+            name: 'Criminal',
+            y: 5500,
+            drilldown: 'Criminal'
+        }, {
+            name: 'Fazenda Pública',
+            y: 6500,
+            drilldown: 'Fazenda Pública'
+        }, {
+            name: 'Infância e Juventude',
+            y: 4000,
+            drilldown: null
+        }, {
+            name: 'Júri',
+            y: 5000,
+            drilldown: null
+        }, {
+            name: 'Sucessões',
+            y: 6500,
+            drilldown: null
+        }, {
+            name: 'Tóxico',
+            y: 4500,
+            drilldown: null
+        }, {
+            name: 'Execuções Fiscais',
+            y: 6500,
+            drilldown: null
+        }, {
+            name: 'Trânsito',
+            y: 6000,
+            drilldown: null
+        }, {
+            name: 'Penas Alternativas',
+            y: 3000,
+            drilldown: null
+        }]
+    }],
+    drilldown: {
+        series: [{
+            name: 'Cível',
+            id: 'Cível',
+            data: [
+            [
+            '1ª Vara Cível',
+            450
+            ],
+            [
+            '2ª Vara Cível',
+            400
+            ],
+            [
+            '3ª Vara Cível',
+            200
+            ],
+            [
+            '4ª Vara Cível',
+            450
+            ],
+            [
+            '5ª Vara Cível',
+            650
+            ],
+            [
+            '6ª Vara Cível',
+            200
+            ],
+            [
+            '7ª Vara Cível',
+            150
+            ],
+            [
+            '8ª Vara Cível',
+            250
+            ],
+            [
+            '9ª Vara Cível',
+            650
+            ],
+            [
+            '10ª Vara Cível',
+            350
+            ],
+            [
+            '11ª Vara Cível',
+            300
+            ],
+            [
+            '12ª Vara Cível',
+            400
+            ],
+            [
+            '13ª Vara Cível',
+            200
+            ],
+            [
+            '14ª Vara Cível',
+            500
+            ],
+            [
+            '15ª Vara Cível',
+            350
+            ],
+            [
+            '16ª Vara Cível',
+            150
+            ],
+            [
+            '17ª Vara Cível',
+            550
+            ],
+            [
+            '18ª Vara Cível',
+            400
+            ],
+            [
+            '19ª Vara Cível',
+            500
+            ],
+            [
+            '20ª Vara Cível',
+            550
+            ],
+            [
+            '21ª Vara Cível',
+            350
+            ],
+            [
+            '22ª Vara Cível',
+            650
+            ],
+            [
+            '23ª Vara Cível',
+            300
+            ],
+            [
+            '24ª Vara Cível',
+            600
+            ],
+            [
+            '25ª Vara Cível',
+            400
+            ],
+            [
+            '26ª Vara Cível',
+            450
+            ],
+            [
+            '27ª Vara Cível',
+            500
+            ],
+            [
+            '28ª Vara Cível',
+            400
+            ],
+            [
+            '29ª Vara Cível',
+            300
+            ],
+            [
+            '30ª Vara Cível',
+            600
+            ],
+            [
+            '31ª Vara Cível',
+            250
+            ],
+            [
+            '32ª Vara Cível',
+            400
+            ],
+            [
+            '33ª Vara Cível',
+            400
+            ],
+            [
+            '34ª Vara Cível',
+            450
+            ],
+            [
+            '35ª Vara Cível',
+            250
+            ],
+            [
+            '36ª Vara Cível',
+            350
+            ],
+            [
+            '37ª Vara Cível',
+            800
+            ],
+            [
+            '38ª Vara Cível',
+            500
+            ],
+            [
+            '39ª Vara Cível',
+            450
+            ],
 
-    }]
+            ]
+        }, {
+            name: 'Família',
+            id: 'Família',
+            data: [
+            [
+            '1ª Vara de Família',
+            400
+            ],
+            [
+            '2ª Vara de Família',
+            350
+            ],
+            [
+            '3ª Vara de Família',
+            450
+            ],
+            [
+            '4ª Vara de Família',
+            400
+            ],
+            [
+            '5ª Vara de Família',
+            600
+            ],
+            [
+            '6ª Vara de Família',
+            300
+            ],
+            [
+            '7ª Vara de Família',
+            700
+            ],
+            [
+            '8ª Vara de Família',
+            400
+            ],
+            [
+            '9ª Vara de Família',
+            250
+            ],
+            [
+            '10ª Vara de Família',
+            550
+            ],
+            [
+            '11ª Vara de Família',
+            450
+            ],
+            [
+            '12ª Vara de Família',
+            650
+            ],
+            [
+            '13ª Vara de Família',
+            600
+            ],
+            [
+            '14ª Vara de Família',
+            450
+            ],
+            [
+            '15ª Vara de Família',
+            550
+            ],
+            [
+            '16ª Vara de Família',
+            650
+            ],
+            [
+            '17ª Vara de Família',
+            450
+            ]
+            ]
+        }, {
+            name: 'Falência',
+            id: 'Falência',
+            data: [
+            [
+            '1ª Vara de Falências',
+            500
+            ],
+            [
+            '2ª Vara de Falências',
+            600
+            ]
+            ]
+        }, {
+            name: 'Criminal',
+            id: 'Criminal',
+            data: [
+            [
+            '1ª Vara Criminal',
+            450
+            ],
+            [
+            '2ª Vara Criminal',
+            500
+            ],
+            [
+            '3ª Vara Criminal',
+            350
+            ],
+            [
+            '4ª Vara Criminal',
+            550
+            ],
+            [
+            '5ª Vara Criminal',
+            550
+            ],
+            [
+            '6ª Vara Criminal',
+            350
+            ],
+            [
+            '7ª Vara Criminal',
+            550
+            ],
+            [
+            '8ª Vara Criminal',
+            250
+            ],
+            [
+            '9ª Vara Criminal',
+            650
+            ],
+            [
+            '10ª Vara Criminal',
+            600
+            ],
+            [
+            '11ª Vara Criminal',
+            500
+            ],
+            [
+            '12ª Vara Criminal',
+            400
+            ],
+            [
+            '13ª Vara Criminal',
+            450
+            ],
+            [
+            '14ª Vara Criminal',
+            500
+            ],
+            [
+            '15ª Vara Criminal',
+            400
+            ],
+            [
+            '16ª Vara Criminal',
+            300
+            ],
+            [
+            '17ª Vara Criminal',
+            400
+            ],
+            [
+            '18ª Vara Criminal',
+            600
+            ]
+            ]
+        }, {
+            name: 'Fazenda Pública',
+            id: 'Fazenda Pública',
+            data: [
+            [
+            '1ª Vara da Fazenda Pública',
+            300
+            ],
+            [
+            '2ª Vara da Fazenda Pública',
+            450
+            ],
+            [
+            '3ª Vara da Fazenda Pública',
+            400
+            ],
+            [
+            '4ª Vara da Fazenda Pública',
+            300
+            ],
+            [
+            '5ª Vara da Fazenda Pública',
+            250
+            ],
+            [
+            '6ª Vara da Fazenda Pública',
+            500
+            ],
+            [
+            '7ª Vara da Fazenda Pública',
+            650
+            ],
+            [
+            '8ª Vara da Fazenda Pública',
+            400
+            ],
+            [
+            '9ª Vara da Fazenda Pública',
+            200
+            ],
+            [
+            '10ª Vara da Fazenda Pública',
+            450
+            ],
+            [
+            '11ª Vara da Fazenda Pública',
+            350
+            ],
+            [
+            '12ª Vara da Fazenda Pública',
+            650
+            ],
+            [
+            '13ª Vara da Fazenda Pública',
+            250
+            ],
+            [
+            '14ª Vara da Fazenda Pública',
+            500
+            ],
+            [
+            '15ª Vara da Fazenda Pública',
+            650
+            ]
+            ]
+        }]
+    }
 });
+</script>
 
+<script type="text/javascript">
+    Highcharts.chart('container3', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Taxa de Congestionamento Por Competência'
+        },
+        subtitle: {
+            text: 'Taxa de Congestionamento Por Competência no ano de 2016'
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            title: {
+                text: 'Julgados (n)'
+            }
+
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.0f}'
+                }
+            }
+        },
+
+        credits: {
+          enabled: false
+      },
+
+      tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+    },
+
+    series: [{
+        name: '2017',
+        colorByPoint: true,
+        data: [{
+            name: 'Cível',
+            y: 4500,
+            drilldown: 'Cível'
+        }, {
+            name: 'Família',
+            y: 5000,
+            drilldown: 'Família'
+        }, {
+            name: 'Falência',
+            y: 3500,
+            drilldown: 'Falência'
+        }, {
+            name: 'Criminal',
+            y: 5500,
+            drilldown: 'Criminal'
+        }, {
+            name: 'Fazenda Pública',
+            y: 6500,
+            drilldown: 'Fazenda Pública'
+        }, {
+            name: 'Infância e Juventude',
+            y: 4000,
+            drilldown: null
+        }, {
+            name: 'Júri',
+            y: 5000,
+            drilldown: null
+        }, {
+            name: 'Sucessões',
+            y: 6500,
+            drilldown: null
+        }, {
+            name: 'Tóxico',
+            y: 4500,
+            drilldown: null
+        }, {
+            name: 'Execuções Fiscais',
+            y: 6500,
+            drilldown: null
+        }, {
+            name: 'Trânsito',
+            y: 6000,
+            drilldown: null
+        }, {
+            name: 'Penas Alternativas',
+            y: 3000,
+            drilldown: null
+        }]
+    }],
+    drilldown: {
+        series: [{
+            name: 'Cível',
+            id: 'Cível',
+            data: [
+            [
+            '1ª Vara Cível',
+            450
+            ],
+            [
+            '2ª Vara Cível',
+            400
+            ],
+            [
+            '3ª Vara Cível',
+            200
+            ],
+            [
+            '4ª Vara Cível',
+            450
+            ],
+            [
+            '5ª Vara Cível',
+            650
+            ],
+            [
+            '6ª Vara Cível',
+            200
+            ],
+            [
+            '7ª Vara Cível',
+            150
+            ],
+            [
+            '8ª Vara Cível',
+            250
+            ],
+            [
+            '9ª Vara Cível',
+            650
+            ],
+            [
+            '10ª Vara Cível',
+            350
+            ],
+            [
+            '11ª Vara Cível',
+            300
+            ],
+            [
+            '12ª Vara Cível',
+            400
+            ],
+            [
+            '13ª Vara Cível',
+            200
+            ],
+            [
+            '14ª Vara Cível',
+            500
+            ],
+            [
+            '15ª Vara Cível',
+            350
+            ],
+            [
+            '16ª Vara Cível',
+            150
+            ],
+            [
+            '17ª Vara Cível',
+            550
+            ],
+            [
+            '18ª Vara Cível',
+            400
+            ],
+            [
+            '19ª Vara Cível',
+            500
+            ],
+            [
+            '20ª Vara Cível',
+            550
+            ],
+            [
+            '21ª Vara Cível',
+            350
+            ],
+            [
+            '22ª Vara Cível',
+            650
+            ],
+            [
+            '23ª Vara Cível',
+            300
+            ],
+            [
+            '24ª Vara Cível',
+            600
+            ],
+            [
+            '25ª Vara Cível',
+            400
+            ],
+            [
+            '26ª Vara Cível',
+            450
+            ],
+            [
+            '27ª Vara Cível',
+            500
+            ],
+            [
+            '28ª Vara Cível',
+            400
+            ],
+            [
+            '29ª Vara Cível',
+            300
+            ],
+            [
+            '30ª Vara Cível',
+            600
+            ],
+            [
+            '31ª Vara Cível',
+            250
+            ],
+            [
+            '32ª Vara Cível',
+            400
+            ],
+            [
+            '33ª Vara Cível',
+            400
+            ],
+            [
+            '34ª Vara Cível',
+            450
+            ],
+            [
+            '35ª Vara Cível',
+            250
+            ],
+            [
+            '36ª Vara Cível',
+            350
+            ],
+            [
+            '37ª Vara Cível',
+            800
+            ],
+            [
+            '38ª Vara Cível',
+            500
+            ],
+            [
+            '39ª Vara Cível',
+            450
+            ],
+
+            ]
+        }, {
+            name: 'Família',
+            id: 'Família',
+            data: [
+            [
+            '1ª Vara de Família',
+            400
+            ],
+            [
+            '2ª Vara de Família',
+            350
+            ],
+            [
+            '3ª Vara de Família',
+            450
+            ],
+            [
+            '4ª Vara de Família',
+            400
+            ],
+            [
+            '5ª Vara de Família',
+            600
+            ],
+            [
+            '6ª Vara de Família',
+            300
+            ],
+            [
+            '7ª Vara de Família',
+            700
+            ],
+            [
+            '8ª Vara de Família',
+            400
+            ],
+            [
+            '9ª Vara de Família',
+            250
+            ],
+            [
+            '10ª Vara de Família',
+            550
+            ],
+            [
+            '11ª Vara de Família',
+            450
+            ],
+            [
+            '12ª Vara de Família',
+            650
+            ],
+            [
+            '13ª Vara de Família',
+            600
+            ],
+            [
+            '14ª Vara de Família',
+            450
+            ],
+            [
+            '15ª Vara de Família',
+            550
+            ],
+            [
+            '16ª Vara de Família',
+            650
+            ],
+            [
+            '17ª Vara de Família',
+            450
+            ]
+            ]
+        }, {
+            name: 'Falência',
+            id: 'Falência',
+            data: [
+            [
+            '1ª Vara de Falências',
+            500
+            ],
+            [
+            '2ª Vara de Falências',
+            600
+            ]
+            ]
+        }, {
+            name: 'Criminal',
+            id: 'Criminal',
+            data: [
+            [
+            '1ª Vara Criminal',
+            450
+            ],
+            [
+            '2ª Vara Criminal',
+            500
+            ],
+            [
+            '3ª Vara Criminal',
+            350
+            ],
+            [
+            '4ª Vara Criminal',
+            550
+            ],
+            [
+            '5ª Vara Criminal',
+            550
+            ],
+            [
+            '6ª Vara Criminal',
+            350
+            ],
+            [
+            '7ª Vara Criminal',
+            550
+            ],
+            [
+            '8ª Vara Criminal',
+            250
+            ],
+            [
+            '9ª Vara Criminal',
+            650
+            ],
+            [
+            '10ª Vara Criminal',
+            600
+            ],
+            [
+            '11ª Vara Criminal',
+            500
+            ],
+            [
+            '12ª Vara Criminal',
+            400
+            ],
+            [
+            '13ª Vara Criminal',
+            450
+            ],
+            [
+            '14ª Vara Criminal',
+            500
+            ],
+            [
+            '15ª Vara Criminal',
+            400
+            ],
+            [
+            '16ª Vara Criminal',
+            300
+            ],
+            [
+            '17ª Vara Criminal',
+            400
+            ],
+            [
+            '18ª Vara Criminal',
+            600
+            ]
+            ]
+        }, {
+            name: 'Fazenda Pública',
+            id: 'Fazenda Pública',
+            data: [
+            [
+            '1ª Vara da Fazenda Pública',
+            300
+            ],
+            [
+            '2ª Vara da Fazenda Pública',
+            450
+            ],
+            [
+            '3ª Vara da Fazenda Pública',
+            400
+            ],
+            [
+            '4ª Vara da Fazenda Pública',
+            300
+            ],
+            [
+            '5ª Vara da Fazenda Pública',
+            250
+            ],
+            [
+            '6ª Vara da Fazenda Pública',
+            500
+            ],
+            [
+            '7ª Vara da Fazenda Pública',
+            650
+            ],
+            [
+            '8ª Vara da Fazenda Pública',
+            400
+            ],
+            [
+            '9ª Vara da Fazenda Pública',
+            200
+            ],
+            [
+            '10ª Vara da Fazenda Pública',
+            450
+            ],
+            [
+            '11ª Vara da Fazenda Pública',
+            350
+            ],
+            [
+            '12ª Vara da Fazenda Pública',
+            650
+            ],
+            [
+            '13ª Vara da Fazenda Pública',
+            250
+            ],
+            [
+            '14ª Vara da Fazenda Pública',
+            500
+            ],
+            [
+            '15ª Vara da Fazenda Pública',
+            650
+            ]
+            ]
+        }]
+    }
+});
 </script>
