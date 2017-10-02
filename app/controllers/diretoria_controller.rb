@@ -88,6 +88,11 @@ class DiretoriaController < ApplicationController
 
 		#Julgados 2017 por competência
 		@result = params[:julgados]
+		if !@result.nil?
+			@result[:competencia].each do |r|
+				puts "Valor: #{r}"
+			end
+		end
 
   end
 
@@ -133,8 +138,6 @@ class DiretoriaController < ApplicationController
   end
 
   def baixados
-  	#conexão com o banco
-  	conn = BigDB.connection
 
 		#Baixados 2017
 		@@consulta_baixados_2017 ||= execute_sql "select pedi_num_ano, pedi_num_mes, pedi_dsc_mes, orju_dsc_unidade_pai, sum(prtc_qtd_baixado_conhecimento) qtd_baixado_conhecimento from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017) group BY pedi_num_ano, pedi_num_mes, pedi_dsc_mes, orju_dsc_unidade_pai order by 1, 2"
@@ -176,7 +179,9 @@ class DiretoriaController < ApplicationController
   end
 
   def execute_sql(sql)
+  		#Conexão com o banco
   		conn = BigDB.connection
+  		
 		results = conn.select_all(sql)
 		if results.present?
 			return results

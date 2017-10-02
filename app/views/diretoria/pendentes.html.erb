@@ -179,13 +179,13 @@
 
         },
         legend: {
-            enabled: false
+            enabled: true
         },
         plotOptions: {
             series: {
                 borderWidth: 0,
                 dataLabels: {
-                    enabled: true,
+                    enabled: false,
                     format: '{point.y:.0f}'
                 }
             }
@@ -202,11 +202,10 @@
 
     series: [{
         name: '2017',
-        colorByPoint: true,
         data: [{
             name: 'Cível',
             y: 4500,
-            drilldown: 'Cível'
+            drilldown: 'Cível_2017'
         }, {
             name: 'Família',
             y: 5000,
@@ -252,11 +251,114 @@
             y: 3000,
             drilldown: null
         }]
-    }],
+    },{
+        name: '2016',
+        data: [{
+            name: 'Cível',
+            y: 2500,
+            drilldown: 'Cível_2016'
+        }, {
+            name: 'Família',
+            y: 5000,
+            drilldown: 'Família'
+        }, {
+            name: 'Falência',
+            y: 3500,
+            drilldown: 'Falência'
+        }, {
+            name: 'Criminal',
+            y: 5500,
+            drilldown: 'Criminal'
+        }, {
+            name: 'Fazenda Pública',
+            y: 6500,
+            drilldown: 'Fazenda Pública'
+        }, {
+            name: 'Infância e Juventude',
+            y: 4000,
+            drilldown: null
+        }, {
+            name: 'Júri',
+            y: 5000,
+            drilldown: null
+        }, {
+            name: 'Sucessões',
+            y: 6500,
+            drilldown: null
+        }, {
+            name: 'Tóxico',
+            y: 4500,
+            drilldown: null
+        }, {
+            name: 'Execuções Fiscais',
+            y: 6500,
+            drilldown: null
+        }, {
+            name: 'Trânsito',
+            y: 6000,
+            drilldown: null
+        }, {
+            name: 'Penas Alternativas',
+            y: 3000,
+            drilldown: null
+        }]
+    },{
+        name: '2015',
+        data: [{
+            name: 'Cível',
+            y: 6500,
+            drilldown: 'Cível_2015'
+        }, {
+            name: 'Família',
+            y: 5000,
+            drilldown: 'Família'
+        }, {
+            name: 'Falência',
+            y: 3500,
+            drilldown: 'Falência'
+        }, {
+            name: 'Criminal',
+            y: 5500,
+            drilldown: 'Criminal'
+        }, {
+            name: 'Fazenda Pública',
+            y: 6500,
+            drilldown: 'Fazenda Pública'
+        }, {
+            name: 'Infância e Juventude',
+            y: 4000,
+            drilldown: null
+        }, {
+            name: 'Júri',
+            y: 5000,
+            drilldown: null
+        }, {
+            name: 'Sucessões',
+            y: 6500,
+            drilldown: null
+        }, {
+            name: 'Tóxico',
+            y: 4500,
+            drilldown: null
+        }, {
+            name: 'Execuções Fiscais',
+            y: 6500,
+            drilldown: null
+        }, {
+            name: 'Trânsito',
+            y: 6000,
+            drilldown: null
+        }, {
+            name: 'Penas Alternativas',
+            y: 3000,
+            drilldown: null
+        }]
+    }
+    ],
     drilldown: {
         series: [{
             name: 'Cível',
-            id: 'Cível',
+            id: 'Cível_2017',
             data: [
             [
             '1ª Vara Cível',
@@ -273,6 +375,330 @@
             [
             '4ª Vara Cível',
             450
+            ],
+            [
+            '5ª Vara Cível',
+            650
+            ],
+            [
+            '6ª Vara Cível',
+            200
+            ],
+            [
+            '7ª Vara Cível',
+            150
+            ],
+            [
+            '8ª Vara Cível',
+            250
+            ],
+            [
+            '9ª Vara Cível',
+            650
+            ],
+            [
+            '10ª Vara Cível',
+            350
+            ],
+            [
+            '11ª Vara Cível',
+            300
+            ],
+            [
+            '12ª Vara Cível',
+            400
+            ],
+            [
+            '13ª Vara Cível',
+            200
+            ],
+            [
+            '14ª Vara Cível',
+            500
+            ],
+            [
+            '15ª Vara Cível',
+            350
+            ],
+            [
+            '16ª Vara Cível',
+            150
+            ],
+            [
+            '17ª Vara Cível',
+            550
+            ],
+            [
+            '18ª Vara Cível',
+            400
+            ],
+            [
+            '19ª Vara Cível',
+            500
+            ],
+            [
+            '20ª Vara Cível',
+            550
+            ],
+            [
+            '21ª Vara Cível',
+            350
+            ],
+            [
+            '22ª Vara Cível',
+            650
+            ],
+            [
+            '23ª Vara Cível',
+            300
+            ],
+            [
+            '24ª Vara Cível',
+            600
+            ],
+            [
+            '25ª Vara Cível',
+            400
+            ],
+            [
+            '26ª Vara Cível',
+            450
+            ],
+            [
+            '27ª Vara Cível',
+            500
+            ],
+            [
+            '28ª Vara Cível',
+            400
+            ],
+            [
+            '29ª Vara Cível',
+            300
+            ],
+            [
+            '30ª Vara Cível',
+            600
+            ],
+            [
+            '31ª Vara Cível',
+            250
+            ],
+            [
+            '32ª Vara Cível',
+            400
+            ],
+            [
+            '33ª Vara Cível',
+            400
+            ],
+            [
+            '34ª Vara Cível',
+            450
+            ],
+            [
+            '35ª Vara Cível',
+            250
+            ],
+            [
+            '36ª Vara Cível',
+            350
+            ],
+            [
+            '37ª Vara Cível',
+            800
+            ],
+            [
+            '38ª Vara Cível',
+            500
+            ],
+            [
+            '39ª Vara Cível',
+            450
+            ],
+
+            ]
+        },{
+            name: 'Cível',
+            id: 'Cível_2016',
+            data: [
+            [
+            '1ª Vara Cível',
+            10450
+            ],
+            [
+            '2ª Vara Cível',
+            9400
+            ],
+            [
+            '3ª Vara Cível',
+            52200
+            ],
+            [
+            '4ª Vara Cível',
+            5450
+            ],
+            [
+            '5ª Vara Cível',
+            6650
+            ],
+            [
+            '6ª Vara Cível',
+            200
+            ],
+            [
+            '7ª Vara Cível',
+            150
+            ],
+            [
+            '8ª Vara Cível',
+            250
+            ],
+            [
+            '9ª Vara Cível',
+            650
+            ],
+            [
+            '10ª Vara Cível',
+            350
+            ],
+            [
+            '11ª Vara Cível',
+            300
+            ],
+            [
+            '12ª Vara Cível',
+            400
+            ],
+            [
+            '13ª Vara Cível',
+            200
+            ],
+            [
+            '14ª Vara Cível',
+            500
+            ],
+            [
+            '15ª Vara Cível',
+            350
+            ],
+            [
+            '16ª Vara Cível',
+            150
+            ],
+            [
+            '17ª Vara Cível',
+            550
+            ],
+            [
+            '18ª Vara Cível',
+            400
+            ],
+            [
+            '19ª Vara Cível',
+            500
+            ],
+            [
+            '20ª Vara Cível',
+            550
+            ],
+            [
+            '21ª Vara Cível',
+            350
+            ],
+            [
+            '22ª Vara Cível',
+            650
+            ],
+            [
+            '23ª Vara Cível',
+            300
+            ],
+            [
+            '24ª Vara Cível',
+            600
+            ],
+            [
+            '25ª Vara Cível',
+            400
+            ],
+            [
+            '26ª Vara Cível',
+            450
+            ],
+            [
+            '27ª Vara Cível',
+            500
+            ],
+            [
+            '28ª Vara Cível',
+            400
+            ],
+            [
+            '29ª Vara Cível',
+            300
+            ],
+            [
+            '30ª Vara Cível',
+            600
+            ],
+            [
+            '31ª Vara Cível',
+            250
+            ],
+            [
+            '32ª Vara Cível',
+            400
+            ],
+            [
+            '33ª Vara Cível',
+            400
+            ],
+            [
+            '34ª Vara Cível',
+            450
+            ],
+            [
+            '35ª Vara Cível',
+            250
+            ],
+            [
+            '36ª Vara Cível',
+            350
+            ],
+            [
+            '37ª Vara Cível',
+            800
+            ],
+            [
+            '38ª Vara Cível',
+            500
+            ],
+            [
+            '39ª Vara Cível',
+            450
+            ],
+
+            ]
+        }, {
+            name: 'Cível',
+            id: 'Cível_2015',
+            data: [
+            [
+            '1ª Vara Cível',
+            1500
+            ],
+            [
+            '2ª Vara Cível',
+            3400
+            ],
+            [
+            '3ª Vara Cível',
+            2000
+            ],
+            [
+            '4ª Vara Cível',
+            5050
             ],
             [
             '5ª Vara Cível',
