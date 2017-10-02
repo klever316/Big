@@ -13,6 +13,11 @@ Myapp::Application.routes.draw do
   get "administrar/pessoas"
   get "administrar/patrimonio"
 
+  # Coman
+  get "coman/coman_fortaleza"
+  get "coman/coman_maracanau"
+  get "coman/coman_juizado_da_mulher"
+
   # Diretoria
   match "diretoria/taxa" => "diretoria#taxa", via: [:get, :post]
   match "/diretoria/julgados" => "diretoria#julgados", via: [:get, :post]

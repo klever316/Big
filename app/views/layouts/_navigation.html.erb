@@ -60,7 +60,7 @@
                     </ul>
             </li>            
 
-            <li class="<%= is_active_controller('admin') %>">
+            <li class="<%= is_active_controller('administrar') %>">
                 <a href=""><i class="fa fa-book" style="font-size:18px"></i> <span class="nav-label">Área Administrativa</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
                         <li class="<%= is_active_action('pessoas') %>"><%= link_to "/administrar/pessoas" do %>
@@ -72,7 +72,24 @@
                         <% end %>
                         </li>
                     </ul>
-            </li>                
+            </li>
+
+            <li class="<%= is_active_controller('coman') %>">
+                <a href=""><i class="fa fa-gavel" style="font-size:18px"></i> <span class="nav-label">Comans</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
+                        <li class="<%= is_active_action('coman_fortaleza') %>"><%= link_to "/coman/coman_fortaleza" do %>
+                            <span class="nav-label">Coman Fortaleza</span>
+                        <% end %>
+                        </li>
+                        <li class="<%= is_active_action('coman_maracanau') %>"><%= link_to "/coman/coman_maracanau" do %>
+                            <span class="nav-label">Coman Maracanau</span>
+                        <% end %>
+                        <li class="<%= is_active_action('coman_juizado_da_mulher') %>"><%= link_to "/coman/coman_juizado_da_mulher" do %>
+                            <span class="nav-label">Coman Juizado da Mulher</span>
+                        <% end %>
+                        </li>
+                    </ul>
+            </li>                      
         </ul>
     </div>
 </nav>
