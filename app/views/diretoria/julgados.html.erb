@@ -85,18 +85,14 @@
                         </a>
                     </div>                    
                 </div>
-                <div class="ibox-content">
-                    <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="ibox-content"  style="overflow:auto;">
+                    <div class="row wrapper border-bottom white-bg page-heading" >
                         <div id="container2"> </div>
+                        <label style="display: inline-block;">zoom: &nbsp;&nbsp;</label>
+                        <input id="width" type="range" value="890" min="890" max="2000" style="max-width: 100px; display: inline-block; margin-bottom: -6px"/>
                     </div>
-                    <input id="width" type="range" value="1000" min="200" max="2000" />
-                </div> 
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-
         </div>
     </div>
 </div>
@@ -167,22 +163,20 @@
         color: '#7fe8c0'
     }]
 });
+    
 $('#width').on('input', function () {
-    chart.setSize(this.value, 400, false);
+    chart.setSize(this.value, false, false);
 });
 
-</script>
-
-<script type="text/javascript">
-        Highcharts.chart('container2', {
+        chart = Highcharts.chart('container2', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Processos Pendentes Por Competência'
+            text: 'Processos Julgados Por Competência'
         },
         subtitle: {
-            text: 'Relatório de Processos Pendentes Por Competência no ano de 2017'
+            text: 'Relatório de Processos Julgados Por Competência no ano de 2017'
         },
         xAxis: {
             type: 'category'
@@ -372,7 +366,7 @@ $('#width').on('input', function () {
     ],
     drilldown: {
         series: [{
-            name: 'Cível',
+            name: '2017',
             id: 'Cível_2017',
             data: [
             [
@@ -534,7 +528,7 @@ $('#width').on('input', function () {
 
             ]
         },{
-            name: 'Cível',
+            name: '2016',
             id: 'Cível_2016',
             data: [
             [
@@ -696,7 +690,7 @@ $('#width').on('input', function () {
 
             ]
         }, {
-            name: 'Cível',
+            name: '2015',
             id: 'Cível_2015',
             data: [
             [

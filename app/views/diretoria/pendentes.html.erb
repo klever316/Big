@@ -37,16 +37,35 @@
                 </div>
                 <div class="ibox-content">
                     <div class="row wrapper border-bottom white-bg page-heading">
-                        <div class="radio" style="margin-left: -5px;margin-top:-5px;margin-bottom: -10px">
-                        <%= form_for :pendentes, :method => "POST"  do |f| %>
-                            <%= f.radio_button :ano,  :'2017', :checked => "checked",:onclick => "this.form.submit()", :id => "2017", :style => "margin-left: 1px" %>
-                            <%= f.label "2017", :for => :'2017', :style =>"margin-left:5px;margin-top:3px" %><br />
-                            <%= f.radio_button :ano, :'2016', :checked => (!@result.nil?) && (@result[:ano] == "2016") ? true : false , :onclick => "this.form.submit()", :id => "2016",:style => "margin-left: 1px" %>
-                            <%= f.label "2016", :for => :'2016', :style =>"margin-left:5px;margin-top:3px" %><br />
-                            <%= f.radio_button :ano, :'2015', :checked => (!@result.nil?) && (@result[:ano] == "2015") ? true : false , :onclick => "this.form.submit()", :id => "2015", :style => "margin-left: 1px" %>
-                            <%= f.label "2015", :for => :'2015', :style =>"margin-left:5px;margin-top:3px" %><br />
+                        <div class="checkbox" style="margin-left: -5px;margin-top:-5px;margin-bottom: -10px">
+                            <%= form_for :pendentes, :url => { :action => "pendentes" }, :method => "POST" do |f| %>
+                            <%= f.check_box :competencia, {:multiple => true, :id => "familia", :style => "margin-left: 1px; margin-top: 10px"}, "familia", nil %>
+                            <%= f.label "Família", :for => "familia", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :id => "civel", :style => "margin-left: 1px; margin-top: 10px"}, "civel", nil %>
+                            <%= f.label "Cível", :for => "civel",  :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :id => "falencia", :style => "margin-left: 1px; margin-top: 10px"}, "falencia", nil %>
+                            <%= f.label "Falência", :for => "falencia", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :id => "criminal", :style => "margin-left: 1px; margin-top: 10px"}, "criminal", nil %>
+                            <%= f.label "Criminal", :for => "criminal", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :id => "fazenda_publica", :style => "margin-left: 1px;margin-top: 10px"}, "fazenda_publica", nil %>
+                            <%= f.label "Fazenda Pública", :for => "fazenda_publica", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :id => "infancia", :style => "margin-left: 1px; margin-top: 10px"}, "infancia", nil %>
+                            <%= f.label "Infância", :for => "infancia", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :id => "juri", :style => "margin-left: 1px; margin-top: 10px"}, "juri", nil %>
+                            <%= f.label "Júri", :for => "juri", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :id => "sucessoes", :style => "margin-left: 1px; margin-top: 10px"}, "sucessoes", nil %>
+                            <%= f.label "Sucessões", :for => "sucessoes", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :id => "toxico", :style => "margin-left: 1px; margin-top: 10px"}, "toxico", nil %>
+                            <%= f.label "Tóxico", :for => "toxico", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :id => "exec_fiscais", :style => "margin-left: 1px; margin-top: 10px"}, "exec_fiscais", nil %>
+                            <%= f.label "Execuções Fiscais", :for => "exec_fiscais", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :id => "transito", :style => "margin-left: 1px; margin-top: 10px"}, "transito", nil %>
+                            <%= f.label "Trânsito", :for => "transito", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :id => "penas_alternativas", :style => "margin-left: 1px; margin-top: 10px"}, "penas_alternativas", nil %>
+                            <%= f.label "Penas Alternativas", :for => "penas_alternativas", :style =>"margin-left:5px;margin-top:8px" %><br /> <br />
+                            <%= f.submit "Enviar" %>
                             <% end %>
-                            <!--<%= @result[:ano] if !@result.nil? %>-->
+                            <%= @result %>
                         </div>
                     </div>
                 </div> 
@@ -67,17 +86,9 @@
                 </div>
                 <div class="ibox-content">
                     <div class="row wrapper border-bottom white-bg page-heading">
-                        <% if !@result.nil? %>
-                        <% if @result[:ano] == "2017" %>
-                            <div id="container2"> </div>
-                        <% elsif @result[:ano] == '2016' %>
-                            <div id="container3"> </div>
-                        <% elsif @result[:ano] == '2015' %>
-                            <div id="container2"> </div>
-                        <% end %>
-                    <% else %>  
                         <div id="container2"> </div>
-                    <% end %>
+                        <label style="display: inline-block;">zoom: &nbsp;&nbsp;</label>
+                        <input id="width" type="range" value="890" min="890" max="2000" style="max-width: 100px; display: inline-block; margin-bottom: -6px"/>
                     </div>
                 </div> 
             </div>
@@ -156,10 +167,11 @@
 }]
 });
 
-</script>
+$('#width').on('input', function () {
+    chart.setSize(this.value, false, false);
+});
 
-<script type="text/javascript">
-    Highcharts.chart('container2', {
+    chart = Highcharts.chart('container2', {
         chart: {
             type: 'column'
         },
@@ -357,7 +369,7 @@
     ],
     drilldown: {
         series: [{
-            name: 'Cível',
+            name: '2017',
             id: 'Cível_2017',
             data: [
             [
@@ -519,12 +531,12 @@
 
             ]
         },{
-            name: 'Cível',
+            name: '2016',
             id: 'Cível_2016',
             data: [
             [
             '1ª Vara Cível',
-            10450
+            3450
             ],
             [
             '2ª Vara Cível',
@@ -532,7 +544,7 @@
             ],
             [
             '3ª Vara Cível',
-            52200
+            5200
             ],
             [
             '4ª Vara Cível',
@@ -681,7 +693,7 @@
 
             ]
         }, {
-            name: 'Cível',
+            name: '2015',
             id: 'Cível_2015',
             data: [
             [
@@ -699,496 +711,6 @@
             [
             '4ª Vara Cível',
             5050
-            ],
-            [
-            '5ª Vara Cível',
-            650
-            ],
-            [
-            '6ª Vara Cível',
-            200
-            ],
-            [
-            '7ª Vara Cível',
-            150
-            ],
-            [
-            '8ª Vara Cível',
-            250
-            ],
-            [
-            '9ª Vara Cível',
-            650
-            ],
-            [
-            '10ª Vara Cível',
-            350
-            ],
-            [
-            '11ª Vara Cível',
-            300
-            ],
-            [
-            '12ª Vara Cível',
-            400
-            ],
-            [
-            '13ª Vara Cível',
-            200
-            ],
-            [
-            '14ª Vara Cível',
-            500
-            ],
-            [
-            '15ª Vara Cível',
-            350
-            ],
-            [
-            '16ª Vara Cível',
-            150
-            ],
-            [
-            '17ª Vara Cível',
-            550
-            ],
-            [
-            '18ª Vara Cível',
-            400
-            ],
-            [
-            '19ª Vara Cível',
-            500
-            ],
-            [
-            '20ª Vara Cível',
-            550
-            ],
-            [
-            '21ª Vara Cível',
-            350
-            ],
-            [
-            '22ª Vara Cível',
-            650
-            ],
-            [
-            '23ª Vara Cível',
-            300
-            ],
-            [
-            '24ª Vara Cível',
-            600
-            ],
-            [
-            '25ª Vara Cível',
-            400
-            ],
-            [
-            '26ª Vara Cível',
-            450
-            ],
-            [
-            '27ª Vara Cível',
-            500
-            ],
-            [
-            '28ª Vara Cível',
-            400
-            ],
-            [
-            '29ª Vara Cível',
-            300
-            ],
-            [
-            '30ª Vara Cível',
-            600
-            ],
-            [
-            '31ª Vara Cível',
-            250
-            ],
-            [
-            '32ª Vara Cível',
-            400
-            ],
-            [
-            '33ª Vara Cível',
-            400
-            ],
-            [
-            '34ª Vara Cível',
-            450
-            ],
-            [
-            '35ª Vara Cível',
-            250
-            ],
-            [
-            '36ª Vara Cível',
-            350
-            ],
-            [
-            '37ª Vara Cível',
-            800
-            ],
-            [
-            '38ª Vara Cível',
-            500
-            ],
-            [
-            '39ª Vara Cível',
-            450
-            ],
-
-            ]
-        }, {
-            name: 'Família',
-            id: 'Família',
-            data: [
-            [
-            '1ª Vara de Família',
-            400
-            ],
-            [
-            '2ª Vara de Família',
-            350
-            ],
-            [
-            '3ª Vara de Família',
-            450
-            ],
-            [
-            '4ª Vara de Família',
-            400
-            ],
-            [
-            '5ª Vara de Família',
-            600
-            ],
-            [
-            '6ª Vara de Família',
-            300
-            ],
-            [
-            '7ª Vara de Família',
-            700
-            ],
-            [
-            '8ª Vara de Família',
-            400
-            ],
-            [
-            '9ª Vara de Família',
-            250
-            ],
-            [
-            '10ª Vara de Família',
-            550
-            ],
-            [
-            '11ª Vara de Família',
-            450
-            ],
-            [
-            '12ª Vara de Família',
-            650
-            ],
-            [
-            '13ª Vara de Família',
-            600
-            ],
-            [
-            '14ª Vara de Família',
-            450
-            ],
-            [
-            '15ª Vara de Família',
-            550
-            ],
-            [
-            '16ª Vara de Família',
-            650
-            ],
-            [
-            '17ª Vara de Família',
-            450
-            ]
-            ]
-        }, {
-            name: 'Falência',
-            id: 'Falência',
-            data: [
-            [
-            '1ª Vara de Falências',
-            500
-            ],
-            [
-            '2ª Vara de Falências',
-            600
-            ]
-            ]
-        }, {
-            name: 'Criminal',
-            id: 'Criminal',
-            data: [
-            [
-            '1ª Vara Criminal',
-            450
-            ],
-            [
-            '2ª Vara Criminal',
-            500
-            ],
-            [
-            '3ª Vara Criminal',
-            350
-            ],
-            [
-            '4ª Vara Criminal',
-            550
-            ],
-            [
-            '5ª Vara Criminal',
-            550
-            ],
-            [
-            '6ª Vara Criminal',
-            350
-            ],
-            [
-            '7ª Vara Criminal',
-            550
-            ],
-            [
-            '8ª Vara Criminal',
-            250
-            ],
-            [
-            '9ª Vara Criminal',
-            650
-            ],
-            [
-            '10ª Vara Criminal',
-            600
-            ],
-            [
-            '11ª Vara Criminal',
-            500
-            ],
-            [
-            '12ª Vara Criminal',
-            400
-            ],
-            [
-            '13ª Vara Criminal',
-            450
-            ],
-            [
-            '14ª Vara Criminal',
-            500
-            ],
-            [
-            '15ª Vara Criminal',
-            400
-            ],
-            [
-            '16ª Vara Criminal',
-            300
-            ],
-            [
-            '17ª Vara Criminal',
-            400
-            ],
-            [
-            '18ª Vara Criminal',
-            600
-            ]
-            ]
-        }, {
-            name: 'Fazenda Pública',
-            id: 'Fazenda Pública',
-            data: [
-            [
-            '1ª Vara da Fazenda Pública',
-            300
-            ],
-            [
-            '2ª Vara da Fazenda Pública',
-            450
-            ],
-            [
-            '3ª Vara da Fazenda Pública',
-            400
-            ],
-            [
-            '4ª Vara da Fazenda Pública',
-            300
-            ],
-            [
-            '5ª Vara da Fazenda Pública',
-            250
-            ],
-            [
-            '6ª Vara da Fazenda Pública',
-            500
-            ],
-            [
-            '7ª Vara da Fazenda Pública',
-            650
-            ],
-            [
-            '8ª Vara da Fazenda Pública',
-            400
-            ],
-            [
-            '9ª Vara da Fazenda Pública',
-            200
-            ],
-            [
-            '10ª Vara da Fazenda Pública',
-            450
-            ],
-            [
-            '11ª Vara da Fazenda Pública',
-            350
-            ],
-            [
-            '12ª Vara da Fazenda Pública',
-            650
-            ],
-            [
-            '13ª Vara da Fazenda Pública',
-            250
-            ],
-            [
-            '14ª Vara da Fazenda Pública',
-            500
-            ],
-            [
-            '15ª Vara da Fazenda Pública',
-            650
-            ]
-            ]
-        }]
-    }
-});
-</script>
-<script type="text/javascript">
-    Highcharts.chart('container3', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Processos Pendentes Por Competência'
-        },
-        subtitle: {
-            text: 'Relatório de Processos Pendentes Por Competência no ano de 2016'
-        },
-        xAxis: {
-            type: 'category'
-        },
-        yAxis: {
-            title: {
-                text: 'Julgados (n)'
-            }
-
-        },
-        legend: {
-            enabled: false
-        },
-        plotOptions: {
-            series: {
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.y:.0f}'
-                }
-            }
-        },
-
-        credits: {
-          enabled: false
-      },
-
-      tooltip: {
-        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-    },
-
-    series: [{
-        name: '2017',
-        colorByPoint: true,
-        data: [{
-            name: 'Cível',
-            y: 4500,
-            drilldown: 'Cível'
-        }, {
-            name: 'Família',
-            y: 5000,
-            drilldown: 'Família'
-        }, {
-            name: 'Falência',
-            y: 3500,
-            drilldown: 'Falência'
-        }, {
-            name: 'Criminal',
-            y: 5500,
-            drilldown: 'Criminal'
-        }, {
-            name: 'Fazenda Pública',
-            y: 6500,
-            drilldown: 'Fazenda Pública'
-        }, {
-            name: 'Infância e Juventude',
-            y: 4000,
-            drilldown: null
-        }, {
-            name: 'Júri',
-            y: 5000,
-            drilldown: null
-        }, {
-            name: 'Sucessões',
-            y: 6500,
-            drilldown: null
-        }, {
-            name: 'Tóxico',
-            y: 4500,
-            drilldown: null
-        }, {
-            name: 'Execuções Fiscais',
-            y: 6500,
-            drilldown: null
-        }, {
-            name: 'Trânsito',
-            y: 6000,
-            drilldown: null
-        }, {
-            name: 'Penas Alternativas',
-            y: 3000,
-            drilldown: null
-        }]
-    }],
-    drilldown: {
-        series: [{
-            name: 'Cível',
-            id: 'Cível',
-            data: [
-            [
-            '1ª Vara Cível',
-            450
-            ],
-            [
-            '2ª Vara Cível',
-            400
-            ],
-            [
-            '3ª Vara Cível',
-            200
-            ],
-            [
-            '4ª Vara Cível',
-            450
             ],
             [
             '5ª Vara Cível',
