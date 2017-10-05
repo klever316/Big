@@ -1,13 +1,14 @@
 class DiretoriaController < ApplicationController
-  def taxa
+	def taxa
   	#conexão com o banco
 
-		@@total_julgados ||= execute_sql("select sum(prtc_qtd_julgado_conhecimento) qtd_julgado_conhecimento FROM dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia WHERE orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017)")
-		@total_julgados = @@total_julgados
-		@@total_pendentes ||= execute_sql("select sum(prtc_qtd_pendente_baixa_conh) qtd_pendente_baixa_conh FROM dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju ON orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia WHERE orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017) AND pedi_num_mes IN (To_Char(SYSDATE,'MM')-1)")
-		@total_pendentes = @@total_pendentes
-		@@total_baixados ||= execute_sql("select sum(prtc_qtd_baixado_conhecimento) qtd_baixado_conhecimento from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017)")
-		@total_baixados = @@total_baixados
+  	@@total_julgados ||= execute_sql("select sum(prtc_qtd_julgado_conhecimento) qtd_julgado_conhecimento FROM dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia WHERE orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017)")
+  	@total_julgados = @@total_julgados
+  	#SYSDATE,'MM' Mês automatico
+  	@@total_pendentes ||= execute_sql("select sum(prtc_qtd_pendente_baixa_conh) qtd_pendente_baixa_conh FROM dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju ON orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia WHERE orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017) AND pedi_num_mes IN (To_Char(9)-1)")
+  	@total_pendentes = @@total_pendentes
+  	@@total_baixados ||= execute_sql("select sum(prtc_qtd_baixado_conhecimento) qtd_baixado_conhecimento from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017)")
+  	@total_baixados = @@total_baixados
 		#Julgados 2017
 		@@consulta_taxa_2017 ||= execute_sql("SELECT pedi_num_ano, pedi_num_mes, pedi_dsc_mes, orju_dsc_unidade_pai, (sum(prtc_qtd_pendente_baixa_conh)/sum(prtc_qtd_pendente_baixa_conh + prtc_qtd_baixado_conhecimento))*100 taxa from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') and (prtc_qtd_pendente_baixa_conh + prtc_qtd_baixado_conhecimento) > 0 AND pedi_num_ano IN (2017) group BY pedi_num_ano, pedi_num_mes, pedi_dsc_mes, orju_dsc_unidade_pai ORDER BY 1,2")
 		@taxa_congestionamento_2017 = "["
@@ -46,9 +47,9 @@ class DiretoriaController < ApplicationController
 
 		@result = params[:taxa]
 
-  end
+	end
 
-  def julgados
+	def julgados
 
 		#Julgados 2017
 		@@consulta_julgados_2017 ||= execute_sql "select pedi_num_ano, pedi_num_mes, pedi_dsc_mes, orju_dsc_unidade_pai, sum(prtc_qtd_julgado_conhecimento) qtd_julgado_conhecimento from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017) group by pedi_num_ano, pedi_num_mes, pedi_dsc_mes,  orju_dsc_unidade_pai  ORDER BY 1,2"
@@ -89,14 +90,16 @@ class DiretoriaController < ApplicationController
 		#Julgados 2017 por competência
 		@result = params[:julgados]
 		if !@result.nil?
-			@result[:competencia].each do |r|
-				puts "Valor: #{r}"
+			if @result[:competencia].include? "criminal"
+				puts "Criminal está marcado"
+			else
+				puts "Criminal não está marcado"
 			end
 		end
 
-  end
+	end
 
-  def pendentes
+	def pendentes
 
 		#Pendentes 2017
 		@@consulta_pendentes_2017 ||= execute_sql "select pedi_num_ano, pedi_num_mes, pedi_dsc_mes, orju_dsc_unidade_pai, sum(prtc_qtd_pendente_baixa_conh) qtd_pendente_baixa_conh from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017) group by pedi_num_ano, pedi_num_mes, pedi_dsc_mes, orju_dsc_unidade_pai order by 1, 2"
@@ -135,9 +138,9 @@ class DiretoriaController < ApplicationController
 		@processos_pendentes_2015 += "]"
 
 		@result = params[:pendentes]
-  end
+	end
 
-  def baixados
+	def baixados
 
 		#Baixados 2017
 		@@consulta_baixados_2017 ||= execute_sql "select pedi_num_ano, pedi_num_mes, pedi_dsc_mes, orju_dsc_unidade_pai, sum(prtc_qtd_baixado_conhecimento) qtd_baixado_conhecimento from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017) group BY pedi_num_ano, pedi_num_mes, pedi_dsc_mes, orju_dsc_unidade_pai order by 1, 2"
@@ -176,18 +179,18 @@ class DiretoriaController < ApplicationController
 		@processos_baixados_2015 += "]"
 
 		@result = params[:baixados]
-  end
+	end
 
-  def execute_sql(sql)
+	def execute_sql(sql)
   		#Conexão com o banco
   		conn = BigDB.connection
   		
-		results = conn.select_all(sql)
-		if results.present?
-			return results
-		else
-			return nil
-		end
+  		results = conn.select_all(sql)
+  		if results.present?
+  			return results
+  		else
+  			return nil
+  		end
+  	end
+
   end
-  
-end
