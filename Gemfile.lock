@@ -80,6 +80,9 @@ GEM
       responders
       warden (~> 1.2.3)
     devise-i18n (1.2.0)
+    devise_ldap_authenticatable (0.8.5)
+      devise (>= 3.4.1)
+      net-ldap (>= 0.6.0, <= 0.11)
     erubi (1.6.1)
     execjs (2.7.0)
     ffi (1.9.18)
@@ -108,6 +111,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.10.3)
     multi_json (1.12.2)
+    net-ldap (0.11)
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
@@ -213,6 +217,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   devise-i18n
+  devise_ldap_authenticatable
   font-awesome-rails
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
