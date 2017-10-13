@@ -4,7 +4,6 @@
             <div class="text-center m-t-lg">
                 <h1>
                     Bem-Vindo, <%= @nome_completo %>!
-
                 </h1>   
                 <h2> 
                     BIG - Banco de Informações Gerenciais
@@ -18,3 +17,9 @@
         </div>
     </div>
 </div>
+
+<% flash.each do |key, value| %>
+<script type="text/javascript">
+    $.notify("<%= value %>", "success");
+</script>
+<% end %>
