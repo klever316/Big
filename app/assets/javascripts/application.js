@@ -19,6 +19,5 @@
 //= require highcharts/highcharts
 //= require highcharts/modules/drilldown
 //= require highcharts/modules/exporting
-//= require highcharts/highcharts-more
 //= require notifyjs
 //= require_tree .

@@ -1,7 +1,11 @@
 require "Processos_Julgados"
+require "Processos_Baixados"
+require "Processos_Pendentes"
+require "Processos_Taxa"
 class DiretoriaController < ApplicationController
 
 	TOTAL_JULGADOS = "select sum(prtc_qtd_julgado_conhecimento) qtd_julgado_conhecimento FROM dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia WHERE orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017)"
+	TOTAL_NOVOS = "SELECT Sum(6) as novos FROM (select pdrf.pedi_seq_chave, pdrf.pedi_sgl_mes_ano, orju.orju_dsc_segmento, orju.orju_bsq_chave_unidade, orju.orju_dsc_unidade, sum(prtc_qtd_pendente_baixa_conh) + sum(prtc_qtd_baixado_conhecimento) - nvl((select sum(prtc_qtd_pendente_baixa_conh) from dwfcb.pa_prtc_processo_taxa_cong prt1 where prt1.orju_seq_chave = prtc.orju_seq_chave and prt1.pedi_seq_chave_referencia = (select max(pdr1.pedi_seq_chave) from dwfcb.cd_pedi_periodo_diario pdr1 where pdr1.pedi_flg_mes_consolidado = '1' and pdr1.pedi_seq_chave < pdrf.pedi_seq_chave)), 0) prtc_qtd_novo_conh from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017) group by pdrf.pedi_seq_chave, pdrf.pedi_sgl_mes_ano, prtc.orju_seq_chave, orju.orju_dsc_segmento, orju.orju_bsq_chave_unidade, orju.orju_dsc_unidade )"
 	#SYSDATE,'MM' Mês automatico
 	TOTAL_PENDENTES = "select sum(prtc_qtd_pendente_baixa_conh) qtd_pendente_baixa_conh FROM dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju ON orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia WHERE orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017) AND pedi_num_mes IN (To_Char(9)-1)"
 	TOTAL_BAIXADOS = "select sum(prtc_qtd_baixado_conhecimento) qtd_baixado_conhecimento from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017)"
@@ -24,12 +28,15 @@ class DiretoriaController < ApplicationController
 
 	def taxa
 
-  	@@total_julgados ||= execute_sql(TOTAL_JULGADOS)
-  	@total_julgados = @@total_julgados
-  	@@total_pendentes ||= execute_sql(TOTAL_PENDENTES)
-  	@total_pendentes = @@total_pendentes
-  	@@total_baixados ||= execute_sql(TOTAL_BAIXADOS)
-  	@total_baixados = @@total_baixados
+	  	@@total_julgados ||= execute_sql(TOTAL_JULGADOS)
+	  	@total_julgados = @@total_julgados
+	  	@@total_pendentes ||= execute_sql(TOTAL_PENDENTES)
+	  	@total_pendentes = @@total_pendentes
+	  	@@total_baixados ||= execute_sql(TOTAL_BAIXADOS)
+	  	@total_baixados = @@total_baixados
+	  	@@total_novos ||= execute_sql(TOTAL_NOVOS)
+	  	@total_novos = @@total_novos
+	  	
 		#Julgados 2017
 		@@consulta_taxa_2017 ||= execute_sql(CONSULTA_TAXA_2017)
 		@taxa_congestionamento_2017 = "["
@@ -67,6 +74,8 @@ class DiretoriaController < ApplicationController
 		@taxa_congestionamento_2015 += "]"
 
 		@result = params[:taxa]
+
+		@competencias, @varas = ProcessosTaxa.get_processos_taxa_por_competencia([2017,2016,2015])
 
 	end
 
@@ -110,9 +119,11 @@ class DiretoriaController < ApplicationController
 
 		#Julgados 2017 por competência
 		@result = params[:julgados]
-
-		@processos_julgados = ProcessosJulgados.new
-		
+		if !@result.nil?
+			@competencias, @varas = ProcessosJulgados.get_processos_julgados_por_competencia(@result[:competencia],[2017,2016,2015])
+		else
+			@competencias, @varas = ProcessosJulgados.get_processos_julgados_por_competencia(["familia","civel","criminal","fazenda_publica","juri","infancia","sucessoes","exec_penais","exec_fiscais","falencia","registros_publicos","toxico","auditoria_militar","penas_alternativas","transito"],[2017,2016,2015])
+		end
 
 	end
 
@@ -155,6 +166,15 @@ class DiretoriaController < ApplicationController
 		@processos_pendentes_2015 += "]"
 
 		@result = params[:pendentes]
+
+		if !@result.nil?
+			@competencias, @varas = ProcessosPendentes.get_processos_pendentes_por_competencia(@result[:competencia],[2017,2016,2015])
+		else
+			@competencias, @varas = ProcessosPendentes.get_processos_pendentes_por_competencia(["familia","civel","criminal","fazenda_publica","juri","infancia","sucessoes","exec_penais","exec_fiscais","falencia","registros_publicos","toxico","auditoria_militar","penas_alternativas","transito"],[2017,2016,2015])
+		end
+
+
+
 	end
 
 	def baixados
@@ -184,7 +204,7 @@ class DiretoriaController < ApplicationController
 		@processos_baixados_2016 += "]"
 
 		#Baixados 2015
-		@@consulta_baixados_2015 ||= execute_sql()
+		@@consulta_baixados_2015 ||= execute_sql(CONSULTA_BAIXADOS_2015)
 		@processos_baixados_2015 = "["
 		@@consulta_baixados_2015.each_with_index do |row, i|
 			if(i != @@consulta_baixados_2015.length-1)
@@ -196,6 +216,13 @@ class DiretoriaController < ApplicationController
 		@processos_baixados_2015 += "]"
 
 		@result = params[:baixados]
+
+		if !@result.nil?
+			@competencias, @varas = ProcessosBaixados.get_processos_baixados_por_competencia(@result[:competencia],[2017,2016,2015])
+		else
+			@competencias, @varas = ProcessosBaixados.get_processos_baixados_por_competencia(["familia","civel","criminal","fazenda_publica","juri","infancia","sucessoes","exec_penais","exec_fiscais","falencia","registros_publicos","toxico","auditoria_militar","penas_alternativas","transito"],[2017,2016,2015])
+		end
+
 	end
 
 	def execute_sql(sql)
