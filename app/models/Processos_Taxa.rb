@@ -1,6 +1,6 @@
 class ProcessosTaxa
 
-	def self.get_processos_taxa_por_competencia(ano)
+	def self.get_processos_taxa_por_competencia(vara, ano)
 
 		conn = BigDB.connection
 		@@consulta_taxa_por_competencia ||= conn.select_all "SELECT pedi_num_ano, ORJU_DSC_UNIDADE, (sum(prtc_qtd_pendente_baixa_conh)/sum(prtc_qtd_pendente_baixa_conh + prtc_qtd_baixado_conhecimento))*100 as taxa from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') and (prtc_qtd_pendente_baixa_conh + prtc_qtd_baixado_conhecimento) > 0 AND pedi_num_ano IN (#{ano.join(',')}) group BY pedi_num_ano, orju_dsc_unidade_pai, ORJU_DSC_UNIDADE ORDER BY 1,2"
@@ -54,6 +54,7 @@ class ProcessosTaxa
 		@varas_toxico = Array.new
 		#Pega os Valores dos Arrays das varas e armazena no Array Abaixo
 		@varas = Array.new
+		@count_insercao = 0
 
 			ano.each do |a|
 				@@consulta_taxa_por_competencia.each_with_index do |row, i|
@@ -168,26 +169,46 @@ class ProcessosTaxa
 				@total_competencias[:total_auditoria_militar] = @total_competencias[:total_auditoria_militar]/@count_competencias[:count_auditoria_militar]
 				@total_competencias[:total_penas_alternativas] = @total_competencias[:total_penas_alternativas]/@count_competencias[:count_penas_alternativas]
 				@total_competencias[:total_transito] = @total_competencias[:total_transito]/@count_competencias[:count_transito]
+				# @competencias += [{
+				# 	name: "#{a}", data: 
+				# 	[
+				# 		{name: "Família", y: @total_competencias[:total_familia], drilldown: "familia_#{a}"},
+				# 		{name: "Cível", y: @total_competencias[:total_civel], drilldown: "civel_#{a}"},
+				# 		{name: "Criminal", y: @total_competencias[:total_criminal], drilldown: "criminal_#{a}"},
+				# 		{name: "Fazenda Pública", y: @total_competencias[:total_fazenda], drilldown: "fazenda_#{a}"},
+				# 		{name: "Júri", y: @total_competencias[:total_juri], drilldown: "juri_#{a}"},
+				# 		{name: "Infância e Juventude", y: @total_competencias[:total_infancia], drilldown: "infancia_#{a}"},
+				# 		{name: "Sucessões", y: @total_competencias[:total_sucessoes], drilldown: "sucessoes_#{a}"},
+				# 		{name: "Execuções Penais", y: @total_competencias[:total_execucoes_penais], drilldown: "execucoespenais_#{a}"},
+				# 		{name: "Execuções Fiscais", y: @total_competencias[:total_execucoes_fiscais], drilldown: "execucoesfiscais_#{a}"},
+				# 		{name: "Falências", y: @total_competencias[:total_falencia], drilldown: "falencia_#{a}"},
+				# 		{name: "Registros Públicos", y: @total_competencias[:total_registros_publicos], drilldown: "registrospublicos_#{a}"},
+				# 		{name: "Tóxico", y: @total_competencias[:total_toxico], drilldown: "toxico_#{a}"},
+				# 		{name: "Auditoria Militar", y: @total_competencias[:total_auditoria_militar], drilldown: "auditoriamiliar_#{a}"},
+				# 		{name: "Penas Alternativas", y: @total_competencias[:total_penas_alternativas], drilldown: "penasalternativas_#{a}"},
+				# 		{name: "Trânsito", y: @total_competencias[:total_transito], drilldown: "transito_#{a}"}
+				# 	]
+				# 	}]
 				@competencias += [{
-					name: "#{a}", data: 
-					[
-						{name: "Família", y: @total_competencias[:total_familia], drilldown: "familia_#{a}"},
-						{name: "Cível", y: @total_competencias[:total_civel], drilldown: "civel_#{a}"},
-						{name: "Criminal", y: @total_competencias[:total_criminal], drilldown: "criminal_#{a}"},
-						{name: "Fazenda Pública", y: @total_competencias[:total_fazenda], drilldown: "fazenda_#{a}"},
-						{name: "Júri", y: @total_competencias[:total_juri], drilldown: "juri_#{a}"},
-						{name: "Infância e Juventude", y: @total_competencias[:total_infancia], drilldown: "infancia_#{a}"},
-						{name: "Sucessões", y: @total_competencias[:total_sucessoes], drilldown: "sucessoes_#{a}"},
-						{name: "Execuções Penais", y: @total_competencias[:total_execucoes_penais], drilldown: "execucoespenais_#{a}"},
-						{name: "Execuções Fiscais", y: @total_competencias[:total_execucoes_fiscais], drilldown: "execucoesfiscais_#{a}"},
-						{name: "Falências", y: @total_competencias[:total_falencia], drilldown: "falencia_#{a}"},
-						{name: "Registros Públicos", y: @total_competencias[:total_registros_publicos], drilldown: "registrospublicos_#{a}"},
-						{name: "Tóxico", y: @total_competencias[:total_toxico], drilldown: "toxico_#{a}"},
-						{name: "Auditoria Militar", y: @total_competencias[:total_auditoria_militar], drilldown: "auditoriamiliar_#{a}"},
-						{name: "Penas Alternativas", y: @total_competencias[:total_penas_alternativas], drilldown: "penasalternativas_#{a}"},
-						{name: "Trânsito", y: @total_competencias[:total_transito], drilldown: "transito_#{a}"}
-					]
+					name: "#{a}", data: Array.new
 					}]
+					@competencias[@count_insercao][:data] << {name: "Família", y: @total_competencias[:total_familia], drilldown: "familia_#{a}"} if vara.include? "familia"
+					@competencias[@count_insercao][:data] << {name: "Cível", y: @total_competencias[:total_civel], drilldown: "civel_#{a}"} if vara.include? "civel"
+					@competencias[@count_insercao][:data] << {name: "Criminal", y: @total_competencias[:total_criminal], drilldown: "criminal_#{a}"} if vara.include? "criminal"
+					@competencias[@count_insercao][:data] << {name: "Fazenda Pública", y: @total_competencias[:total_fazenda], drilldown: "fazenda_#{a}"} if vara.include? "fazenda_publica"
+					@competencias[@count_insercao][:data] << {name: "Júri", y: @total_competencias[:total_juri], drilldown: "juri_#{a}"} if vara.include? "juri"
+					@competencias[@count_insercao][:data] << {name: "Infância e Juventude", y: @total_competencias[:total_infancia], drilldown: "infancia_#{a}"} if vara.include? "infancia"
+					@competencias[@count_insercao][:data] << {name: "Sucessões", y: @total_competencias[:total_sucessoes], drilldown: "sucessoes_#{a}"} if vara.include? "sucessoes"
+					@competencias[@count_insercao][:data] << {name: "Execuções Penais", y: @total_competencias[:total_execucoes_penais], drilldown: "execucoespenais_#{a}"} if vara.include? "exec_penais"
+					@competencias[@count_insercao][:data] << {name: "Execuções Fiscais", y: @total_competencias[:total_execucoes_fiscais], drilldown: "execucoesfiscais_#{a}"} if vara.include? "exec_fiscais"
+					@competencias[@count_insercao][:data] << {name: "Falências", y: @total_competencias[:total_falencia], drilldown: "falencia_#{a}"} if vara.include? "falencia"
+					@competencias[@count_insercao][:data] << {name: "Registros Públicos", y: @total_competencias[:total_registros_publicos], drilldown: "registrospublicos_#{a}"} if vara.include? "registros_publicos"
+					@competencias[@count_insercao][:data] << {name: "Tóxico", y: @total_competencias[:total_toxico], drilldown: "toxico_#{a}"} if vara.include? "toxico"
+					@competencias[@count_insercao][:data] << {name: "Auditoria Militar", y: @total_competencias[:total_auditoria_militar], drilldown: "auditoriamiliar_#{a}"} if vara.include? "auditoria_militar"
+					@competencias[@count_insercao][:data] << {name: "Penas Alternativas", y: @total_competencias[:total_penas_alternativas], drilldown: "penasalternativas_#{a}"} if vara.include? "penas_alternativas"
+					@competencias[@count_insercao][:data] << {name: "Trânsito", y: @total_competencias[:total_transito], drilldown: "transito_#{a}"} if vara.include? "transito"
+					@count_insercao += 1
+
 					@varas_familia = []
 					@varas_criminais = []
 					@varas_civeis = []

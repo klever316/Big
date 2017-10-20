@@ -75,7 +75,13 @@ class DiretoriaController < ApplicationController
 
 		@result = params[:taxa]
 
-		@competencias, @varas = ProcessosTaxa.get_processos_taxa_por_competencia([2017,2016,2015])
+		if !@result.nil?
+			puts @result[:competencia]
+			@competencias, @varas = ProcessosTaxa.get_processos_taxa_por_competencia(@result[:competencia],[2017,2016,2015])
+		else
+			@competencias, @varas = ProcessosTaxa.get_processos_taxa_por_competencia(["familia","civel","criminal","fazenda_publica","juri","infancia","sucessoes","exec_penais","exec_fiscais","falencia","registros_publicos","toxico","auditoria_militar","penas_alternativas","transito"],[2017,2016,2015])
+		end
+
 
 	end
 
