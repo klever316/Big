@@ -128,6 +128,9 @@ video {
   outline: 0 none;
   position: relative;
 }
+.modal.show {
+  background: rgba(100,100,100,.5);
+}
 
 .modal-dialog {
   z-index: 2200;

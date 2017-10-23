@@ -35,17 +35,33 @@
 
                 <div align="center">
                     <span>
-                     <img alt="image" id="logo" src="<%= image_url 'logo_tj.png' %>"/>
-                 </span>
-                 <p>Tribunal de Justiça do Estado do Ceará<br/>
-                  Estado do Ceará<br/>
-                  Poder Judiciário<br/>
-                  Comarca de Fortaleza<br/>
-                  Diretoria do Fórum Clóvis Beviláqua<br/>
-                  Gerencia de Informática<br/>
-              </p>
+                       <img alt="image" id="logo" src="<%= image_url 'logo_tj.png' %>"/>
+                   </span>
+                   <p>Tribunal de Justiça do Estado do Ceará<br/>
+                      Estado do Ceará<br/>
+                      Poder Judiciário<br/>
+                      Comarca de Fortaleza<br/>
+                      Diretoria do Fórum Clóvis Beviláqua<br/>
+                      Gerencia de Informática<br/>
+                  </p>
+                  <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
 
-          </div>
+                      <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header" style="padding: 5px">
+                                <button type="button" class="close" data-dismiss="modal" onclick = "$('.modal').removeClass('show').addClass('fade');" style="margin-right: 5px">&times;</button>
+                                <h3 class="modal-title" style="font-weight: 700;color: #F2594B;text-align: center;">Atenção!</h3>
+                            </div>
+                            <div class="modal-body" style="font-size: 14px;padding: 10px 20px 0px 20px;">
+                                <p style="font-weight: 600">Informamos que para uma melhor experiência de navegação, recomendamos o uso dos navegadores Google Chrome ou Mozilla Firefox.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+      </div>
 
 <!--
                 <p>
@@ -139,6 +155,8 @@
 
 
 
+
+
 <!-- Include javascript per-controller - vendor plugins -->
 <%= javascript_include_tag params[:controller] if ::Rails.application.assets.find_asset("#{params[:controller]}.js") %>
 
@@ -149,6 +167,13 @@
 
 <%= yield :javascript %>
 
+<% if "#{request.env['HTTP_USER_AGENT']}".include? "MSIE" %>
+    <script type="text/javascript">    
+        $(document).ready(function(){
+            $("#myModal").modal('show');
+        });
+    </script>
+<% end %>
 
 <% flash.each do |key, value| %>
 <script type="text/javascript">

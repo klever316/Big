@@ -254,7 +254,24 @@ $('#width').on('input', function () {
         yAxis: {
             title: {
                 text: 'Julgados (n)'
-            }
+            },
+            plotLines: [{
+                color: 'red',
+                dashStyle: 'solid',
+                value: 54,
+                width: 2,
+                zIndex: 5,
+                label: {
+                    text: 'Meta:',
+                    y: -3,
+                    x: -35,
+                    style: {
+                        color: 'blue',
+                        fontWeight: 'bold'
+                    }
+                }
+            }],
+            max: 100
 
         },
         legend: {
