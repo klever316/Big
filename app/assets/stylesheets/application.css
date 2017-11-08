@@ -12,5 +12,9 @@
  *= require font-awesome
  *= require animate/animate.css
  *= require highcharts/css/highcharts
+ *= require datatables
+ *= require nprogress
+ *= require nprogress-bootstrap
+ *= require nprogress-turbolinks5
  *= require style
  */

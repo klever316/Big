@@ -5,9 +5,9 @@ Myapp::Application.routes.draw do
   get "home/index"
 
   # Judicial Pages
-  get "judicial/civel"
-  get "judicial/criminal"
-  get "judicial/apoio"
+  match "judicial/julgados" => "judicial#julgados", via: [:get, :post]
+  match "judicial/pendentes" => "judicial#pendentes", via: [:get, :post]
+  match "judicial/baixados" => "judicial#baixados", via: [:get, :post]
 
   # Administrativa
   get "administrar/pessoas"
@@ -20,10 +20,15 @@ Myapp::Application.routes.draw do
 
   # Diretoria
   match "diretoria/taxa" => "diretoria#taxa", via: [:get, :post]
-  match "/diretoria/julgados" => "diretoria#julgados", via: [:get, :post]
-  match "diretoria/pendentes" => "diretoria#pendentes", via: [:get, :post]
-  match "diretoria/baixados" => "diretoria#baixados", via: [:get, :post]
+  match "diretoria/percentualJulgados" => "diretoria#percentualJulgados", via: [:get, :post]
+  match "diretoria/percentualJulgadosEmbargos" => "diretoria#percentualJulgadosEmbargos", via: [:get, :post]
+  match "diretoria/percentualJulgadosApelacao" => "diretoria#percentualJulgadosApelacao", via: [:get, :post]
+  match "diretoria/processosDigitalizados" => "diretoria#processosDigitalizados", via: [:get, :post]
+  match "diretoria/percentualBaixados" => "diretoria#percentualBaixados", via: [:get, :post]
 
+  post "judicial/julgados/processos" => "judicial#processos_julgados"
+  post "judicial/baixados/processos" => "judicial#processos_baixados"
+  post "judicial/pendentes/processos" => "judicial#processos_pendentes"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

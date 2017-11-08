@@ -1,6 +1,77 @@
+// CSS do Bootstrap
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #f3f7f2;
+}
+
+//CSS Do Nprogress
+$nprogress-color: #84ffb9;
+$nprogress-height: 5px;
+$nprogress-zindex: 9999999;
+
+@import 'nprogress';
+@import 'nprogress-bootstrap';
+
+
+
+#nprogress .bar  {
+  background: $nprogress-color;
+
+  position: fixed;
+  z-index: $nprogress-zindex;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: $nprogress-height;
+
+}
+
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px $nprogress-color, 0 0 5px $nprogress-color;
+  opacity: 1.0;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+      -ms-transform: rotate(3deg) translate(0px, -4px);
+          transform: rotate(3deg) translate(0px, -4px);
+}
+
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: $nprogress-zindex;
+  top: 40%;
+  right: 40%;
+}
+
+#nprogress .spinner-icon {
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+
+  border: solid 5px transparent;
+  border-top-color: $nprogress-color;
+  border-left-color: $nprogress-color;
+  border-radius: 50%;
+
+  -webkit-animation: nprogress-spinner 400ms linear infinite;
+          animation: nprogress-spinner 400ms linear infinite;
+}
+
+// Botões do Datatables.net
+.dt-buttons.btn-group {
+  margin-bottom: 5px;
+  float: right;
+}
+
+// Inspinia
 body {
   font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: #2f4050;
+  background-color: white;
   font-size: 13px;
   color: $text-color;
   overflow-x: hidden;

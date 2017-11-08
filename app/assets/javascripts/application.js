@@ -13,11 +13,15 @@
 //= require jquery/dist/jquery
 //= require bootstrap-sprockets
 //= require metisMenu/jquery.metisMenu
-//= require pace/pace.min
 //= require slimscroll/jquery.slimscroll.min
 //= require jquery-maskedinput/src/jquery.maskedinput
 //= require highcharts/highcharts
 //= require highcharts/modules/drilldown
 //= require highcharts/modules/exporting
 //= require notifyjs
+//= require datatables
+//= require pdfmake
+//= require nprogress
+//= require nprogress-turbolinks
+//= require nprogress-ajax
 //= require_tree .

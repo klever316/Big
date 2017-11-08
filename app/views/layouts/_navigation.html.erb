@@ -23,38 +23,42 @@
                             <span class="nav-label">Taxa de Congestionamento</span>
                         <% end %>
                         </li>
-
-                        <li class="<%= is_active_action('julgados') %>"><%= link_to  diretoria_julgados_path  do %>
-                            <span class="nav-label">Julgados</span>
+                        <li class="<%= is_active_action('percentualBaixados') %>"><%= link_to    diretoria_percentualBaixados_path do %>
+                            <span class="nav-label">Percentual de Baixados</span>
                         <% end %>
                         </li>
-
-                        <li class="<%= is_active_action('pendentes') %>"><%= link_to  diretoria_pendentes_path  do %>
-                            <span class="nav-label">Pendentes</span>
+                        <li class="<%= is_active_action('percentualJulgados') %>"><%= link_to  diretoria_percentualJulgados_path  do %>
+                            <span class="nav-label">Percentual de Julgados</span>
                         <% end %>
                         </li>
-
-                        <li class="<%= is_active_action('baixados') %>"><%= link_to  diretoria_baixados_path  do %>
-                            <span class="nav-label">Baixados</span>
+                        <li class="<%= is_active_action('percentualJulgadosEmbargos') %>"><%= link_to  diretoria_percentualJulgadosEmbargos_path  do %>
+                            <span class="nav-label">Percentual de Julgados com Embargos</span>
                         <% end %>
                         </li>
-
+                        <li class="<%= is_active_action('percentualJulgadosApelacao') %>"><%= link_to  diretoria_percentualJulgadosApelacao_path  do %>
+                            <span class="nav-label">Percentual de Julgados com Apelação</span>
+                        <% end %>
+                        </li>                           
+                        <li class="<%= is_active_action('processosDigitalizados') %>"><%= link_to  diretoria_processosDigitalizados_path  do %>
+                            <span class="nav-label">Percentual de Processos Digitalizados</span>
+                        <% end %>
+                        </li>
                     </ul>
             </li>            
             
             <li class="<%= is_active_controller('judicial') %>">
                 <a href=""><i class="fa fa-balance-scale" style="font-size:18px"></i> <span class="nav-label">Área Judicial</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
-                        <li class="<%= is_active_action('civel') %>"><%= link_to "/judicial/civel" do %>
-                            <span class="nav-label">Área Cível</span>
+                        <li class="<%= is_active_action('julgados') %>"><%= link_to  judicial_julgados_path  do %>
+                            <span class="nav-label">Processos Julgados</span>
                         <% end %>
                         </li>
-                        <li class="<%= is_active_action('criminal') %>"><%= link_to "/judicial/criminal" do %>
-                            <span class="nav-label">Área Criminal</span>
+                        <li class="<%= is_active_action('pendentes') %>"><%= link_to judicial_pendentes_path do %>
+                            <span class="nav-label">Processos Pendentes</span>
                         <% end %>
                         </li>
-                        <li class="<%= is_active_action('apoio') %>"><%= link_to "/judicial/apoio" do %>
-                            <span class="nav-label">Apoio</span>
+                        <li class="<%= is_active_action('baixados') %>"><%= link_to  judicial_baixados_path  do %>
+                            <span class="nav-label">Processos Baixados</span>
                         <% end %>
                         </li>
                     </ul>

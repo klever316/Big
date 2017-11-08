@@ -226,16 +226,16 @@
   series: [{
     name: '2015',
     data: <%= @taxa_congestionamento_2015 %>,
-    color: '#187251'
+    color: '#8CD19E'
 
 }, {
     name: '2016',
     data: <%= @taxa_congestionamento_2016 %>,
-    color: '#379e78'
+    color: '#8dd7e0'
 }, {
     name: '2017',
     data: <%= @taxa_congestionamento_2017 %>,
-    color: '#6ccca8'
+    color: '#db6a29'
 
 }]
 });
@@ -261,19 +261,21 @@ $('#width').on('input', function () {
             type: 'category'
         },
         yAxis: {
+            crosshair: true,
             title: {
                 text: 'Taxa (%)'
             },
             plotLines: [{
                 color: 'red',
                 dashStyle: 'solid',
-                value: 54,
+                value: <%= @metas_taxa[:meta_2017] %>,
                 width: 2,
                 zIndex: 5,
                 label: {
-                    text: 'Meta:',
-                    y: -3,
-                    x: -35,
+                    text: 'Meta: <%= @metas_taxa[:meta_2017] %>%',
+                    rotation: -90,
+                    y: 25,
+                    x: -3,
                     style: {
                         color: 'blue',
                         fontWeight: 'bold'
@@ -319,13 +321,14 @@ $('#width').on('input', function () {
                     plotLines: [{
                     color: 'red',
                     dashStyle: 'solid',
-                    value: 54,
+                    value: <%= @metas_taxa[:meta_2017] %>,
                     width: 2,
                     zIndex: 5,
                     label: {
-                        text: 'Meta:',
-                        y: -3,
-                        x: -35,
+                        text: 'Meta: <%= @metas_taxa[:meta_2017] %>%',
+                        rotation: -90,
+                        y: 25,
+                        x: -3,
                         style: {
                             color: 'blue',
                             fontWeight: 'bold'
@@ -341,13 +344,14 @@ $('#width').on('input', function () {
                     plotLines: [{
                     color: 'red',
                     dashStyle: 'solid',
-                    value: 57.7,
+                    value: <%= @metas_taxa[:meta_2016] %>,
                     width: 2,
                     zIndex: 5,
                     label: {
-                        text: 'Meta:',
-                        y: -3,
-                        x: -35,
+                        text: 'Meta: <%= @metas_taxa[:meta_2016] %>%',
+                        rotation: -90,
+                        y: 25,
+                        x: -3,
                         style: {
                             color: 'blue',
                             fontWeight: 'bold'
@@ -363,13 +367,14 @@ $('#width').on('input', function () {
                     plotLines: [{
                     color: 'red',
                     dashStyle: 'solid',
-                    value: 61.6,
+                    value: <%= @metas_taxa[:meta_2015] %>,
                     width: 2,
                     zIndex: 5,
                     label: {
-                        text: 'Meta:',
-                        y: -3,
-                        x: -35,
+                        text: 'Meta: <%= @metas_taxa[:meta_2015] %>%',
+                        rotation: -90,
+                        y: 25,
+                        x: -3,
                         style: {
                             color: 'blue',
                             fontWeight: 'bold'

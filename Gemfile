@@ -14,6 +14,10 @@ gem 'activerecord-oracle_enhanced-adapter', '~> 1.8.0'
 gem 'ruby-oci8', '~> 2.2.4.1'
 gem "devise_ldap_authenticatable"
 gem 'rails-assets-notifyjs', source: 'https://rails-assets.org'
+gem 'rails-assets-pdfmake', source: 'https://rails-assets.org'
+gem 'kaminari'
+gem 'jquery-datatables'
+gem 'nprogress-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.3'

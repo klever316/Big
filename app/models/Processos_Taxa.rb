@@ -169,29 +169,21 @@ class ProcessosTaxa
 				@total_competencias[:total_auditoria_militar] = @total_competencias[:total_auditoria_militar]/@count_competencias[:count_auditoria_militar]
 				@total_competencias[:total_penas_alternativas] = @total_competencias[:total_penas_alternativas]/@count_competencias[:count_penas_alternativas]
 				@total_competencias[:total_transito] = @total_competencias[:total_transito]/@count_competencias[:count_transito]
-				# @competencias += [{
-				# 	name: "#{a}", data: 
-				# 	[
-				# 		{name: "Família", y: @total_competencias[:total_familia], drilldown: "familia_#{a}"},
-				# 		{name: "Cível", y: @total_competencias[:total_civel], drilldown: "civel_#{a}"},
-				# 		{name: "Criminal", y: @total_competencias[:total_criminal], drilldown: "criminal_#{a}"},
-				# 		{name: "Fazenda Pública", y: @total_competencias[:total_fazenda], drilldown: "fazenda_#{a}"},
-				# 		{name: "Júri", y: @total_competencias[:total_juri], drilldown: "juri_#{a}"},
-				# 		{name: "Infância e Juventude", y: @total_competencias[:total_infancia], drilldown: "infancia_#{a}"},
-				# 		{name: "Sucessões", y: @total_competencias[:total_sucessoes], drilldown: "sucessoes_#{a}"},
-				# 		{name: "Execuções Penais", y: @total_competencias[:total_execucoes_penais], drilldown: "execucoespenais_#{a}"},
-				# 		{name: "Execuções Fiscais", y: @total_competencias[:total_execucoes_fiscais], drilldown: "execucoesfiscais_#{a}"},
-				# 		{name: "Falências", y: @total_competencias[:total_falencia], drilldown: "falencia_#{a}"},
-				# 		{name: "Registros Públicos", y: @total_competencias[:total_registros_publicos], drilldown: "registrospublicos_#{a}"},
-				# 		{name: "Tóxico", y: @total_competencias[:total_toxico], drilldown: "toxico_#{a}"},
-				# 		{name: "Auditoria Militar", y: @total_competencias[:total_auditoria_militar], drilldown: "auditoriamiliar_#{a}"},
-				# 		{name: "Penas Alternativas", y: @total_competencias[:total_penas_alternativas], drilldown: "penasalternativas_#{a}"},
-				# 		{name: "Trânsito", y: @total_competencias[:total_transito], drilldown: "transito_#{a}"}
-				# 	]
-				# 	}]
-				@competencias += [{
-					name: "#{a}", data: Array.new
+
+				if(@count_insercao==0)
+					@competencias += [{
+					name: "#{a}", data: Array.new, color: "#8CD19E"
 					}]
+				elsif(@count_insercao==1) 
+					@competencias += [{
+					name: "#{a}", data: Array.new, color: "#8dd7e0"
+					}]
+				elsif(@count_insercao==2) 
+					@competencias += [{
+					name: "#{a}", data: Array.new, color: "#db6a29"
+					}]
+				end
+					
 					@competencias[@count_insercao][:data] << {name: "Família", y: @total_competencias[:total_familia], drilldown: "familia_#{a}"} if vara.include? "familia"
 					@competencias[@count_insercao][:data] << {name: "Cível", y: @total_competencias[:total_civel], drilldown: "civel_#{a}"} if vara.include? "civel"
 					@competencias[@count_insercao][:data] << {name: "Criminal", y: @total_competencias[:total_criminal], drilldown: "criminal_#{a}"} if vara.include? "criminal"

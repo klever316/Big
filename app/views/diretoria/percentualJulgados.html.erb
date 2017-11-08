@@ -1,0 +1,199 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+   <div class="row">
+   <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="ibox-tools" style="margin-top: -4px">
+                        <a class="collapse-link">
+                            <h4>Gráfico - Percentual de Julgados da Comarca de Fortaleza</h4>
+                        </a>
+                    </div>                    
+                </div>
+                <div class="ibox-content" style="overflow:auto;">
+                    <div class="row wrapper border-bottom white-bg page-heading">
+                        <div id="container"> </div>
+                        <!--<label style="display: inline-block;">zoom: &nbsp;&nbsp;</label>
+                        <input id="width" type="range" value="890" min="890" max="2000" style="max-width: 100px; display: inline-block; margin-bottom: -6px"/>-->
+                    </div> 
+                </div>
+            </div>
+        </div>   
+   </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="ibox-tools" style="margin-top: -4px">
+                        <a class="collapse-link">
+                            <h5>Competência</h5>
+                        </a>
+                    </div>                    
+                </div>
+                <div class="ibox-content">
+                    <div class="row wrapper border-bottom white-bg page-heading">
+                        <div class="checkbox" style="margin-left: -5px;margin-top:-5px;margin-bottom: -10px">
+                            <%= form_for :julgados, :url => { :action => "percentualJulgados" }, :method => "POST" do |f| %>
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "familia") ? true : false, :id => "familia", :style => "margin-left: 1px; margin-top: 10px"}, "familia", nil %>
+                            <%= f.label "Família", :for => "familia", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "civel") ? true : false, :id => "civel", :style => "margin-left: 1px; margin-top: 10px"}, "civel", nil %>
+                            <%= f.label "Cível", :for => "civel",  :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "criminal") ? true : false, :id => "criminal", :style => "margin-left: 1px; margin-top: 10px"}, "criminal", nil %>
+                            <%= f.label "Criminal", :for => "criminal", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "fazenda_publica") ? true : false, :id => "fazenda_publica", :style => "margin-left: 1px;margin-top: 10px"}, "fazenda_publica", nil %>
+                            <%= f.label "Fazenda Pública", :for => "fazenda_publica", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "juri") ? true : false, :id => "juri", :style => "margin-left: 1px; margin-top: 10px"}, "juri", nil %>
+                            <%= f.label "Júri", :for => "juri", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "infancia") ? true : false, :id => "infancia", :style => "margin-left: 1px; margin-top: 10px"}, "infancia", nil %>
+                            <%= f.label "Infância", :for => "infancia", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "sucessoes") ? true : false, :id => "sucessoes", :style => "margin-left: 1px; margin-top: 10px"}, "sucessoes", nil %>
+                            <%= f.label "Sucessões", :for => "sucessoes", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "exec_penais") ? true : false, :id => "exec_penais", :style => "margin-left: 1px; margin-top: 10px"}, "exec_penais", nil %>
+                            <%= f.label "Execuções Penais", :for => "exec_penais", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "exec_fiscais") ? true : false, :id => "exec_fiscais", :style => "margin-left: 1px; margin-top: 10px"}, "exec_fiscais", nil %>
+                            <%= f.label "Execuções Fiscais", :for => "exec_fiscais", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "falencia") ? true : false, :id => "falencia", :style => "margin-left: 1px; margin-top: 10px"}, "falencia", nil %>
+                            <%= f.label "Falência", :for => "falencia", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "registros_publicos") ? true : false, :id => "registros_publicos", :style => "margin-left: 1px; margin-top: 10px"}, "registros_publicos", nil %>
+                            <%= f.label "Registros Públicos", :for => "registros_publicos", :style =>"margin-left:5px;margin-top:8px" %><br/ >
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "toxico") ? true : false, :id => "toxico", :style => "margin-left: 1px; margin-top: 10px"}, "toxico", nil %>
+                            <%= f.label "Tóxico", :for => "toxico", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "auditoria_militar") ? true : false, :id => "auditoria_militar", :style => "margin-left: 1px; margin-top: 10px"}, "auditoria_militar", nil %>
+                            <%= f.label "Auditoria Militar", :for => "auditoria_militar", :style =>"margin-left:5px;margin-top:8px" %><br />
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "penas_alternativas") ? true : false, :id => "penas_alternativas", :style => "margin-left: 1px; margin-top: 10px"}, "penas_alternativas", nil %>
+                            <%= f.label "Penas Alternativas", :for => "penas_alternativas", :style =>"margin-left:5px;margin-top:8px" %><br /> 
+                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "transito") ? true : false, :id => "transito", :style => "margin-left: 1px; margin-top: 10px"}, "transito", nil %>
+                            <%= f.label "Trânsito", :for => "transito", :style =>"margin-left:5px;margin-top:8px" %><br /><br />
+                            <%= f.submit "Filtrar" %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <div class="ibox float-e-margins" style="">
+                <div class="ibox-title">
+                    <div class="ibox-tools" style="margin-top: -4px">
+                        <a class="collapse-link">
+                            <h4>Gráfico - Processos Julgados por Competência</h4>
+                        </a>
+                    </div>                    
+                </div>
+                <div class="ibox-content" style="overflow:auto;">
+                    <div class="row wrapper border-bottom white-bg page-heading" >
+                        <div id="chart_percentual_julgados"> </div>
+                        <!--<label style="display: inline-block;">zoom: &nbsp;&nbsp;</label>
+                        <input id="width" type="range" value="890" min="890" max="2000" style="max-width: 100px; display: inline-block; margin-bottom: -6px"/>
+                        <br/>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+            Highcharts.chart('container', {
+        chart: {
+            type: 'column',
+            zoomType: 'xy',
+            height: 400
+        },
+        title: {
+            text: 'Percentual de Processos Julgados da Comarca de Fortaleza'
+        },
+        subtitle: {
+            text: 'Relatório do Percentual de Processos Julgados da Comarca de Fortaleza nos últimos três anos'
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            crosshair: true,
+            title: {
+                text: 'Percentual (%)'
+            }
+
+        },
+        legend: {
+            enabled: true
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: false,
+                    format: '{point.y:.0f}'
+                }
+            }
+        },
+
+        credits: {
+          enabled: false
+      },
+
+      tooltip: {
+        headerFormat: '<span style="font-size:10px"><b>{point.key}</b></span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}:&nbsp; </td>' +
+            '<td style="padding:0"><b>{point.y:.4f} %</b></td></tr>',
+        useHTML: true
+    },
+    series: <%= @percentual_julgados_forum_por_ano.to_json.html_safe %>,
+    drilldown: {
+        series: <%= @percentual_julgados_forum_por_mes.to_json.html_safe %>
+    }
+});
+
+
+        chart_percentual_julgados = Highcharts.chart('chart_percentual_julgados', {
+        chart: {
+            type: 'column',
+            zoomType: 'xy',
+            height: 400
+        },
+        title: {
+            text: 'Percentual de Processos Baixados Por Competência'
+        },
+        subtitle: {
+            text: 'Relatório do Percentual de Processos Baixados por Competência nos últimos três anos'
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            crosshair: true,
+            title: {
+                text: 'Percentual (%)'
+            }
+
+        },
+        legend: {
+            enabled: true
+        },
+        plotOptions: {
+            series: {
+                borderWidth: 0,
+                dataLabels: {
+                    enabled: false,
+                    format: '{point.y:.0f}'
+                }
+            }
+        },
+
+        credits: {
+          enabled: false
+      },
+
+      tooltip: {
+        headerFormat: '<span style="font-size:10px"><b>{point.key}</b></span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}:&nbsp; </td>' +
+            '<td style="padding:0"><b>{point.y:.4f} %</b></td></tr>',
+        useHTML: true
+    },
+    series: <%= @competencias_percentual.to_json.html_safe %>,
+    drilldown: {
+        series: <%= @varas_percentual.to_json.html_safe %>
+    }
+});
+
+</script>
