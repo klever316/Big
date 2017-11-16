@@ -166,8 +166,27 @@
             </div>    
         </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+<!--                   <i id="question" class="fa fa-question" aria-hidden="true" style="font-size: 14px;vertical-align: middle; margin-right: 5px; margin-top: 1px; opacity: 0.3;float: right;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.3'" data-toggle="popover" placement="bottom" data-content="A taxa de congestionamento mede a efetividade do tribunal em um período,  levando-se em conta o total de casos novos que ingressaram, os casos  baixados e o estoque pendente ao final do período anterior ao período base."></i> -->
+                  <h4 class="modal-title"  style="font-weight: 700;color: #F2594B;text-align: center;"><div id="modal_titulo_processos_julgados"></div></h4>
 
+                </div>
+                <div class="modal-body" style="font-size: 13px;padding: 10px 20px 0px 20px;">
+                    <div id="corpo">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+    </div>
+</div>
 
 <script type="text/javascript">
    Highcharts.chart('container', {
@@ -294,6 +313,27 @@ $('#width').on('input', function () {
                 dataLabels: {
                     enabled: false,
                     format: '{point.y:.0f}'
+                },
+                point: {
+                    events: {
+                        click: function () {
+                            var data_ajax;
+                            var options = this;
+                            if(options.series.name == "2017"){
+                                var data = { column_key : options.options.key, ano : options.series.name};
+                                $.ajax({
+                                    url : "/diretoria/metaProcessosPorDia",
+                                    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                                    type : "post",
+                                    data : data,
+                                    success: function(data, textStatus, jqXHR) {
+                                        $('.modal-backdrop').remove();
+                                        loadAjaxData(data.array, options.options.key, options.series.name, data.qtd_dias_uteis);
+                                    },
+                                });
+                            }
+                        }
+                    }
                 }
             }
         },
@@ -312,6 +352,10 @@ $('#width').on('input', function () {
     drilldown: {
         series: <%= @varas.to_json.html_safe %>
     }
+});
+
+$( document ).ajaxStart(function() {
+  $('<div class="modal-backdrop fade in"></div>').appendTo(document.body);
 });
 
     function metaSelecao(){
@@ -386,5 +430,100 @@ $('#width').on('input', function () {
         }
 
     }
+function loadAjaxData(data_ajax,vara,ano, dias_uteis){
+    $("#corpo").empty();
+    var html = "";
+
+    data_ajax.forEach(function(value){
+        if(value.orju_dsc_unidade == vara){
+            html = '<table class="table datatable table-bordered table-hover " width="100%">';
+            html += '<tbody>';
+            html += '<tr>';
+            html += '<td class="col-md-4"> <b><div style="z-index: 9999;" id="popover_taxa" data-toggle="popover" data-content="Taxa de Congestionamento atual " >Taxa ('+ ano +'):</div> </b></td>';
+            html += '<td class="col-md-8">'+ parseFloat(value.taxa).toFixed(2) +'%</td>';
+            html += '</tr>';
+            html += '<tr>';
+            html += '<td>'+ '<b><div style="z-index: 9999;" id="popover_pendentes" data-toggle="popover" data-content="Processos Pendentes atuais ">Processos Pendentes: </div></b>' +'</td>';
+            html += '<td style="vertical-align: middle !important;">'+formatar(value.pendente)+' Processos </td>';
+            html += '</tr>';
+            html += '<tr>';
+            html += '<td> '+ '<b><div style="z-index: 9999;" id="popover_meta" data-toggle="popover" data-content="Meta definida pelo CNJ conforme portaria tal">Meta ('+ano+'): </div></b>' +'</td>';
+            html += '<td>'+ '<%= @metas_taxa[:meta_2017] %>%' +'</td>';
+            html += '</tr>';
+            var meta = value.pendente - (value.total * (parseFloat("<%= @metas_taxa[:meta_2017] %>%") / 100));
+            html += '<tr>';
+            html += '<td>'+ '<b><div style="z-index: 9999;" id="popover_meta_ano" data-toggle="popover" data-content="Quantidade de processos necessários à serem baixados até o final do ano para atingir a meta"> Processos para atingir a meta ('+ ano +'): </div> </b>' +'</td>';
+            html += '<td style="vertical-align: middle !important;">'+ formatar(meta.toFixed(0)) +' Processos</td>';
+            html += '</tr>';
+            var qtd_dias_uteis = meta / dias_uteis
+            if(meta >= dias_uteis){
+                html += '<tr>';
+                html += '<td>'+ '<b><div style="z-index: 9999;" id="popover_meta_dia" data-toggle="popover" data-content="Quantidade de processos necessários à serem baixados por dia para atingir a meta"> Processos para atingir a meta ('+ ano +'): </div> </b>' +'</td>';
+                html += '<td style="vertical-align: middle !important;">'+ formatar(qtd_dias_uteis.toFixed(0)) +' Processos por dia</td>';
+                html += '</tr>';
+            }
+                // html += '<p style="font-size: 16px;"><b>Taxa ('+ ano +'): </b>'+ parseFloat(value.taxa).toFixed(2) +'%</p>';
+                // html += '<p style="font-size: 16px;"> <b>Processos Pendentes: </b>'+ value.pendente +' Processos</p>';
+                // html += '<p style="font-size: 16px;">'+ '<b>Meta:</b> <%= @metas_taxa[:meta_2017] %>%' +'</p>';
+                // var meta = value.pendente - (value.total * (parseFloat("<%= @metas_taxa[:meta_2017] %>%") / 100));
+                // html += '<p style="font-size: 16px;"><b>Processos Para atingir a meta ('+ ano +'): </b>'+ meta.toFixed(0) +' Processos</p>';
+                // if(meta >= dias_uteis){
+                //     var qtd_dias_uteis = meta / dias_uteis
+                //     html += '<p style="font-size: 16px;"><b>Processos Para atingir a meta ('+ ano +'): </b>'+ qtd_dias_uteis.toFixed(0) +' Processos por dia</p>';
+                // }
+        }
+    });
+
+    $("#corpo").append(html);
+    $('#modal_titulo_processos_julgados').empty();
+    $('#modal_titulo_processos_julgados').append('TAXA DE CONGESTIONAMENTO<br/> ' + vara);
+    $("#myModal").modal("show");
+};
+
+function formatar(nr) {
+  return String(nr)
+    .split('').reverse().join('').split(/(\d{3})/).filter(Boolean)
+    .join('.').split('').reverse().join('');
+}
+
+  $(document).on('mouseover', '#popover_taxa', function(){
+    $("#popover_taxa").popover('show');
+});
+  $(document).on('mouseout', '#popover_taxa', function(){
+    $('.popover').remove();
+});
+  $(document).on('mouseover', '#popover_pendentes', function(){
+    $("#popover_pendentes").popover('show');
+});
+  $(document).on('mouseout', '#popover_pendentes', function(){
+    $('.popover').remove();
+});
+$(document).on('mouseover', '#popover_meta', function(){
+    $("#popover_meta").popover('show');
+});
+  $(document).on('mouseout', '#popover_meta', function(){
+    $('.popover').remove();
+}); 
+$(document).on('mouseover', '#popover_meta_ano', function(){
+    $("#popover_meta_ano").popover('show');
+});
+  $(document).on('mouseout', '#popover_meta_ano', function(){
+    $('.popover').remove();
+}); 
+$(document).on('mouseover', '#popover_meta_dia', function(){
+    $("#popover_meta_dia").popover('show');
+});
+  $(document).on('mouseout', '#popover_meta_dia', function(){
+    $('.popover').remove();
+});
+
+ $(document).on('mouseover', '#question', function(){
+     $("#question").popover('show');
+ });
+  $(document).on('mouseout', '#question', function(){
+    $('.popover').remove();
+});     
+  
+
 
 </script>

@@ -21,6 +21,7 @@ class JudicialController < ApplicationController
 		@column_key = params[:column_key]
 		@ano = params[:ano]
 		@consulta_lista_processos = conn.select_all  "select orju_dsc_unidade, PROC_DSC_PROCESSO_FORMATADO from dwfcb.pf_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia join dwfcb.pd_proc_processo proc on proc.proc_seq_chave =  prtc.proc_seq_chave	 where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{@ano}) and ORJU_DSC_UNIDADE like '#{@column_key}' and PRTC_QTD_JULGADO_CONHECIMENTO = 1"
+
 		render :json => {array: @consulta_lista_processos}
 	end
 

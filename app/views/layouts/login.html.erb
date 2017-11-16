@@ -25,24 +25,21 @@
 
 
     <div class="loginColumns animated fadeInDown">
-        <div class="row">
+        <div class="row" style="margin-top: -50px;margin-bottom: 50px">
 
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div align="center">
-                    <h2 class="font-bold">BIG - Banco de Informações Gerenciais</h2>
+                    <h2 class="font-bold" style="color: #366c59;font-family: arial, Helvetica, sans-serif;">BIG - Banco de Informações Gerenciais</h2>
                 </div>
 
 
                 <div align="center">
-                    <span>
-                       <img alt="image" id="logo" src="<%= image_url 'logo_tj.png' %>"/>
-                   </span>
-                   <p>Tribunal de Justiça do Estado do Ceará<br/>
-                      Estado do Ceará<br/>
+                       <img alt="image" id="logo" src="<%= image_url 'logo_tj.png' %>" width="64px"/>
+                   <p style="font-size: 12px">Tribunal de Justiça do Estado do Ceará<br/>
                       Poder Judiciário<br/>
                       Comarca de Fortaleza<br/>
                       Diretoria do Fórum Clóvis Beviláqua<br/>
-                      Gerencia de Informática<br/>
+                      Gerência de Informática<br/>
                   </p>
                   <div class="modal fade" id="myModal" role="dialog">
                     <div class="modal-dialog">
@@ -82,10 +79,11 @@
             -->
 
         </div>
-
+        </div>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="col-md-6">
-            <div class="ibox-content">
+        <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="ibox-content" style="">
                 <form class="m-t" role="form" action="#">
 
                                 <!-- <div class="form-group">

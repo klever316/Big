@@ -67,11 +67,39 @@ class DiretoriaController < ApplicationController
 
 		if !@result.nil?
 			puts @result[:competencia]
-			@competencias, @varas = ProcessosTaxa.get_processos_taxa_por_competencia(@result[:competencia],[2017,2016,2015])
+			@competencias, @varas = ProcessosTaxa.get_processos_taxa_por_competencia(@result[:competencia],[2015,2016,2017])
 		else
-			@competencias, @varas = ProcessosTaxa.get_processos_taxa_por_competencia(["familia","civel","criminal","fazenda_publica","juri","infancia","sucessoes","exec_penais","exec_fiscais","falencia","registros_publicos","toxico","auditoria_militar","penas_alternativas","transito"],[2017,2016,2015])
+			@competencias, @varas = ProcessosTaxa.get_processos_taxa_por_competencia(["familia","civel","criminal","fazenda_publica","juri","infancia","sucessoes","exec_penais","exec_fiscais","falencia","registros_publicos","toxico","auditoria_militar","penas_alternativas","transito"],[2015,2016,2017])
 		end
 
+	end
+
+	def metaProcessosPorDia
+		conn = BigDB.connection
+		@column_key = params[:column_key]
+		@ano = params[:ano]
+		@consulta_lista_processos = conn.select_all "SELECT pedi_num_ano, ORJU_DSC_UNIDADE, (sum(prtc_qtd_pendente_baixa_conh)/sum(prtc_qtd_pendente_baixa_conh + prtc_qtd_baixado_conhecimento))*100 as taxa, sum(prtc_qtd_pendente_baixa_conh) as pendente, sum(prtc_qtd_pendente_baixa_conh + prtc_qtd_baixado_conhecimento) as total from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') and (prtc_qtd_pendente_baixa_conh + prtc_qtd_baixado_conhecimento) > 0 AND pedi_num_ano IN (#{@ano}) group BY pedi_num_ano, orju_dsc_unidade_pai, ORJU_DSC_UNIDADE ORDER BY 1,2"
+		@dias_uteis_ano = [{ano: 2017, mes_nome: "Janeiro", mes_numero: 1, dias_uteis: 22},
+							{ano: 2017, mes_nome: "Fevereiro", mes_numero: 2, dias_uteis: 17},
+							{ano: 2017, mes_nome: "Março", mes_numero: 3, dias_uteis: 23},
+							{ano: 2017, mes_nome: "Abril", mes_numero: 4, dias_uteis: 20},
+							{ano: 2017, mes_nome: "Maio", mes_numero: 5, dias_uteis: 18},
+							{ano: 2017, mes_nome: "Junho", mes_numero: 6, dias_uteis: 21},
+							{ano: 2017, mes_nome: "Julho", mes_numero: 7, dias_uteis: 20},
+							{ano: 2017, mes_nome: "Agosto", mes_numero: 8, dias_uteis: 19},
+							{ano: 2017, mes_nome: "Setembro", mes_numero: 9, dias_uteis: 22},
+							{ano: 2017, mes_nome: "Outubro", mes_numero: 10, dias_uteis: 20},
+							{ano: 2017, mes_nome: "Novembro", mes_numero: 11, dias_uteis: 20},
+							{ano: 2017, mes_nome: "Dezembr", mes_numero: 12, dias_uteis: 12}]
+		@qtd_dias_uteis = 0
+		(Date.today.strftime("%m").to_i..12).each do |mes|
+			@dias_uteis_ano.each do |row|
+				if(row[:mes_numero].to_i == mes)
+					@qtd_dias_uteis += row[:dias_uteis]
+				end
+			end
+		end
+		render :json => {array: @consulta_lista_processos, qtd_dias_uteis: @qtd_dias_uteis}
 
 	end
 
