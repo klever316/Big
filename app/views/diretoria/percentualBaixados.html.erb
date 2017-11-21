@@ -31,7 +31,7 @@
                 </div>
                 <div class="ibox-content">
                     <div class="row wrapper border-bottom white-bg page-heading">
-                        <div class="checkbox" style="margin-left: -5px;margin-top:-5px;margin-bottom: -10px">
+                        <div class="checkbox checkbox-success" style="margin-left: -5px;margin-top:-5px;margin-bottom: -10px">
                             <%= form_for :baixados, :url => { :action => "percentualBaixados" }, :method => "POST" do |f| %>
                             <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "familia") ? true : false, :id => "familia", :style => "margin-left: 1px; margin-top: 10px"}, "familia", nil %>
                             <%= f.label "Família", :for => "familia", :style =>"margin-left:5px;margin-top:8px" %><br />
@@ -59,7 +59,7 @@
                             <%= f.label "Auditoria Militar", :for => "auditoria_militar", :style =>"margin-left:5px;margin-top:8px" %><br />
                             <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "transito") ? true : false, :id => "transito", :style => "margin-left: 1px; margin-top: 10px"}, "transito", nil %>
                             <%= f.label "Trânsito", :for => "transito", :style =>"margin-left:5px;margin-top:8px" %><br /><br />
-                            <%= f.submit "Filtrar" %>
+                            <%= f.submit "Filtrar", :class => "btn btn-sm btn-primary pull-right m-t-n-xs" %>
                             <% end %>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="ibox-content" style="overflow:auto;">
                     <div class="row wrapper border-bottom white-bg page-heading">
-                        <div id="chart_percentual_baixados"> </div>
+                        <div id="container2"> </div>
                         <!--<label style="display: inline-block;">zoom: &nbsp;&nbsp;</label>
                         <input id="width" type="range" value="890" min="890" max="2000" style="max-width: 100px; display: inline-block; margin-bottom: -6px"/>-->
                     </div> 
@@ -140,7 +140,7 @@
     }
 });
    
-        chart_percentual_baixados = Highcharts.chart('chart_percentual_baixados', {
+        chart_percentual_baixados = Highcharts.chart('container2', {
         chart: {
             type: 'column',
             zoomType: 'xy',

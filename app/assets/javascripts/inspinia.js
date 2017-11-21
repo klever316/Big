@@ -100,6 +100,26 @@ $(document).ready(function () {
     $('.navbar-minimalize').click(function () {
         $("body").toggleClass("mini-navbar");
         SmoothlyMenu();
+        // for (i = 0; i <= 400; i = i + 5) { 
+        // setTimeout(function(){ $('#container').highcharts().reflow();
+        //                          }, i);
+        // }
+        $('#container').animate({
+            width : '100%'
+        },{
+        duration: 400,
+        step: function() {
+          $('#container').highcharts().reflow();
+        }
+        });
+        $('#container2').animate({
+            width : '100%'
+        },{
+        duration: 400,
+        step: function() {
+          $('#container2').highcharts().reflow();
+        }
+        });
 
     });
 
