@@ -2,6 +2,13 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   # ==> LDAP Configuration 
+  # Login Sem Password
+  # if Rails.env == "development"
+  #   config.warden do |manager|
+  #     manager.default_strategies(:scope => :user).unshift :local_override
+  #   end
+  # end 
+
   config.ldap_logger = true
   config.ldap_create_user = true
   # config.ldap_update_password = true
@@ -168,7 +175,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :validatable
   # Range for password length.
-  config.password_length = 6..128
+  config.password_length = 4..128101
 
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly

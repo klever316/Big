@@ -20,27 +20,27 @@
                 <a href=""><i class="fa fa-address-card" style="font-size:18px"></i> <span class="nav-label">Diretoria</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
                         <li class="<%= is_active_action('taxa') %>"><%= link_to  diretoria_taxa_path  do %>
-                            <span class="nav-label">Taxa de Congestionamento</span>
+                            <p>Taxa de Congestionamento</p>
                         <% end %>
                         </li>
                         <li class="<%= is_active_action('percentualBaixados') %>"><%= link_to    diretoria_percentualBaixados_path do %>
-                            <span class="nav-label">Percentual de Baixados</span>
+                            <p>Percentual de Baixados</p>
                         <% end %>
                         </li>
                         <li class="<%= is_active_action('percentualJulgados') %>"><%= link_to  diretoria_percentualJulgados_path  do %>
-                            <span class="nav-label">Percentual de Julgados</span>
+                            <p>Percentual de Julgados</p>
                         <% end %>
                         </li>
                         <li class="<%= is_active_action('percentualJulgadosEmbargos') %>"><%= link_to  diretoria_percentualJulgadosEmbargos_path  do %>
-                            <span class="nav-label">Percentual de Julgados com Embargos</span>
+                            <p>Percentual de Julgados com Embargos</p>
                         <% end %>
                         </li>
                         <li class="<%= is_active_action('percentualJulgadosApelacao') %>"><%= link_to  diretoria_percentualJulgadosApelacao_path  do %>
-                            <span class="nav-label">Percentual de Julgados com Apelação</span>
+                           <p>Percentual de Julgados com Apelação</p>
                         <% end %>
                         </li>                           
                         <li class="<%= is_active_action('processosDigitalizados') %>"><%= link_to  diretoria_processosDigitalizados_path  do %>
-                            <span class="nav-label">Percentual de Processos Digitalizados</span>
+                            <p>Percentual de Processos Digitalizados</p>
                         <% end %>
                         </li>
                     </ul>
@@ -50,15 +50,15 @@
                 <a href=""><i class="fa fa-balance-scale" style="font-size:18px"></i> <span class="nav-label">Área Judicial</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
                         <li class="<%= is_active_action('julgados') %>"><%= link_to  judicial_julgados_path  do %>
-                            <span class="nav-label">Processos Julgados</span>
+                            Processos Julgados
                         <% end %>
                         </li>
                         <li class="<%= is_active_action('pendentes') %>"><%= link_to judicial_pendentes_path do %>
-                            <span class="nav-label">Processos Pendentes</span>
+                            Processos Pendentes
                         <% end %>
                         </li>
                         <li class="<%= is_active_action('baixados') %>"><%= link_to  judicial_baixados_path  do %>
-                            <span class="nav-label">Processos Baixados</span>
+                            Processos Baixados
                         <% end %>
                         </li>
                     </ul>
@@ -67,12 +67,12 @@
             <li class="<%= is_active_controller('administrar') %>">
                 <a href=""><i class="fa fa-book" style="font-size:18px"></i> <span class="nav-label">Área Administrativa</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
-                        <li class="<%= is_active_action('pessoas') %>"><%= link_to "/administrar/pessoas" do %>
-                            <span class="nav-label">Gestão de Pessoas</span>
+                        <li class="<%= is_active_action('pessoas') %>" style="margin: 0px"><%= link_to "/administrar/pessoas" do %>
+                            <p>Gestão de Pessoas</p>
                         <% end %>
                         </li>
-                        <li class="<%= is_active_action('patrimonio') %>"><%= link_to "/administrar/patrimonio" do %>
-                            <span class="nav-label">Gestão de Patrimônio</span>
+                        <li class="<%= is_active_action('patrimonio') %>" style="margin: 0px"><%= link_to "/administrar/patrimonio" do %>
+                            <p>Gestão de Patrimônio</p>
                         <% end %>
                         </li>
                     </ul>
@@ -81,15 +81,15 @@
             <li class="<%= is_active_controller('coman') %>">
                 <a href=""><i class="fa fa-gavel" style="font-size:18px"></i> <span class="nav-label">Ceman</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
-                        <li class="<%= is_active_action('coman_fortaleza') %>"><%= link_to "/coman/coman_fortaleza" do %>
-                            <span class="nav-label">Ceman Fortaleza</span>
+                        <li class="<%= is_active_action('coman_fortaleza') %>" style="margin: 0px"><%= link_to "/coman/coman_fortaleza" do %>
+                            <p>Ceman Fortaleza</p>
                         <% end %>
                         </li>
-                        <li class="<%= is_active_action('coman_maracanau') %>"><%= link_to "/coman/coman_maracanau" do %>
-                            <span class="nav-label">Ceman Maracanau</span>
+                        <li class="<%= is_active_action('coman_maracanau') %>" style="margin: 0px"><%= link_to "/coman/coman_maracanau" do %>
+                           <p>Ceman Maracanau</p>
                         <% end %>
-                        <li class="<%= is_active_action('coman_juizado_da_mulher') %>"><%= link_to "/coman/coman_juizado_da_mulher" do %>
-                            <span class="nav-label">Ceman Juizado da Mulher</span>
+                        <li class="<%= is_active_action('coman_juizado_da_mulher') %>" style="margin: 0px"><%= link_to "/coman/coman_juizado_da_mulher" do %>
+                            <p>Ceman Juizado da Mulher</p>
                         <% end %>
                         </li>
                     </ul>

@@ -24,4 +24,5 @@
 //= require nprogress
 //= require nprogress-turbolinks
 //= require nprogress-ajax
+//= require pace/pace.min.js
 //= require_tree .
