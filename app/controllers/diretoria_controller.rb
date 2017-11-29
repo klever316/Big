@@ -24,53 +24,8 @@ class DiretoriaController < ApplicationController
 	  	@total_baixados = @@total_baixados
 	  	@@total_novos ||= execute_sql(TOTAL_NOVOS)
 	  	@total_novos = @@total_novos
-	  	
-		#Julgados 2017
-		@@consulta_taxa_2017 ||= execute_sql(CONSULTA_TAXA_2017)
-		@taxa_congestionamento_2017 = "["
-		@@consulta_taxa_2017.each_with_index do |row, i|
-			if(i != @@consulta_taxa_2017.length-1)
-				@taxa_congestionamento_2017 += row["taxa"].to_s + ", "
-			else
-				@taxa_congestionamento_2017 += row["taxa"].to_s
-			end
-		end
-		@taxa_congestionamento_2017 += "]"
-
-		#Julgados 2016
-		@@consulta_taxa_2016 ||= execute_sql(CONSULTA_TAXA_2016)
-		@taxa_congestionamento_2016 = "["
-		@@consulta_taxa_2016.each_with_index do |row, i|
-			if(i != @@consulta_taxa_2016.length-1)
-				@taxa_congestionamento_2016 += row["taxa"].to_s + ", "
-			else
-				@taxa_congestionamento_2016 += row["taxa"].to_s
-			end
-		end
-		@taxa_congestionamento_2016 += "]"
-
-		#Julgados 2015
-		@@consulta_taxa_2015 ||= execute_sql(CONSULTA_TAXA_2015)
-		@taxa_congestionamento_2015 = "["
-		@@consulta_taxa_2015.each_with_index do |row, i|
-			if(i != @@consulta_taxa_2015.length-1)
-				@taxa_congestionamento_2015 += row["taxa"].to_s + ", "
-			else
-				@taxa_congestionamento_2015 += row["taxa"].to_s
-			end
-		end
-		@taxa_congestionamento_2015 += "]"
 
 		@metas_taxa = {meta_2015: 61.6, meta_2016: 57.7, meta_2017: 54, meta_2018: 40.5, meta_2019: 44.9, meta_2020: 39.5}
-
-		@result = params[:taxa]
-
-		if !@result.nil?
-			puts @result[:competencia]
-			@competencias, @varas = ProcessosTaxa.get_processos_taxa_por_competencia(@result[:competencia],[2015,2016,2017])
-		else
-			@competencias, @varas = ProcessosTaxa.get_processos_taxa_por_competencia(["familia","civel","criminal","fazenda_publica","juri","infancia","sucessoes","exec_penais","exec_fiscais","falencia","registros_publicos","toxico","auditoria_militar","penas_alternativas","transito"],[2015,2016,2017])
-		end
 
 	end
 
@@ -100,6 +55,34 @@ class DiretoriaController < ApplicationController
 			end
 		end
 		render :json => {array: @consulta_lista_processos, qtd_dias_uteis: @qtd_dias_uteis}
+
+	end
+
+	def taxaGrafico
+
+		@key = params[:cod_competencia]
+		@dadosGrafico, @dadosTaxa = ProcessosTaxa.taxaVara(@key)
+		@dias_uteis_ano = [{ano: 2017, mes_nome: "Janeiro", mes_numero: 1, dias_uteis: 22},
+							{ano: 2017, mes_nome: "Fevereiro", mes_numero: 2, dias_uteis: 17},
+							{ano: 2017, mes_nome: "Março", mes_numero: 3, dias_uteis: 23},
+							{ano: 2017, mes_nome: "Abril", mes_numero: 4, dias_uteis: 20},
+							{ano: 2017, mes_nome: "Maio", mes_numero: 5, dias_uteis: 18},
+							{ano: 2017, mes_nome: "Junho", mes_numero: 6, dias_uteis: 21},
+							{ano: 2017, mes_nome: "Julho", mes_numero: 7, dias_uteis: 20},
+							{ano: 2017, mes_nome: "Agosto", mes_numero: 8, dias_uteis: 19},
+							{ano: 2017, mes_nome: "Setembro", mes_numero: 9, dias_uteis: 22},
+							{ano: 2017, mes_nome: "Outubro", mes_numero: 10, dias_uteis: 20},
+							{ano: 2017, mes_nome: "Novembro", mes_numero: 11, dias_uteis: 20},
+							{ano: 2017, mes_nome: "Dezembr", mes_numero: 12, dias_uteis: 12}]
+		@qtd_dias_uteis = 0
+		(Date.today.strftime("%m").to_i..12).each do |mes|
+			@dias_uteis_ano.each do |row|
+				if(row[:mes_numero].to_i == mes)
+					@qtd_dias_uteis += row[:dias_uteis]
+				end
+			end
+		end
+		render :json => {dados: @dadosGrafico, taxa: @dadosTaxa, qtd_dias_uteis: @qtd_dias_uteis}
 
 	end
 

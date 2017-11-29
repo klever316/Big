@@ -68,71 +68,43 @@
         </div> 
 
     </div>
-    
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <div class="ibox-tools" style="margin-top: -4px">
-                        <a class="collapse-link">
-                            <h4>Gráfico - Taxa de Congestionamento</h4>
-                        </a>
-                    </div>                    
-                </div>
-                <div class="ibox-content">
-                    <div class="row wrapper border-bottom white-bg page-heading">
-                        <div id="container" width="100%"> </div>
-                    </div>
-                </div> 
-            </div>    
-        </div>
-    </div>
     <div class="row">
         <div class="col-lg-2">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <div class="ibox-tools" style="margin-top: -4px">
                         <a class="collapse-link">
-                            <h5>Competência</h5>
+                            <h5>Filtros</h5>
                         </a>
                     </div>                    
                 </div>
                 <div class="ibox-content">
                     <div class="row wrapper border-bottom white-bg page-heading">
-                        <div class="checkbox checkbox-success" style="margin-left: -5px;margin-top:-5px;margin-bottom: -10px">
-                            <%= form_for :taxa, :url => { :action => "taxa" }, :method => "POST" do |f| %>
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "familia") ? true : false, :id => "familia", :style => "margin-left: 1px; margin-top: 10px"}, "familia", nil %>
-                            <%= f.label "Família", :for => "familia", :style =>"margin-left:5px;margin-top:8px" %><br />
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "civel") ? true : false, :id => "civel", :style => "margin-left: 1px; margin-top: 10px"}, "civel", nil %>
-                            <%= f.label "Cível", :for => "civel",  :style =>"margin-left:5px;margin-top:8px" %><br />
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "criminal") ? true : false, :id => "criminal", :style => "margin-left: 1px; margin-top: 10px"}, "criminal", nil %>
-                            <%= f.label "Criminal", :for => "criminal", :style =>"margin-left:5px;margin-top:8px" %><br />
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "fazenda_publica") ? true : false, :id => "fazenda_publica", :style => "margin-left: 1px;margin-top: 10px"}, "fazenda_publica", nil %>
-                            <%= f.label "Fazenda Pública", :for => "fazenda_publica", :style =>"margin-left:5px;margin-top:8px" %><br />
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "juri") ? true : false, :id => "juri", :style => "margin-left: 1px; margin-top: 10px"}, "juri", nil %>
-                            <%= f.label "Júri", :for => "juri", :style =>"margin-left:5px;margin-top:8px" %><br />
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "infancia") ? true : false, :id => "infancia", :style => "margin-left: 1px; margin-top: 10px"}, "infancia", nil %>
-                            <%= f.label "Infância", :for => "infancia", :style =>"margin-left:5px;margin-top:8px" %><br />
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "sucessoes") ? true : false, :id => "sucessoes", :style => "margin-left: 1px; margin-top: 10px"}, "sucessoes", nil %>
-                            <%= f.label "Sucessões", :for => "sucessoes", :style =>"margin-left:5px;margin-top:8px" %><br />
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "exec_penais") ? true : false, :id => "exec_penais", :style => "margin-left: 1px; margin-top: 10px"}, "exec_penais", nil %>
-                            <%= f.label "Execuções Penais", :for => "exec_penais", :style =>"margin-left:5px;margin-top:8px" %><br />
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "exec_fiscais") ? true : false, :id => "exec_fiscais", :style => "margin-left: 1px; margin-top: 10px"}, "exec_fiscais", nil %>
-                            <%= f.label "Execuções Fiscais", :for => "exec_fiscais", :style =>"margin-left:5px;margin-top:8px" %><br />
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "falencia") ? true : false, :id => "falencia", :style => "margin-left: 1px; margin-top: 10px"}, "falencia", nil %>
-                            <%= f.label "Falência", :for => "falencia", :style =>"margin-left:5px;margin-top:8px" %><br />
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "registros_publicos") ? true : false, :id => "registros_publicos", :style => "margin-left: 1px; margin-top: 10px"}, "registros_publicos", nil %>
-                            <%= f.label "Registros Públicos", :for => "registros_publicos", :style =>"margin-left:5px;margin-top:8px" %><br/ >
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "toxico") ? true : false, :id => "toxico", :style => "margin-left: 1px; margin-top: 10px"}, "toxico", nil %>
-                            <%= f.label "Tóxico", :for => "toxico", :style =>"margin-left:5px;margin-top:8px" %><br />
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "auditoria_militar") ? true : false, :id => "auditoria_militar", :style => "margin-left: 1px; margin-top: 10px"}, "auditoria_militar", nil %>
-                            <%= f.label "Auditoria Militar", :for => "auditoria_militar", :style =>"margin-left:5px;margin-top:8px" %><br />
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "penas_alternativas") ? true : false, :id => "penas_alternativas", :style => "margin-left: 1px; margin-top: 10px"}, "penas_alternativas", nil %>
-                            <%= f.label "Penas Alternativas", :for => "penas_alternativas", :style =>"margin-left:5px;margin-top:8px" %><br /> 
-                            <%= f.check_box :competencia, {:multiple => true, :checked => (!@result.nil?) && (@result[:competencia].include? "transito") ? true : false, :id => "transito", :style => "margin-left: 1px; margin-top: 10px"}, "transito", nil %>
-                            <%= f.label "Trânsito", :for => "transito", :style =>"margin-left:5px;margin-top:8px" %><br /><br />
-                            <%= f.submit "Filtrar", :class => "btn btn-sm btn-primary pull-right m-t-n-xs" %>
-                            <% end %>
+                        <div class="" style="margin-left: 0px;margin-top:-5px;margin-bottom: -10px">
+                              <select class="form-control" id="combo_competencia">
+                                  <option selected="true" disabled="disabled">Competência</option>    
+                                  <option value="1">Família</option>
+                                  <option value="2">Cível</option>
+                                  <option value="3">Criminal</option>
+                                  <option value="4">Fazenda Pública</option>
+                                  <option value="5">Júri</option>
+                                  <option value="6">Infância e Juventude</option>
+                                  <option value="7">Sucessões</option>
+                                  <option value="8">Execuções Penais</option>
+                                  <option value="9">Execuções Fiscais</option>
+                                  <option value="10">Falência</option>
+                                  <option value="11">Registros Públicos</option>
+                                  <option value="12">Tóxico</option>
+                                  <option value="13">Auditoria Militar</option>
+                                  <option value="14">Penas Alternativas</option>
+                                  <option value="15">Trânsito</option>
+                                </select>
+                                <br />
+                                <select class="form-control" id="combo_vara">
+                                  <option selected="true" disabled="disabled">Selecione o item acima</option>
+                                </select>
+                              <br /><br />
+                              <button id="button_taxa" class="btn btn-sm btn-primary pull-right m-t-n-xs" disabled="true" onclick="mostrarGrafico(document.getElementById('combo_vara').options[document.getElementById('combo_vara').selectedIndex].label)">Filtrar</button>
                         </div>
                     </div>
                 </div> 
@@ -149,24 +121,12 @@
                 </div>
                 <div class="ibox-content" style="overflow:auto;">
                     <div class="row wrapper border-bottom white-bg page-heading">
-                        <div id="container2"> </div>
-                            <div class="radio radio-inline radio-success">
-                                <%= form_for :taxa, :url => { :action => "taxa" }, :method => "POST" do |f| %>
-                                <%= f.radio_button :meta, "2017", { :id => "meta_2017", :style => "", :onclick => "metaSelecao()", :checked => true } %>
-                                <%= f.label "Meta (2017)", :for => "meta_2017", :style =>"" %>
-                            </div>
-                            <div class="radio radio-inline radio-success">
-                                <%= f.radio_button :meta, "2016", { :id => "meta_2016", :style => "", :onclick => "metaSelecao()"} %>
-                                <%= f.label "Meta (2016)", :for => "meta_2016", :style =>"" %>
-                            </div> 
-                            <div class="radio radio-inline radio-success">
-                                <%= f.radio_button :meta, "2015", { :id => "meta_2015", :style => "
-                                    ", :onclick => "metaSelecao()"} %>
-                                <%= f.label "Meta (2015)", :for => "meta_2015", :style =>"" %>
-                            </div>
-                            <% end %>
-                        
-                        <!--<input id="width" type="range" value="890" min="890" max="2000" style="max-width: 100px; display: inline-block; margin-bottom: -6px"/>-->
+                        <div id="container">
+                         <div style="text-align: center;font-size: 16px">
+                         <i class="fa fa-hand-o-left" aria-hidden="true" style="font-size: 20px"></i>  Selecione uma competência e uma vara ao lado.</div>
+                        </div>
+                        <div id="radios_meta">
+                        </div>
                     </div>
                 </div> 
             </div>    
@@ -192,181 +152,9 @@
           </div>
     </div>
     </div>
-
 </div>
 
 <script type="text/javascript">
-   Highcharts.chart('container', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Taxa de Congestionamento'
-    },
-    subtitle: {
-        text: 'Taxa de Congestionamento dos últimos três anos da Comarca de Fortaleza'
-    },
-    xAxis: {
-        categories: [
-        'Janeiro',
-        'Fevereiro',
-        'Março',
-        'Abril',
-        'Maio',
-        'Junho',
-        'Julho',
-        'Agosto',
-        'Setembro',
-        'Outubro',
-        'Novembro',
-        'Dezembro'
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 90,
-        max: 100,
-        title: {
-            text: 'Taxa (%)'
-        }
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        '<td style="padding:0"><b>{point.y:.4f} %</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-
-    credits: {
-      enabled: false
-  },
-
-  series: [{
-    name: '2015',
-    data: <%= @taxa_congestionamento_2015 %>,
-    color: '#8CD19E'
-
-}, {
-    name: '2016',
-    data: <%= @taxa_congestionamento_2016 %>,
-    color: '#8dd7e0'
-}, {
-    name: '2017',
-    data: <%= @taxa_congestionamento_2017 %>,
-    color: '#db6a29'
-
-}],
-    responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 800
-            },
-        }]
-    }
-});
-
-
-$('#width').on('input', function () {
-    chart.setSize(this.value, false, false);
-});
-
-        chart = Highcharts.chart('container2', {
-        chart: {
-            type: 'column',
-            zoomType: 'xy',
-            height: 400
-        },
-        title: {
-            text: 'Taxa de Congestionamento Por Competência'
-        },
-        subtitle: {
-            text: 'Relatório da Taxa de Congestionamento por Competência nos últimos três anos'
-        },
-        xAxis: {
-            type: 'category'
-        },
-        yAxis: {
-            crosshair: true,
-            title: {
-                text: 'Taxa (%)'
-            },
-            plotLines: [{
-                color: 'red',
-                dashStyle: 'solid',
-                value: <%= @metas_taxa[:meta_2017] %>,
-                width: 2,
-                zIndex: 5,
-                label: {
-                    text: 'Meta: <%= @metas_taxa[:meta_2017] %>%',
-                    rotation: -90,
-                    y: 25,
-                    x: -3,
-                    style: {
-                        color: 'blue',
-                        fontWeight: 'bold'
-                    }
-                }
-            }],
-            max: 100
-
-        },
-        legend: {
-            enabled: true
-        },
-        plotOptions: {
-            series: {
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: false,
-                    format: '{point.y:.0f}'
-                },
-                point: {
-                    events: {
-                        click: function () {
-                            var data_ajax;
-                            var options = this;
-                            if(options.series.name == "2017"){
-                                var data = { column_key : options.options.key, ano : options.series.name};
-                                $.ajax({
-                                    url : "/diretoria/metaProcessosPorDia",
-                                    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-                                    type : "post",
-                                    data : data,
-                                    success: function(data, textStatus, jqXHR) {
-                                        $('.modal-backdrop').remove();
-                                        loadAjaxData(data.array, options.options.key, options.series.name, data.qtd_dias_uteis);
-                                    },
-                                });
-                            }
-                        }
-                    }
-                }
-            }
-        },
-
-        credits: {
-          enabled: false
-      },
-
-      tooltip: {
-        headerFormat: '<span style="font-size:10px"><b>{point.key}</b></span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}:&nbsp; </td>' +
-            '<td style="padding:0"><b>{point.y:.4f} %</b></td></tr>',
-        useHTML: true
-    },
-    series: <%= @competencias.to_json.html_safe %>,
-    drilldown: {
-        series: <%= @varas.to_json.html_safe %>
-    }
-});
 
 $( document ).ajaxStart(function() {
   $('<div class="modal-backdrop fade in"></div>').appendTo(document.body);
@@ -374,7 +162,7 @@ $( document ).ajaxStart(function() {
 
     function metaSelecao(){
         if(document.getElementById("meta_2017").checked){
-            chart.update({
+            chart2.update({
                 yAxis: {
                     plotLines: [{
                     color: 'red',
@@ -397,7 +185,7 @@ $( document ).ajaxStart(function() {
             });
         }
                 if(document.getElementById("meta_2016").checked){
-            chart.update({
+            chart2.update({
                 yAxis: {
                     plotLines: [{
                     color: 'red',
@@ -420,7 +208,7 @@ $( document ).ajaxStart(function() {
             });
         }
                 if(document.getElementById("meta_2015").checked){
-            chart.update({
+            chart2.update({
                 yAxis: {
                     plotLines: [{
                     color: 'red',
@@ -445,53 +233,50 @@ $( document ).ajaxStart(function() {
 
     }
 function loadAjaxData(data_ajax,vara,ano, dias_uteis){
+    if(ano=="2017"){
     $("#corpo").empty();
     var html = "";
 
-    data_ajax.forEach(function(value){
-        if(value.orju_dsc_unidade == vara){
             html = '<table class="table datatable table-bordered table-hover " width="100%">';
             html += '<tbody>';
             html += '<tr>';
             html += '<td class="col-md-4"> <b><div style="z-index: 9999;" id="popover_taxa" data-toggle="popover" data-content="Taxa de Congestionamento atual " >Taxa ('+ ano +'):</div> </b></td>';
-            html += '<td class="col-md-8">'+ parseFloat(value.taxa).toFixed(2) +'%</td>';
+            html += '<td class="col-md-8">'+ parseFloat(data_ajax[data_ajax.length-1].taxa*100).toFixed(2) +'%</td>';
             html += '</tr>';
             html += '<tr>';
             html += '<td>'+ '<b><div style="z-index: 9999;" id="popover_pendentes" data-toggle="popover" data-content="Processos Pendentes atuais ">Processos Pendentes: </div></b>' +'</td>';
-            html += '<td style="vertical-align: middle !important;">'+formatar(value.pendente)+' Processos </td>';
+            html += '<td style="vertical-align: middle !important;">'+formatar(data_ajax[data_ajax.length-1].pendentes)+' Processos </td>';
             html += '</tr>';
             html += '<tr>';
             html += '<td> '+ '<b><div style="z-index: 9999;" id="popover_meta" data-toggle="popover" data-content="Meta definida pelo CNJ conforme portaria tal">Meta ('+ano+'): </div></b>' +'</td>';
             html += '<td>'+ '<%= @metas_taxa[:meta_2017] %>%' +'</td>';
             html += '</tr>';
-            var meta = value.pendente - (value.total * (parseFloat("<%= @metas_taxa[:meta_2017] %>%") / 100));
-            html += '<tr>';
-            html += '<td>'+ '<b><div style="z-index: 9999;" id="popover_meta_ano" data-toggle="popover" data-content="Quantidade de processos necessários à serem baixados até o final do ano para atingir a meta"> Processos para atingir a meta ('+ ano +'): </div> </b>' +'</td>';
-            html += '<td style="vertical-align: middle !important;">'+ formatar(meta.toFixed(0)) +' Processos</td>';
-            html += '</tr>';
-            var qtd_dias_uteis = meta / dias_uteis
-            if(meta >= dias_uteis){
+            var meta = data_ajax[data_ajax.length-1].pendentes - (data_ajax[data_ajax.length-1].pendentes * 0.54 / data_ajax[data_ajax.length-1].taxa);
+            if(meta > 0){
+                // data_ajax[data_ajax.length-1].pendentes - (data_ajax[data_ajax.length-1].total * (parseFloat("<%= @metas_taxa[:meta_2017] %>%") / 100));
                 html += '<tr>';
-                html += '<td>'+ '<b><div style="z-index: 9999;" id="popover_meta_dia" data-toggle="popover" data-content="Quantidade de processos necessários à serem baixados por dia para atingir a meta"> Processos para atingir a meta ('+ ano +'): </div> </b>' +'</td>';
-                html += '<td style="vertical-align: middle !important;">'+ formatar(qtd_dias_uteis.toFixed(0)) +' Processos por dia</td>';
+                html += '<td>'+ '<b><div style="z-index: 9999;" id="popover_meta_ano" data-toggle="popover" data-content="Quantidade de processos necessários à serem baixados até o final do ano para atingir a meta"> Processos para atingir a meta ('+ ano +'): </div> </b>' +'</td>';
+                html += '<td style="vertical-align: middle !important;">'+ formatar(meta.toFixed(0)) +' Processos</td>';
+                html += '</tr>';
+                var qtd_dias_uteis = meta / dias_uteis
+                if(meta >= dias_uteis){
+                    html += '<tr>';
+                    html += '<td>'+ '<b><div style="z-index: 9999;" id="popover_meta_dia" data-toggle="popover" data-content="Quantidade de processos necessários à serem baixados por dia para atingir a meta"> Processos para atingir a meta ('+ ano +'): </div> </b>' +'</td>';
+                    html += '<td style="vertical-align: middle !important;">'+ formatar(qtd_dias_uteis.toFixed(0)) +' Processos por dia</td>';
+                    html += '</tr>';
+                }
+            } else {
+                html += '<tr>';
+                html += '<td>'+ '<b><div style="z-index: 9999;" id="popover_meta_ano" data-toggle="popover" data-content="Quantidade de processos necessários à serem baixados até o final do ano para atingir a meta"> Processos para atingir a meta ('+ ano +'): </div> </b>' +'</td>';
+                html += '<td style="vertical-align: middle !important;">'+'Meta Atingida.'+'</td>';
                 html += '</tr>';
             }
-                // html += '<p style="font-size: 16px;"><b>Taxa ('+ ano +'): </b>'+ parseFloat(value.taxa).toFixed(2) +'%</p>';
-                // html += '<p style="font-size: 16px;"> <b>Processos Pendentes: </b>'+ value.pendente +' Processos</p>';
-                // html += '<p style="font-size: 16px;">'+ '<b>Meta:</b> <%= @metas_taxa[:meta_2017] %>%' +'</p>';
-                // var meta = value.pendente - (value.total * (parseFloat("<%= @metas_taxa[:meta_2017] %>%") / 100));
-                // html += '<p style="font-size: 16px;"><b>Processos Para atingir a meta ('+ ano +'): </b>'+ meta.toFixed(0) +' Processos</p>';
-                // if(meta >= dias_uteis){
-                //     var qtd_dias_uteis = meta / dias_uteis
-                //     html += '<p style="font-size: 16px;"><b>Processos Para atingir a meta ('+ ano +'): </b>'+ qtd_dias_uteis.toFixed(0) +' Processos por dia</p>';
-                // }
-        }
-    });
 
     $("#corpo").append(html);
     $('#modal_titulo_processos_julgados').empty();
     $('#modal_titulo_processos_julgados').append('TAXA DE CONGESTIONAMENTO<br/> ' + vara);
     $("#myModal").modal("show");
+    }
 };
 
 function formatar(nr) {
@@ -538,6 +323,279 @@ $(document).on('mouseover', '#popover_meta_dia', function(){
     $('.popover').remove();
 });     
   
+var combo_competencia = document.getElementById('combo_competencia'),
+    combo_vara = document.getElementById('combo_vara'); 
 
+combo_competencia.onchange = function (e) {
+  var val = e.target.value;
+  document.getElementById('button_taxa').disabled = false;
+  combo_vara.innerHTML = '';
+  if(val == "0"){
+    addOption("0","Selecione um item acima", combo_vara);
+  }
+  if(val == "1"){
+    addOption("648","1ª Vara de Família", combo_vara);
+    addOption("649","2ª Vara de Família", combo_vara);
+    addOption("650","3ª Vara de Família", combo_vara);
+    addOption("651","4ª Vara de Família", combo_vara);
+    addOption("652","5ª Vara de Família", combo_vara);
+    addOption("653","6ª Vara de Família", combo_vara);
+    addOption("654","7ª Vara de Família", combo_vara);
+    addOption("655","8ª Vara de Família", combo_vara);
+    addOption("656","9ª Vara de Família", combo_vara);
+    addOption("657","10ª Vara de Família", combo_vara);
+    addOption("658","11ª Vara de Família", combo_vara);
+    addOption("659","12ª Vara de Família", combo_vara);
+    addOption("660","13ª Vara de Família", combo_vara);
+    addOption("661","14ª Vara de Família", combo_vara);
+    addOption("662","15ª Vara de Família", combo_vara);
+    addOption("663","16ª Vara de Família", combo_vara);
+    addOption("776","17ª Vara de Família", combo_vara);
+    addOption("777","18ª Vara de Família", combo_vara);
+  }
+  if(val == "2"){
+    addOption("615","1ª Vara Cível", combo_vara);
+    addOption("616","2ª Vara Cível", combo_vara);
+    addOption("617","3ª Vara Cível", combo_vara);
+    addOption("618","4ª Vara Cível", combo_vara);
+    addOption("619","5ª Vara Cível", combo_vara);
+    addOption("620","6ª Vara Cível", combo_vara);
+    addOption("621","7ª Vara Cível", combo_vara);
+    addOption("622","8ª Vara Cível", combo_vara);
+    addOption("623","9ª Vara Cível", combo_vara);
+    addOption("625","10ª Vara Cível", combo_vara);
+    addOption("626","11ª Vara Cível", combo_vara);
+    addOption("627","12ª Vara Cível", combo_vara);
+    addOption("628","13ª Vara Cível", combo_vara);
+    addOption("629","14ª Vara Cível", combo_vara);
+    addOption("630","15ª Vara Cível", combo_vara);
+    addOption("631","16ª Vara Cível", combo_vara);
+    addOption("632","17ª Vara Cível", combo_vara);
+    addOption("633","18ª Vara Cível", combo_vara);
+    addOption("634","19ª Vara Cível", combo_vara);
+    addOption("635","20ª Vara Cível", combo_vara);
+    addOption("636","21ª Vara Cível", combo_vara);
+    addOption("637","22ª Vara Cível", combo_vara);
+    addOption("638","23ª Vara Cível", combo_vara);
+    addOption("639","24ª Vara Cível", combo_vara);
+    addOption("640","25ª Vara Cível", combo_vara);
+    addOption("641","26ª Vara Cível", combo_vara);
+    addOption("642","27ª Vara Cível", combo_vara);
+    addOption("643","28ª Vara Cível", combo_vara);
+    addOption("644","29ª Vara Cível", combo_vara);
+    addOption("645","30ª Vara Cível", combo_vara);
+    addOption("8609","31ª Vara Cível", combo_vara);
+    addOption("8610","32ª Vara Cível", combo_vara);
+    addOption("8592","33ª Vara Cível", combo_vara);
+    addOption("8594","34ª Vara Cível", combo_vara);
+    addOption("8596","35ª Vara Cível", combo_vara);
+    addOption("8598","36ª Vara Cível", combo_vara);
+    addOption("8600","37ª Vara Cível", combo_vara);
+    addOption("8602","38ª Vara Cível", combo_vara);
+    addOption("8604","39ª Vara Cível", combo_vara);
+  }
+  if(val == "3"){
+    addOption("574","1ª Vara Criminal", combo_vara);
+    addOption("575","2ª Vara Criminal", combo_vara);
+    addOption("576","3ª Vara Criminal", combo_vara);
+    addOption("577","4ª Vara Criminal", combo_vara);
+    addOption("578","5ª Vara Criminal", combo_vara);
+    addOption("579","6ª Vara Criminal", combo_vara);
+    addOption("580","7ª Vara Criminal", combo_vara);
+    addOption("581","8ª Vara Criminal", combo_vara);
+    addOption("582","9ª Vara Criminal", combo_vara);
+    addOption("492","10ª Vara Criminal", combo_vara);
+    addOption("583","11ª Vara Criminal", combo_vara);
+    addOption("584","12ª Vara Criminal", combo_vara);
+    addOption("585","13ª Vara Criminal", combo_vara);
+    addOption("586","14ª Vara Criminal", combo_vara);
+    addOption("587","15ª Vara Criminal", combo_vara);
+    addOption("2571","16ª Vara Criminal", combo_vara);
+    addOption("2572","17ª Vara Criminal", combo_vara);
+    addOption("2573","18ª Vara Criminal", combo_vara);
+  }
+  if(val == "4"){
+    addOption("605","1ª Vara da Fazenda Pública", combo_vara);
+    addOption("604","2ª Vara da Fazenda Pública", combo_vara);
+    addOption("606","3ª Vara da Fazenda Pública", combo_vara);
+    addOption("607","4ª Vara da Fazenda Pública", combo_vara);
+    addOption("2568","5ª Vara da Fazenda Pública", combo_vara);
+    addOption("2569","6ª Vara da Fazenda Pública", combo_vara);
+    addOption("2570","7ª Vara da Fazenda Pública", combo_vara);
+    addOption("8351","8ª Vara da Fazenda Pública", combo_vara);
+    addOption("8352","9ª Vara da Fazenda Pública", combo_vara);
+    addOption("8579","10ª Vara da Fazenda Pública", combo_vara);
+    addOption("8590","11ª Vara da Fazenda Pública", combo_vara);
+    addOption("8580","12ª Vara da Fazenda Pública", combo_vara);
+    addOption("8581","13ª Vara da Fazenda Pública", combo_vara);
+    addOption("8582","14ª Vara da Fazenda Pública", combo_vara);
+    addOption("8583","15ª Vara da Fazenda Pública", combo_vara);
+  }
+  if(val == "5"){
+    addOption("588","1ª Vara do Júri", combo_vara);
+    addOption("589","2ª Vara do Júri", combo_vara);
+    addOption("590","3ª Vara do Júri", combo_vara);
+    addOption("591","4ª Vara do Júri", combo_vara);
+    addOption("592","5ª Vara do Júri", combo_vara);
+  }
+  if(val == "6"){
+    addOption("570","1ª Vara da Infância e Juventude", combo_vara);
+    addOption("571","2ª Vara da Infância e Juventude", combo_vara);
+    addOption("572","3ª Vara da Infância e Juventude", combo_vara);
+    addOption("573","4ª Vara da Infância e Juventude", combo_vara);
+    addOption("774","5ª Vara da Infância e Juventude", combo_vara);
+  }
+  if(val == "7"){
+    addOption("664","1ª Vara de Sucessões", combo_vara);
+    addOption("665","2ª Vara de Sucessões", combo_vara);
+    addOption("666","3ª Vara de Sucessões", combo_vara);
+    addOption("667","4ª Vara de Sucessões", combo_vara);
+    addOption("668","5ª Vara de Sucessões", combo_vara);
+  }
+  if(val == "8"){
+    addOption("8540","1ª Vara de Execução Penal", combo_vara);
+    addOption("8541","2ª Vara de Execução Penal", combo_vara);
+    addOption("8542","3ª Vara de Execução Penal", combo_vara);
+  }
+  if(val == "9"){
+    addOption("608","1ª Vara de Execuções Fiscais", combo_vara);
+    addOption("609","2ª Vara de Execuções Fiscais", combo_vara);
+    addOption("610","3ª Vara de Execuções Fiscais", combo_vara);
+    addOption("611","4ª Vara de Execuções Fiscais", combo_vara);
+    addOption("612","5ª Vara de Execuções Fiscais", combo_vara);
+    addOption("8361","6ª Vara de Execuções Fiscais", combo_vara);
+  }
+  if(val == "10"){
+    addOption("8353","1ª Vara de Falência", combo_vara);
+    addOption("8354","2ª Vara de Falência", combo_vara);
+  }
+  if(val == "11"){
+    addOption("613","1ª Vara de Registros Públicos", combo_vara);
+    addOption("614","2ª Vara de Registros Públicos", combo_vara);
+  }
+  if(val == "12"){
+    addOption("598","1ª Vara de Tóxico", combo_vara);
+    addOption("599","2ª Vara de Tóxico", combo_vara);
+    addOption("8545","3ª Vara de Tóxico", combo_vara);
+  }
+  if(val == "13"){
+    addOption("603","Vara Única de Auditoria Militar", combo_vara);
+  }
+  if(val == "14"){
+    addOption("6535","Vara Única de Penas Alternativas", combo_vara);
+  }
+  if(val == "15"){
+    addOption("8360","Vara Única de Trânsito", combo_vara);
+  }
+};
+
+function addOption(val, label, select) {
+  var option = document.createElement('option');
+  option.value = val;
+  option.label = label;
+  option.innerHTML = val;
+  select.appendChild(option);
+}
+
+function mostrarGrafico(value){
+      
+    var data = { cod_competencia: document.getElementById('combo_vara').value };    $.ajax({
+        url : "/diretoria/taxaGrafico",
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        type : "post",
+        data : data,
+        success: function(data, textStatus, jqXHR) {
+            $('.modal-backdrop').remove();
+                chart2 = Highcharts.chart('container', {
+                    chart: {
+                        type: 'column',
+                        zoomType: 'xy',
+                        height: 400
+                    },
+                    title: {
+                        text: 'Taxa de Congestionamento da ' + value
+                    },
+                    subtitle: {
+                        text: 'Relatório da Taxa de Congestionamento da '+ value +' nos últimos três anos'
+                    },
+                    xAxis: {
+                        categories: [
+                        'Jan',
+                        'Feb',
+                        'Mar',
+                        'Apr',
+                        'May',
+                        'Jun',
+                        'Jul',
+                        'Aug',
+                        'Sep',
+                        'Oct',
+                        'Nov',
+                        'Dec'
+                    ],
+                    crosshair: true
+                    },
+                    yAxis: {
+                        crosshair: true,
+                        title: {
+                            text: 'Taxa (%)'
+                        },
+                        plotLines: [{
+                            color: 'red',
+                            dashStyle: 'solid',
+                            value: <%= @metas_taxa[:meta_2017] %>,
+                            width: 2,
+                            zIndex: 5,
+                            label: {
+                                text: 'Meta: <%= @metas_taxa[:meta_2017] %>%',
+                                rotation: -90,
+                                y: 25,
+                                x: -3,
+                                style: {
+                                    color: 'blue',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        }],
+                        max: 100
+
+                    },
+                    legend: {
+                        enabled: true
+                    },
+                    plotOptions: {
+                        series: {
+                            cursor: 'pointer',
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: false,
+                                format: '{point.y:.0f}'
+                            },
+                            events: {
+                                    click: function () {
+                                        //alert(event.point.series.userOptions.name +' clicked\n');
+                                        loadAjaxData(data.taxa,value,event.point.series.userOptions.name,data.qtd_dias_uteis);
+                                    }
+                                }
+                        }
+                    },
+
+                    credits: {
+                      enabled: false
+                  },
+
+                  tooltip: {
+                    headerFormat: '<span style="font-size:10px"><b>{point.key}</b></span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}:&nbsp; </td>' +
+                        '<td style="padding:0"><b>{point.y:.4f} %</b></td></tr>',
+                    useHTML: true
+                },
+                series: data.dados
+            });
+        },
+    });
+    var html = '<div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2017" value="option1" onclick="metaSelecao()"> <label for="meta_2017"> Meta 2017 </label> </div> <div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2016" value="option1" onclick="metaSelecao()"> <label for="meta_2016"> Meta 2016 </label></div><div class="radio radio-inline radio-success"><input type="radio" name="radio" id="meta_2015" value="option1" onclick="metaSelecao()"> <label for="meta_2015"> Meta 2015 </label> </div>'  
+    $("#radios_meta").append(html);
+}
 
 </script>

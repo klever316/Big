@@ -246,5 +246,70 @@ class ProcessosTaxa
 					end
 					return @competencias, @varas
 				end
-				
-			end		
+
+	def self.taxaVara(cod)
+		conn = BigDB.connection
+		@consulta_taxa_vara = conn.select_all "select pedi_seq_chave, pedi_num_ano, pedi_dsc_mes, orju_bsq_chave_unidade, orju_dsc_unidade, sum(prtc_qtd_pendente_baixa_conh) as pendentes, sum(prtc_qtd_pendente_baixa_conh + prtc_qtd_baixado_conhecimento) as total,
+       		sum(prtc_qtd_pendente_baixa_conh)/sum(prtc_qtd_pendente_baixa_conh + prtc_qtd_baixado_conhecimento) taxa
+		from (select pdrf.pedi_seq_chave, pdrf.pedi_num_ano, pdrf.pedi_dsc_mes, orju.orju_dsc_segmento, 
+             copr.copr_dsc_competencia, orju.orju_bsq_chave_unidade, orju.orju_dsc_unidade,
+             sum(prtc.prtc_qtd_pendente_baixa_conh) prtc_qtd_pendente_baixa_conh,
+             (select sum(prtc_qtd_julgado_conhecimento) 
+              from dwfcb.pa_prtc_processo_taxa_cong ptc1
+              where ptc1.copr_seq_chave = prtc.copr_seq_chave
+                and ptc1.orju_seq_chave = prtc.orju_seq_chave
+                and ptc1.pedi_seq_chave_referencia in (select pedi_seq_chave from dwfcb.cd_pedi_periodo_diario pdr1
+                                                       where pdr1.pedi_num_ano = pdrf.pedi_num_ano
+                                                         and pdr1.pedi_flg_mes_consolidado = '1'
+                                                         and pdr1.pedi_seq_chave <= pdrf.pedi_seq_chave)) prtc_qtd_julgado_conhecimento, 
+             (select sum(prtc_qtd_baixado_conhecimento) 
+              from dwfcb.pa_prtc_processo_taxa_cong ptc1
+              where ptc1.copr_seq_chave = prtc.copr_seq_chave
+                and ptc1.orju_seq_chave = prtc.orju_seq_chave
+                and ptc1.pedi_seq_chave_referencia in (select pedi_seq_chave from dwfcb.cd_pedi_periodo_diario pdr1
+                                                       where pdr1.pedi_num_ano = pdrf.pedi_num_ano
+                                                         and pdr1.pedi_flg_mes_consolidado = '1'
+                                                         and pdr1.pedi_seq_chave <= pdrf.pedi_seq_chave)) prtc_qtd_baixado_conhecimento
+      from dwfcb.pa_prtc_processo_taxa_cong prtc
+           join dwfcb.pd_copr_competencia_processo copr on copr.copr_seq_chave = prtc.copr_seq_chave
+           join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave
+           join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia
+      where prtc.pedi_seq_chave_referencia in (select pdr1.pedi_seq_chave from dwfcb.cd_pedi_periodo_diario pdr1
+                                               where pdr1.pedi_flg_mes_consolidado = '1')
+        and orju.orju_bsq_chave_segmento in ('1G', 'JFP')
+        and orju.orju_bsq_chave_unidade = #{cod}
+      group by pdrf.pedi_seq_chave, pdrf.pedi_bsq_chave, pdrf.pedi_num_ano, pdrf.pedi_num_ano, pdrf.pedi_dsc_mes, 
+               prtc.copr_seq_chave, copr.copr_dsc_competencia, prtc.orju_seq_chave, 
+               orju.orju_dsc_segmento, orju.orju_bsq_chave_unidade, orju.orju_dsc_unidade)
+		where (prtc_qtd_pendente_baixa_conh + prtc_qtd_baixado_conhecimento) > 0
+		group by pedi_seq_chave, orju_bsq_chave_unidade, orju_dsc_unidade, pedi_num_ano, pedi_dsc_mes
+		order by 1, 2"
+		@ano2015 = Array.new
+		@ano2016 = Array.new
+		@ano2017 = Array.new
+		@consulta_taxa_vara.each do |row|
+			if row["pedi_num_ano"] == 2015
+				@ano2015 << row["taxa"].to_f * 100
+			elsif row["pedi_num_ano"] == 2016
+				@ano2016 << row["taxa"].to_f * 100
+			elsif	row["pedi_num_ano"] == 2017
+				@ano2017 << row["taxa"].to_f * 100
+			end
+		end
+		@serie = [{
+				name: '2015',
+				data: @ano2015,
+				color: '#8CD19E'
+			},{
+				name: '2016',
+				data: @ano2016,
+				color: '#8dd7e0'
+			},{
+				name: '2017',
+				data: @ano2017,
+				color: '#db6a29'
+			}]
+			return @serie, @consulta_taxa_vara
+	end
+			
+end		

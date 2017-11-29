@@ -20,7 +20,7 @@ class JudicialController < ApplicationController
 		conn = BigDB.connection
 		@column_key = params[:column_key]
 		@ano = params[:ano]
-		@consulta_lista_processos = conn.select_all  "select orju_dsc_unidade, PROC_DSC_PROCESSO_FORMATADO from dwfcb.pf_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia join dwfcb.pd_proc_processo proc on proc.proc_seq_chave =  prtc.proc_seq_chave	 where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{@ano}) and ORJU_DSC_UNIDADE like '#{@column_key}' and PRTC_QTD_JULGADO_CONHECIMENTO = 1"
+		@consulta_lista_processos = conn.select_all  "select orju_dsc_unidade, PROC_DSC_PROCESSO_FORMATADO, SIPR_DSC_SITUACAO_PROCESSO, PROC_DAT_PROTOCOLO from dwfcb.pf_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia join dwfcb.pd_proc_processo proc on proc.proc_seq_chave =  prtc.proc_seq_chave join dwfcb.pd_sipr_situacao_processo sit on sit.sipr_seq_chave  = prtc.sipr_seq_chave	 where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{@ano}) and ORJU_DSC_UNIDADE like '#{@column_key}' and PRTC_QTD_JULGADO_CONHECIMENTO = 1"
 
 		render :json => {array: @consulta_lista_processos}
 	end
@@ -32,7 +32,7 @@ class JudicialController < ApplicationController
 		@result = params[:pendentes]
 
 		if !@result.nil?
-			@competencias, @varas = ProcessosPendentes.get_processos_pendentes_por_competencia(@result[:competencia],[2017,2016,2015])
+			@competencias, @varas = ProcessosPendentes.get_processos_pendentes_por_competencia(@result[:competencia],[2015,2016,2017])
 		else
 			@competencias, @varas = ProcessosPendentes.get_processos_pendentes_por_competencia(["familia","civel","criminal","fazenda_publica","juri","infancia","sucessoes","exec_penais","exec_fiscais","falencia","registros_publicos","toxico","auditoria_militar","penas_alternativas","transito"],[2015,2016,2017])
 		end
@@ -42,9 +42,8 @@ class JudicialController < ApplicationController
 		conn = BigDB.connection
 		@column_key = params[:column_key]
 		@ano = params[:ano]
-		puts @column_key
-		puts @ano
-		@consulta_lista_processos = conn.select_all  "select pedi_num_ano, ORJU_BSQ_CHAVE_UNIDADE, orju_dsc_unidade, PROC_DSC_PROCESSO_FORMATADO from dwfcb.pf_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia  join dwfcb.pd_proc_processo proc on proc.proc_seq_chave =  prtc.proc_seq_chave where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{@ano}) and pedi_num_mes IN (To_Char(SYSDATE,'MM')-1) and ORJU_DSC_UNIDADE like '#{@column_key}' and PRTC_QTD_PENDENTE_BAIXA_CONH = 1"
+		@consulta_lista_processos = conn.select_all  "select pedi_num_ano, ORJU_BSQ_CHAVE_UNIDADE, orju_dsc_unidade, PROC_DSC_PROCESSO_FORMATADO, SIPR_DSC_SITUACAO_PROCESSO, PROC_DAT_PROTOCOLO from dwfcb.pf_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia  join dwfcb.pd_proc_processo proc on proc.proc_seq_chave =  prtc.proc_seq_chave join dwfcb.pd_sipr_situacao_processo sit on sit.sipr_seq_chave  = prtc.sipr_seq_chave  where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{@ano}) and pedi_num_mes IN (To_Char(SYSDATE,'MM')-1) and ORJU_DSC_UNIDADE like '#{@column_key}' and PRTC_QTD_PENDENTE_BAIXA_CONH = 1" 
+		puts @consulta_lista_processos.first
 		render :json => {array: @consulta_lista_processos}
 	end
 
@@ -65,7 +64,7 @@ class JudicialController < ApplicationController
 		conn = BigDB.connection
 		@column_key = params[:column_key]
 		@ano = params[:ano]
-		@consulta_lista_processos = conn.select_all  "select orju_dsc_unidade, PROC_DSC_PROCESSO_FORMATADO from dwfcb.pf_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia join dwfcb.pd_proc_processo proc on proc.proc_seq_chave =  prtc.proc_seq_chave	 where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{@ano}) and ORJU_DSC_UNIDADE like '#{@column_key}' and PRTC_QTD_BAIXADO_CONHECIMENTO = 1"
+		@consulta_lista_processos = conn.select_all  "select orju_dsc_unidade, PROC_DSC_PROCESSO_FORMATADO, SIPR_DSC_SITUACAO_PROCESSO, PROC_DAT_PROTOCOLO from dwfcb.pf_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia join dwfcb.pd_proc_processo proc on proc.proc_seq_chave =  prtc.proc_seq_chave join dwfcb.pd_sipr_situacao_processo sit on sit.sipr_seq_chave  = prtc.sipr_seq_chave	 where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{@ano}) and ORJU_DSC_UNIDADE like '#{@column_key}' and PRTC_QTD_BAIXADO_CONHECIMENTO = 1"
 		render :json => {array: @consulta_lista_processos}
 	end
 

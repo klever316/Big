@@ -120,6 +120,16 @@ $(document).ready(function () {
           $('#container2').highcharts().reflow();
         }
         });
+        $('#container3').animate({
+            width : '100%'
+        },{
+        duration: 400,
+        step: function() {
+          $('#container3').highcharts().reflow();
+        }
+        });
+
+
 
     });
 
