@@ -191,7 +191,7 @@ $('#width').on('input', function () {
             text: 'Processos Baixados Por Competência'
         },
         subtitle: {
-            text: 'Relatório de Processos Baixados Por Competência nos últimos três anos'
+            text: 'Relatório de Processos Baixados Por Competência'
         },
         xAxis: {
             type: 'category'
@@ -227,7 +227,7 @@ $('#width').on('input', function () {
                                 data : data,
                                 success: function(data, textStatus, jqXHR) {
                                     $('.modal-backdrop').remove();
-                                     loadAjaxData(data.array, options.options.key, options.series.name);
+                                     loadAjaxData(data.array, data.array[0].orju_dsc_unidade, options.series.name);
                                 },
                             });
                         }
@@ -275,7 +275,7 @@ function loadAjaxData(data_ajax,key,name){
                                 html += '<td>'+ value.orju_dsc_unidade +'</td>';
                                 html += '<td>'+ value.sipr_dsc_situacao_processo +'</td>';
                                 x = new Date(value.proc_dat_protocolo);
-                                html += '<td>'+ "<span style='display: none'>"+ x.getFullYear() + x.getMonth()+ x.getDate()   +"</span>"+ x.getDate() + "/" + x.getMonth() + "/" + x.getFullYear() +'</td>';
+                                html += '<td>'+ "<span style='display: none'>"+ x.getFullYear() + (x.getMonth()+1)+ x.getDate()   +"</span>"+ x.getDate() + "/" + (x.getMonth()+1) + "/" + x.getFullYear() +'</td>';
                                 html += '</tr>';
                                 html += '</tr>';
                             });

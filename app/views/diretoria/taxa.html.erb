@@ -121,7 +121,7 @@
                 </div>
                 <div class="ibox-content" style="overflow:auto;">
                     <div class="row wrapper border-bottom white-bg page-heading">
-                        <div id="container">
+                        <div id="vazio" class="graficoTaxa">
                          <div style="text-align: center;font-size: 16px">
                          <i class="fa fa-hand-o-left" aria-hidden="true" style="font-size: 20px"></i>  Selecione uma competência e uma vara ao lado.</div>
                         </div>
@@ -139,7 +139,6 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-<!--                   <i id="question" class="fa fa-question" aria-hidden="true" style="font-size: 14px;vertical-align: middle; margin-right: 5px; margin-top: 1px; opacity: 0.3;float: right;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='0.3'" data-toggle="popover" placement="bottom" data-content="A taxa de congestionamento mede a efetividade do tribunal em um período,  levando-se em conta o total de casos novos que ingressaram, os casos  baixados e o estoque pendente ao final do período anterior ao período base."></i> -->
                   <h4 class="modal-title"  style="font-weight: 700;color: #F2594B;text-align: center;"><div id="modal_titulo_processos_julgados"></div></h4>
 
                 </div>
@@ -152,6 +151,25 @@
           </div>
     </div>
     </div>
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="modal fade" id="myModal2" role="dialog">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"  style="font-weight: 700;color: #F2594B;text-align: center;"><div id="modal_titulo_processos_pendentes"></div></h4>
+                </div>
+                <div class="modal-body" style="font-size: 13px;padding: 10px 20px 0px 20px;">
+                    <div id="corpo2">
+                    <table class="table"></table>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
 </div>
 
 <script type="text/javascript">
@@ -230,8 +248,8 @@ $( document ).ajaxStart(function() {
                 }
             });
         }
-
     }
+
 function loadAjaxData(data_ajax,vara,ano, dias_uteis){
     if(ano=="2017"){
     $("#corpo").empty();
@@ -245,7 +263,7 @@ function loadAjaxData(data_ajax,vara,ano, dias_uteis){
             html += '</tr>';
             html += '<tr>';
             html += '<td>'+ '<b><div style="z-index: 9999;" id="popover_pendentes" data-toggle="popover" data-content="Processos Pendentes atuais ">Processos Pendentes: </div></b>' +'</td>';
-            html += '<td style="vertical-align: middle !important;">'+formatar(data_ajax[data_ajax.length-1].pendentes)+' Processos </td>';
+            html += '<td style="vertical-align: middle !important;"><a href="#" onclick="mostrarProcessosPendentes()">'+formatar(data_ajax[data_ajax.length-1].pendentes)+' Processos</a> </td>';
             html += '</tr>';
             html += '<tr>';
             html += '<td> '+ '<b><div style="z-index: 9999;" id="popover_meta" data-toggle="popover" data-content="Meta definida pelo CNJ conforme portaria tal">Meta ('+ano+'): </div></b>' +'</td>';
@@ -498,8 +516,9 @@ function addOption(val, label, select) {
 }
 
 function mostrarGrafico(value){
-      
-    var data = { cod_competencia: document.getElementById('combo_vara').value };    $.ajax({
+    document.getElementById('vazio').id = "container";
+    var data = { cod_competencia: document.getElementById('combo_vara').value };    
+    $.ajax({
         url : "/diretoria/taxaGrafico",
         beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
         type : "post",
@@ -516,7 +535,7 @@ function mostrarGrafico(value){
                         text: 'Taxa de Congestionamento da ' + value
                     },
                     subtitle: {
-                        text: 'Relatório da Taxa de Congestionamento da '+ value +' nos últimos três anos'
+                        text: 'Relatório da Taxa de Congestionamento da '+ value
                     },
                     xAxis: {
                         categories: [
@@ -592,10 +611,126 @@ function mostrarGrafico(value){
                 },
                 series: data.dados
             });
-        },
+            var html = '<div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2017" value="option1" onclick="metaSelecao()"> <label for="meta_2017"> Meta 2017 </label> </div> <div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2016" value="option1" onclick="metaSelecao()"> <label for="meta_2016"> Meta 2016 </label></div><div class="radio radio-inline radio-success"><input type="radio" name="radio" id="meta_2015" value="option1" onclick="metaSelecao()"> <label for="meta_2015"> Meta 2015 </label> </div>'  
+            $("#radios_meta").append(html);
+        }
     });
-    var html = '<div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2017" value="option1" onclick="metaSelecao()"> <label for="meta_2017"> Meta 2017 </label> </div> <div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2016" value="option1" onclick="metaSelecao()"> <label for="meta_2016"> Meta 2016 </label></div><div class="radio radio-inline radio-success"><input type="radio" name="radio" id="meta_2015" value="option1" onclick="metaSelecao()"> <label for="meta_2015"> Meta 2015 </label> </div>'  
-    $("#radios_meta").append(html);
 }
+
+function mostrarProcessosPendentes(){
+        var data = { column_key : document.getElementById('combo_vara').value , ano : "2017"};
+        $.ajax({
+            url : "/judicial/pendentes/processos",
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            type : "post",
+            data : data,
+            success: function(data, textStatus, jqXHR) {
+                $('.modal-backdrop').remove();
+                 loadProcessosAjax(data.array, data.array[0].orju_dsc_unidade, "2017");
+            },
+        });
+}
+
+function loadProcessosAjax(data_ajax,key,name){
+                                $("#corpo2").empty();
+                            var html = '<table class="table datatable table-striped table-bordered" width="100%" id="table_processos">';
+                            html += '<thead>';
+                            html += '<tr>';
+                            html += '<th>Nº do Processo</th>';
+                            html += '<th>Vara</th>';
+                            html += '<th>Sit. do Processo</th>';
+                            html += '<th>Data do Protocolo</th>';
+                            html += '</tr>';
+                            html += '</thead>';
+                            html += '<tbody>';
+                            data_ajax.forEach(function(value){
+                                html += '<tr>';
+                                html += '<td>'+ value.proc_dsc_processo_formatado+'</td>';
+                                html += '<td>'+ value.orju_dsc_unidade +'</td>';
+                                html += '<td>'+ value.sipr_dsc_situacao_processo +'</td>';
+                                x = new Date(value.proc_dat_protocolo);
+                                html += '<td>'+ "<span style='display: none'>"+ x.getFullYear() + (x.getMonth()+1) + x.getDate()   +"</span>"+ x.getDate() + "/" + (x.getMonth() + 1) + "/" + x.getFullYear() +'</td>';
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+                            html += '</table>';
+                            $(document).ready(function() {
+                              $("#table_processos").dataTable({
+                                dom: "<'row'<'col-sm-12'B>>" + "<'row'<'col-sm-6'l><'col-sm-6'f>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                                autoWidth : false,
+                                order: [[ 3, "asc" ]],
+                                select: true,
+                                buttons: [
+                                    {
+                                        extend: 'copyHtml5', 
+                                        title: "PROCESSOS JULGADOS DA " + key + " NO ANO DE " + name
+                                    },
+                                    {
+                                        extend: 'csv', 
+                                        title: "PROCESSOS JULGADOS DA " + key + " NO ANO DE " + name,
+                                        filename: "JULGADOS - " + key + " - " + name
+                                    },
+                                    {
+                                        extend: 'pdfHtml5', 
+                                        title: "PROCESSOS JULGADOS DA " + key + " NO ANO DE " + name,
+                                        filename: "JULGADOS - " + key + " - " + name
+                                    },
+                                    {
+                                        extend: 'print',
+                                        text: 'Imprimir',
+                                        className: "printChartButton",
+                                        title: "PROCESSOS JULGADOS DA " + key + " NO ANO DE " + name,
+                                        exportOptions: {
+                                            modifier: {
+                                                search: 'applied'
+                                            }
+                                        }
+                                    }
+                                ],
+                                    columnDefs : [{"width": "22%", "targets": 0 },
+                                                    {"width": "38%", "targets": 1 },
+                                                    {"width": "20%", "targets": 2 },
+                                                    {"width": "20%", "targets": 3 },
+                                    ],
+                                    language: {
+                                        "sEmptyTable": "Nenhum registro encontrado",
+                                        "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                                        "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                                        "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                                        "sInfoPostFix": "",
+                                        "sInfoThousands": ".",
+                                        "sLengthMenu": "_MENU_ resultados por página",
+                                        "sLoadingRecords": "Carregando...",
+                                        "sProcessing": "Processando...",
+                                        "sZeroRecords": "Nenhum registro encontrado",
+                                        "sSearch": "Pesquisar",
+                                        "oPaginate": {
+                                            "sNext": "Próximo",
+                                            "sPrevious": "Anterior",
+                                            "sFirst": "Primeiro",
+                                            "sLast": "Último"
+                                        },
+                                        "oAria": {
+                                            "sSortAscending": ": Ordenar colunas de forma ascendente",
+                                            "sSortDescending": ": Ordenar colunas de forma descendente"
+                                        },
+                                        "buttons" :{
+                                            "copy" : "Copiar"
+                                        },
+                                        "select": {
+                                            rows: {
+                                                _: "%d linhas selecionadas",
+                                                0: "",
+                                                1: "1 linha selecionada"
+                                            }
+                                        }
+                                    }
+                              });
+                            });
+                            $("#corpo2").append(html);
+                            $('#modal_titulo_processos_pendentes').empty();
+                            $('#modal_titulo_processos_pendentes').append('PROCESSOS PENDENTES DA ' + key + ' NO ANO DE ' + name);
+                            $("#myModal2").modal("show");
+};
 
 </script>

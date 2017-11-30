@@ -2,7 +2,7 @@ class ProcessosJulgados
 
 	def self.get_processos_julgados_por_competencia(vara,ano)
 		conexao = ProcessosJulgados.new
-		@@consulta_julgados_por_competencia ||= conexao.execute_sql "select pedi_num_ano, ORJU_DSC_UNIDADE, sum(prtc_qtd_julgado_conhecimento) as julgados from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano.join(',')}) group by pedi_num_ano, orju_dsc_unidade_pai, ORJU_DSC_UNIDADE ORDER BY 1,2"
+		@@consulta_julgados_por_competencia ||= conexao.execute_sql "select pedi_num_ano, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE, sum(prtc_qtd_julgado_conhecimento) as julgados from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano.join(',')}) group by pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE ORDER BY 1,2"
 		@competencias = Array.new
 		@total_competencias = Hash.new
 		#Pegar o Valor Total de Processos julgados por competências e armazena no Hash abaixo
@@ -45,57 +45,57 @@ class ProcessosJulgados
 					if row["orju_dsc_unidade"].to_s.include? "VARA DE FAMILIA DA COMARCA DE FORTALEZA"
 						x = row["orju_dsc_unidade"].gsub(" DA COMARCA DE FORTALEZA", "")
 						@total_competencias[:total_familia] += row["julgados"]
-						@varas_familia += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_dsc_unidade"]}"}]
+						@varas_familia += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_bsq_chave_unidade"]}"}]
 					elsif row["orju_dsc_unidade"].to_s.include? "VARA DO JURI DA COMARCA"
 						if !row["orju_dsc_unidade"].to_s.include? "6ª VARA DO JURI"
 							x = row["orju_dsc_unidade"].gsub(" DA COMARCA DE FORTALEZA", "")
 							@total_competencias[:total_juri] += row["julgados"]
-							@varas_juri += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_dsc_unidade"]}"}]
+							@varas_juri += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_bsq_chave_unidade"]}"}]
 						end
 					elsif row["orju_dsc_unidade"].to_s.include? "VARA CRIMINAL DA COMARCA DE FORTALEZA"
 						if !row["orju_dsc_unidade"].to_s.include? "19ª VARA CRIMINAL DA COMARCA DE FORTALEZA"
 							x = row["orju_dsc_unidade"].gsub(" DA COMARCA DE FORTALEZA", "")
 							@total_competencias[:total_criminal] += row["julgados"]
-							@varas_criminais += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_dsc_unidade"]}"}]
+							@varas_criminais += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_bsq_chave_unidade"]}"}]
 						end
 					elsif row["orju_dsc_unidade"].to_s.include? "VARA CÍVEL DA COMARCA DE FORTALEZA"
 						if !row["orju_dsc_unidade"].to_s.include? "VARA CÍVEL DA COMARCA DE FORTALEZA-INATIVA"
 							x = row["orju_dsc_unidade"].gsub(" DA COMARCA DE FORTALEZA", "")
 							@total_competencias[:total_civel] += row["julgados"]
-							@varas_civeis += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_dsc_unidade"]}"}]
+							@varas_civeis += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_bsq_chave_unidade"]}"}]
 						end
 					elsif row["orju_dsc_unidade"].to_s.include? "VARA DA FAZENDA PÚBLICA DA COMARCA DE FORTALEZA"
 						x = row["orju_dsc_unidade"].gsub(" DA COMARCA DE FORTALEZA", "")
 						@total_competencias[:total_fazenda] += row["julgados"]
-						@varas_fazenda += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_dsc_unidade"]}"}]
+						@varas_fazenda += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_bsq_chave_unidade"]}"}]
 					elsif row["orju_dsc_unidade"].to_s.include? "VARA DA INFÂNCIA E JUVENTUDE DA COMARCA DE FORTALEZA"
 						x = row["orju_dsc_unidade"].gsub(" DA COMARCA DE FORTALEZA", "")
 						@total_competencias[:total_infancia] += row["julgados"]
-						@varas_infancia += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_dsc_unidade"]}"}]
+						@varas_infancia += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_bsq_chave_unidade"]}"}]
 					elsif row["orju_dsc_unidade"].to_s.include? "VARA DE EXECUÇÃO PENAL DA COMARCA DE FORTALEZA"
 						x = row["orju_dsc_unidade"].gsub(" DA COMARCA DE FORTALEZA", "")
 						@total_competencias[:total_execucoes_penais] += row["julgados"]
-						@varas_execucoes_penais += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_dsc_unidade"]}"}]
+						@varas_execucoes_penais += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_bsq_chave_unidade"]}"}]
 					elsif row["orju_dsc_unidade"].to_s.include? "VARA DE EXECUÇÕES FISCAIS E DE CRIMES CONTRA A ORDEM TRIBUTÁRIA DA COMARCA DE FORTALEZA"
 						x = row["orju_dsc_unidade"].gsub(" DA COMARCA DE FORTALEZA", "")
 						@total_competencias[:total_execucoes_fiscais] += row["julgados"]
-						@varas_execucoes_fiscais += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_dsc_unidade"]}"}]
+						@varas_execucoes_fiscais += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_bsq_chave_unidade"]}"}]
 					elsif row["orju_dsc_unidade"].to_s.include? "VARA DE RECUPERAÇÃO DE EMPRESAS E FALÊNCIAS"
 						x = row["orju_dsc_unidade"].gsub(" DA COMARCA DE FORTALEZA", "")
 						@total_competencias[:total_falencia] += row["julgados"]
-						@varas_falencia += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_dsc_unidade"]}"}]
+						@varas_falencia += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_bsq_chave_unidade"]}"}]
 					elsif row["orju_dsc_unidade"].to_s.include? "VARA DE REGISTROS PÚBLICOS DA COMARCA DE FORTALEZA"
 						x = row["orju_dsc_unidade"].gsub(" DA COMARCA DE FORTALEZA", "")
 						@total_competencias[:total_registros_publicos] += row["julgados"]
-						@varas_registros_publicos += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_dsc_unidade"]}"}]
+						@varas_registros_publicos += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_bsq_chave_unidade"]}"}]
 					elsif row["orju_dsc_unidade"].to_s.include? "VARA DE SUCESSÕES DA COMARCA DE FORTALEZA"
 						x = row["orju_dsc_unidade"].gsub(" DA COMARCA DE FORTALEZA", "")
 						@total_competencias[:total_sucessoes] += row["julgados"]
-						@varas_sucessoes += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_dsc_unidade"]}"}]
+						@varas_sucessoes += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_bsq_chave_unidade"]}"}]
 					elsif row["orju_dsc_unidade"].to_s.include? "VARA DELITOS/TRAFICO SUBST. ENTORPECENTES COMARCA DE FORTALEZA"
 						x = row["orju_dsc_unidade"].gsub(" DA COMARCA DE FORTALEZA", "")
 						@total_competencias[:total_toxico] += row["julgados"]
-						@varas_toxico += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_dsc_unidade"]}"}]
+						@varas_toxico += [{ name: "#{x}", y: row['julgados'], key: "#{row["orju_bsq_chave_unidade"]}"}]
 					elsif row["orju_dsc_unidade"].to_s.include? "VARA DA AUDITORIA MILITAR DA COMARCA DE FORTALEZA"
 						@total_competencias[:total_auditoria_militar] += row["julgados"]
 					elsif row["orju_dsc_unidade"].to_s.include? "VARA DE EXECUÇÕES DE PENAS ALTERNATIVAS DE FORTALEZA"
@@ -105,11 +105,17 @@ class ProcessosJulgados
 					end
 				end
 			end
-			@varas_familia.push(@varas_familia.shift,@varas_familia.shift,@varas_familia.shift,@varas_familia.shift,@varas_familia.shift,@varas_familia.shift,@varas_familia.shift,@varas_familia.shift,@varas_familia.shift)
-			@varas_civeis.push(@varas_civeis.delete_at(0),@varas_civeis.delete_at(0),@varas_civeis.delete_at(0),@varas_civeis.delete_at(0),@varas_civeis.delete_at(0),@varas_civeis.delete_at(0),@varas_civeis.delete_at(0),@varas_civeis.delete_at(0),@varas_civeis.delete_at(0),@varas_civeis.delete_at(0),@varas_civeis.delete_at(1),@varas_civeis.delete_at(1),@varas_civeis.delete_at(1),@varas_civeis.delete_at(1),@varas_civeis.delete_at(1),@varas_civeis.delete_at(1),@varas_civeis.delete_at(1),@varas_civeis.delete_at(1),@varas_civeis.delete_at(1),@varas_civeis.delete_at(1),@varas_civeis.delete_at(2),@varas_civeis.delete_at(2),@varas_civeis.delete_at(2),@varas_civeis.delete_at(2),@varas_civeis.delete_at(2),@varas_civeis.delete_at(2),@varas_civeis.delete_at(2),@varas_civeis.delete_at(2),@varas_civeis.delete_at(2),@varas_civeis.delete_at(2))
-			@varas_fazenda.push(@varas_fazenda.shift,@varas_fazenda.shift,@varas_fazenda.shift,@varas_fazenda.shift,@varas_fazenda.shift,@varas_fazenda.shift)
-			@varas_criminais.push(@varas_criminais.shift,@varas_criminais.shift,@varas_criminais.shift,@varas_criminais.shift,@varas_criminais.shift,@varas_criminais.shift,@varas_criminais.shift,@varas_criminais.shift,@varas_criminais.shift)
-			@varas += [{name: "#{a}", id: "familia_#{a}", data: @varas_familia},
+				@varas_criminais.insert(9, @varas_criminais.delete_at(0))
+				@varas_civeis.insert(10, @varas_civeis.delete_at(0))
+				@varas_civeis.insert(21, @varas_civeis.delete_at(0))
+				@varas_civeis.insert(0, @varas_civeis.delete_at(9))
+				@varas_civeis.insert(1, @varas_civeis.delete_at(21))
+				@varas_civeis.insert(30, @varas_civeis.delete_at(37))
+				@varas_civeis.insert(31, @varas_civeis.delete_at(38))
+				@varas_fazenda.insert(1, @varas_fazenda.delete_at(0))
+				@varas_fazenda.insert(10,@varas_fazenda.delete_at(14))
+
+					@varas += [{name: "#{a}", id: "familia_#{a}", data: @varas_familia},
 						{name: "#{a}", id: "criminal_#{a}", data: @varas_criminais},
 						{name: "#{a}", id: "civel_#{a}", data: @varas_civeis},
 						{name: "#{a}", id: "fazenda_#{a}", data: @varas_fazenda},
@@ -151,9 +157,9 @@ class ProcessosJulgados
 				@competencias[@count_insercao][:data] << {name: "Falências", y: @total_competencias[:total_falencia], drilldown: "falencia_#{a}"} if vara.include? "falencia"
 				@competencias[@count_insercao][:data] << {name: "Registros Públicos", y: @total_competencias[:total_registros_publicos], drilldown: "registrospublicos_#{a}"} if vara.include? "registros_publicos"
 				@competencias[@count_insercao][:data] << {name: "Tóxico", y: @total_competencias[:total_toxico], drilldown: "toxico_#{a}"} if vara.include? "toxico"
-				@competencias[@count_insercao][:data] << {name: "Auditoria Militar", y: @total_competencias[:total_auditoria_militar], drilldown: "auditoriamiliar_#{a}", key: "VARA DA AUDITORIA MILITAR DA COMARCA DE FORTALEZA"} if vara.include? "auditoria_militar"
-				@competencias[@count_insercao][:data] << {name: "Penas Alternativas", y: @total_competencias[:total_penas_alternativas], drilldown: "penasalternativas_#{a}", key: "VARA DE EXECUÇÕES DE PENAS ALTERNATIVAS DE FORTALEZA"} if vara.include? "penas_alternativas"
-				@competencias[@count_insercao][:data] << {name: "Trânsito", y: @total_competencias[:total_transito], drilldown: "transito_#{a}", key: "VARA ÚNICA DE TRÂNSITO DA COMARCA DE FORTALEZA"} if vara.include? "transito"
+				@competencias[@count_insercao][:data] << {name: "Auditoria Militar", y: @total_competencias[:total_auditoria_militar], drilldown: "auditoriamiliar_#{a}", key: "603"} if vara.include? "auditoria_militar"
+				@competencias[@count_insercao][:data] << {name: "Penas Alternativas", y: @total_competencias[:total_penas_alternativas], drilldown: "penasalternativas_#{a}", key: "6535"} if vara.include? "penas_alternativas"
+				@competencias[@count_insercao][:data] << {name: "Trânsito", y: @total_competencias[:total_transito], drilldown: "transito_#{a}", key: "8360"} if vara.include? "transito"
 				@count_insercao += 1
 
 				@varas_familia = []
