@@ -4,7 +4,7 @@ class ProcessosPendentes
 
 		conn = BigDB.connection
 		@@consulta_pendentes_por_competencia = nil
-		if Date.today.strftime("%d").to_i <= 7
+		if Date.today.strftime("%d").to_i <= 15
 			@@consulta_pendentes_por_competencia ||= conn.select_all "select pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE, sum(prtc_qtd_pendente_baixa_conh) as pendentes from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano.join(',')}) AND pedi_num_mes IN (To_Char(SYSDATE,'MM')-2) group by pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE order by 1, 2"
 		else
 			@@consulta_pendentes_por_competencia ||= conn.select_all "select pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE, sum(prtc_qtd_pendente_baixa_conh) as pendentes from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano.join(',')}) AND pedi_num_mes IN (To_Char(SYSDATE,'MM')-1) group by pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE order by 1, 2"

@@ -277,7 +277,7 @@ function loadAjaxData(data_ajax,key,name){
                                 html += '<td>'+ value.orju_dsc_unidade +'</td>';
                                 html += '<td>'+ value.sipr_dsc_situacao_processo +'</td>';
                                 x = new Date(value.proc_dat_protocolo);
-                                html += '<td>'+ "<span style='display: none'>"+ x.getFullYear() + (x.getMonth()+1)+ x.getDate()   +"</span>"+ x.getDate() + "/" + (x.getMonth()+1) + "/" + x.getFullYear() +'</td>';
+                                html += '<td>'+ x.getDate() + "/" + (x.getMonth()+1) + "/" + x.getFullYear() +'</td>';
                                 html += '</tr>';
                                 //'<td>'+ "<span style='display: none'>"+ x.getFullYear() + x.getMonth()+ x.getDay()   +"</span>"+ x.getDay() + "/" + x.getMonth() + "/" + x.getFullYear() +'</td>'
                             });
@@ -319,7 +319,7 @@ function loadAjaxData(data_ajax,key,name){
                                     columnDefs : [{"width": "22%", "targets": 0 },
                                                     {"width": "38%", "targets": 1 },
                                                     {"width": "20%", "targets": 2 },
-                                                    {"width": "20%", "targets": 3 },
+                                                    {"type": "order-data", "width": "20%", "targets": 3 },
                                     ],
                                     language: {
                                         "sEmptyTable": "Nenhum registro encontrado",
@@ -354,5 +354,5 @@ function loadAjaxData(data_ajax,key,name){
                             $('#modal_titulo_processos_pendentes').append('PROCESSOS PENDENTES DA ' + key + ' NO ANO DE ' + name);
                             $("#myModal").modal("show");
 };
-// JQUERY PLUGIN FOR DATE SHORT
+
 </script>
