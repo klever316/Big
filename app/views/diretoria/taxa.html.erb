@@ -251,7 +251,6 @@ $( document ).ajaxStart(function() {
     }
 
 function loadAjaxData(data_ajax,vara,ano, dias_uteis){
-    if(ano=="2017"){
     $("#corpo").empty();
     var html = "";
 
@@ -266,7 +265,7 @@ function loadAjaxData(data_ajax,vara,ano, dias_uteis){
             html += '<td style="vertical-align: middle !important;"><a href="#" onclick="mostrarProcessosPendentes()">'+formatar(data_ajax[data_ajax.length-1].pendentes)+' Processos</a> </td>';
             html += '</tr>';
             html += '<tr>';
-            html += '<td> '+ '<b><div style="z-index: 9999;" id="popover_meta" data-toggle="popover" data-content="Meta definida pelo CNJ conforme portaria tal">Meta ('+ano+'): </div></b>' +'</td>';
+            html += '<td> '+ '<b><div style="z-index: 9999;" id="popover_meta" data-toggle="popover" data-content="Meta definida pelo CNJ conforme portaria.">Meta ('+ano+'): </div></b>' +'</td>';
             html += '<td>'+ '<%= @metas_taxa[:meta_2017] %>%' +'</td>';
             html += '</tr>';
             var meta = data_ajax[data_ajax.length-1].pendentes - (data_ajax[data_ajax.length-1].pendentes * 0.54 / data_ajax[data_ajax.length-1].taxa);
@@ -292,9 +291,8 @@ function loadAjaxData(data_ajax,vara,ano, dias_uteis){
 
     $("#corpo").append(html);
     $('#modal_titulo_processos_julgados').empty();
-    $('#modal_titulo_processos_julgados').append('TAXA DE CONGESTIONAMENTO<br/> ' + vara);
+    $('#modal_titulo_processos_julgados').append('TAXA DE CONGESTIONAMENTO DO MÊS ATUAL<br/> ' + vara);
     $("#myModal").modal("show");
-    }
 };
 
 function formatar(nr) {
@@ -539,18 +537,18 @@ function mostrarGrafico(value){
                     },
                     xAxis: {
                         categories: [
-                        'Jan',
-                        'Feb',
-                        'Mar',
-                        'Apr',
-                        'May',
-                        'Jun',
-                        'Jul',
-                        'Aug',
-                        'Sep',
-                        'Oct',
-                        'Nov',
-                        'Dec'
+                        'Janeiro',
+                        'Fevereiro',
+                        'Março',
+                        'Abril',
+                        'Maio',
+                        'Junho',
+                        'Julho',
+                        'Agosto',
+                        'Setembro',
+                        'Outubro',
+                        'Novembro',
+                        'Dezembro'
                     ],
                     crosshair: true
                     },
@@ -593,7 +591,7 @@ function mostrarGrafico(value){
                             events: {
                                     click: function () {
                                         //alert(event.point.series.userOptions.name +' clicked\n');
-                                        loadAjaxData(data.taxa,value,event.point.series.userOptions.name,data.qtd_dias_uteis);
+                                        loadAjaxData(data.taxa,value,"20<%= Date.today.strftime("%y") %>",data.qtd_dias_uteis);
                                     }
                                 }
                         }
@@ -618,7 +616,7 @@ function mostrarGrafico(value){
 }
 
 function mostrarProcessosPendentes(){
-        var data = { column_key : document.getElementById('combo_vara').value , ano : "2017"};
+        var data = { column_key : document.getElementById('combo_vara').value , ano : "20<%= Date.today.strftime("%y") %>"};
         $.ajax({
             url : "/judicial/pendentes/processos",
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
@@ -626,7 +624,7 @@ function mostrarProcessosPendentes(){
             data : data,
             success: function(data, textStatus, jqXHR) {
                 $('.modal-backdrop').remove();
-                 loadProcessosAjax(data.array, data.array[0].orju_dsc_unidade, "2017");
+                 loadProcessosAjax(data.array, data.array[0].orju_dsc_unidade, "20<%= Date.today.strftime("%y") %>");
             },
         });
 }
