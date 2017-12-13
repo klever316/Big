@@ -514,7 +514,9 @@ function addOption(val, label, select) {
 }
 
 function mostrarGrafico(value){
-    document.getElementById('vazio').id = "container";
+    if (document.getElementById('vazio') != null){
+        document.getElementById('vazio').id = "container";
+    } 
     var data = { cod_competencia: document.getElementById('combo_vara').value };    
     $.ajax({
         url : "/diretoria/taxaGrafico",
@@ -609,8 +611,11 @@ function mostrarGrafico(value){
                 },
                 series: data.dados
             });
-            var html = '<div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2017" value="option1" onclick="metaSelecao()"> <label for="meta_2017"> Meta 2017 </label> </div> <div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2016" value="option1" onclick="metaSelecao()"> <label for="meta_2016"> Meta 2016 </label></div><div class="radio radio-inline radio-success"><input type="radio" name="radio" id="meta_2015" value="option1" onclick="metaSelecao()"> <label for="meta_2015"> Meta 2015 </label> </div>'  
-            $("#radios_meta").append(html);
+                if (document.getElementById('metas') == null){
+                    var html = '<div id="metas"><div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2017" value="option1" onclick="metaSelecao()"> <label for="meta_2017"> Meta 2017 </label> </div> <div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2016" value="option1" onclick="metaSelecao()"> <label for="meta_2016"> Meta 2016 </label></div><div class="radio radio-inline radio-success"><input type="radio" name="radio" id="meta_2015" value="option1" onclick="metaSelecao()"> <label for="meta_2015"> Meta 2015 </label> </div></div>'  
+                    $("#radios_meta").append(html);
+                } 
+            
         }
     });
 }
@@ -647,7 +652,7 @@ function loadProcessosAjax(data_ajax,key,name){
                                 html += '<td>'+ value.orju_dsc_unidade +'</td>';
                                 html += '<td>'+ value.sipr_dsc_situacao_processo +'</td>';
                                 x = new Date(value.proc_dat_protocolo);
-                                html += '<td>'+ "<span style='display: none'>"+ x.getFullYear() + (x.getMonth()+1) + x.getDate()   +"</span>"+ x.getDate() + "/" + (x.getMonth() + 1) + "/" + x.getFullYear() +'</td>';
+                                html += '<td>' + x.getDate() + "/" + (x.getMonth() + 1) + "/" + x.getFullYear() +'</td>';
                                 html += '</tr>';
                             });
                             html += '</tbody>';
@@ -688,7 +693,7 @@ function loadProcessosAjax(data_ajax,key,name){
                                     columnDefs : [{"width": "22%", "targets": 0 },
                                                     {"width": "38%", "targets": 1 },
                                                     {"width": "20%", "targets": 2 },
-                                                    {"width": "20%", "targets": 3 },
+                                                    {"type": "order-data", "width": "20%", "targets": 3 },
                                     ],
                                     language: {
                                         "sEmptyTable": "Nenhum registro encontrado",
