@@ -1,0 +1,2 @@
+class MetasTaxa < ApplicationRecord
+end

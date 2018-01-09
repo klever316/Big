@@ -6,7 +6,15 @@
                     <div class="ibox-tools"  style="margin-top: -4px">
                         <a class="collapse-link">
                             <h5>Julgados</h5>
-                            <span class="label label-info" style="margin-top: 4px">2017</span>
+                            <% if Date.today.strftime("%m").to_i == 1 %>
+                                <span class="label label-info" style="margin-top: 4px"><%= Date.current.year-1 %></span>
+                            <% else %>
+                                <% if Date.today.strftime("%m").to_i == 2 && Date.today.strftime("%d").to_i <= 15 %>
+                                    <span class="label label-info" style="margin-top: 4px"><%= Date.current.year-1 %></span>
+                                <% else %>
+                                    <span class="label label-info" style="margin-top: 4px"><%= Date.current.year %></span>
+                                <% end %>
+                            <% end %>
                         </a>
                     </div>
                 </div> 
@@ -22,7 +30,15 @@
                     <div class="ibox-tools"  style="margin-top: -4px">
                         <a class="collapse-link">
                             <h5>Pendentes</h5>
-                            <span class="label label-info" style="margin-top: 4px">2017</span>
+                            <% if Date.today.strftime("%m").to_i == 1 %>
+                                <span class="label label-info" style="margin-top: 4px"><%= Date.current.year-1 %></span>
+                            <% else %>
+                                <% if Date.today.strftime("%m").to_i == 2 && Date.today.strftime("%d").to_i <= 15 %>
+                                    <span class="label label-info" style="margin-top: 4px"><%= Date.current.year-1 %></span>
+                                <% else %>
+                                    <span class="label label-info" style="margin-top: 4px"><%= Date.current.year %></span>
+                                <% end %>
+                            <% end %>
                         </a>
                     </div>
                 </div>
@@ -39,7 +55,15 @@
                     <div class="ibox-tools"  style="margin-top: -4px">
                         <a class="collapse-link">
                             <h5>Baixados</h5>
-                            <span class="label label-info" style="margin-top: 5px">2017</span>
+                            <% if Date.today.strftime("%m").to_i == 1 %>
+                                <span class="label label-info" style="margin-top: 4px"><%= Date.current.year-1 %></span>
+                            <% else %>
+                                <% if Date.today.strftime("%m").to_i == 2 && Date.today.strftime("%d").to_i <= 15 %>
+                                    <span class="label label-info" style="margin-top: 4px"><%= Date.current.year-1 %></span>
+                                <% else %>
+                                    <span class="label label-info" style="margin-top: 4px"><%= Date.current.year %></span>
+                                <% end %>
+                            <% end %>
                         </a>
                     </div>
                 </div>
@@ -56,7 +80,15 @@
                     <div class="ibox-tools"  style="margin-top: -4px">
                         <a class="collapse-link">
                             <h5>Novos</h5>
-                            <span class="label label-info" style="margin-top: 5px">2017</span>
+                            <% if Date.today.strftime("%m").to_i == 1 %>
+                                <span class="label label-info" style="margin-top: 4px"><%= Date.current.year-1 %></span>
+                            <% else %>
+                                <% if Date.today.strftime("%m").to_i == 2 && Date.today.strftime("%d").to_i <= 15 %>
+                                    <span class="label label-info" style="margin-top: 4px"><%= Date.current.year-1 %></span>
+                                <% else %>
+                                    <span class="label label-info" style="margin-top: 4px"><%= Date.current.year %></span>
+                                <% end %>
+                            <% end %>
                         </a>
                     </div>
                 </div>
@@ -185,11 +217,11 @@ $( document ).ajaxStart(function() {
                     plotLines: [{
                     color: 'red',
                     dashStyle: 'solid',
-                    value: <%= @metas_taxa[:meta_2017] %>,
+                    value: <%= @metaatual %>,
                     width: 2,
                     zIndex: 5,
                     label: {
-                        text: 'Meta: <%= @metas_taxa[:meta_2017] %>%',
+                        text: 'Meta: <%= @metaatual %>%',
                         rotation: -90,
                         y: 25,
                         x: -3,
@@ -208,11 +240,11 @@ $( document ).ajaxStart(function() {
                     plotLines: [{
                     color: 'red',
                     dashStyle: 'solid',
-                    value: <%= @metas_taxa[:meta_2016] %>,
+                    value: <%= @metapassada %>,
                     width: 2,
                     zIndex: 5,
                     label: {
-                        text: 'Meta: <%= @metas_taxa[:meta_2016] %>%',
+                        text: 'Meta: <%= @metapassada %>%',
                         rotation: -90,
                         y: 25,
                         x: -3,
@@ -231,11 +263,11 @@ $( document ).ajaxStart(function() {
                     plotLines: [{
                     color: 'red',
                     dashStyle: 'solid',
-                    value: <%= @metas_taxa[:meta_2015] %>,
+                    value: <%= @metaretrasada %>,
                     width: 2,
                     zIndex: 5,
                     label: {
-                        text: 'Meta: <%= @metas_taxa[:meta_2015] %>%',
+                        text: 'Meta: <%= @metaretrasada %>%',
                         rotation: -90,
                         y: 25,
                         x: -3,
@@ -266,11 +298,10 @@ function loadAjaxData(data_ajax,vara,ano, dias_uteis){
             html += '</tr>';
             html += '<tr>';
             html += '<td> '+ '<b><div style="z-index: 9999;" id="popover_meta" data-toggle="popover" data-content="Meta definida pelo CNJ conforme portaria.">Meta ('+ano+'): </div></b>' +'</td>';
-            html += '<td>'+ '<%= @metas_taxa[:meta_2017] %>%' +'</td>';
+            html += '<td>'+ '<%= @metaatual %>%' +'</td>';
             html += '</tr>';
             var meta = data_ajax[data_ajax.length-1].pendentes - (data_ajax[data_ajax.length-1].pendentes * 0.54 / data_ajax[data_ajax.length-1].taxa);
             if(meta > 0){
-                // data_ajax[data_ajax.length-1].pendentes - (data_ajax[data_ajax.length-1].total * (parseFloat("<%= @metas_taxa[:meta_2017] %>%") / 100));
                 html += '<tr>';
                 html += '<td>'+ '<b><div style="z-index: 9999;" id="popover_meta_ano" data-toggle="popover" data-content="Quantidade de processos necessários à serem baixados até o final do ano para atingir a meta"> Processos para atingir a meta ('+ ano +'): </div> </b>' +'</td>';
                 html += '<td style="vertical-align: middle !important;">'+ formatar(meta.toFixed(0)) +' Processos</td>';
@@ -562,11 +593,11 @@ function mostrarGrafico(value){
                         plotLines: [{
                             color: 'red',
                             dashStyle: 'solid',
-                            value: <%= @metas_taxa[:meta_2017] %>,
+                            value: <%= @metaatual %>,
                             width: 2,
                             zIndex: 5,
                             label: {
-                                text: 'Meta: <%= @metas_taxa[:meta_2017] %>%',
+                                text: 'Meta: <%= @metaatual %>%',
                                 rotation: -90,
                                 y: 25,
                                 x: -3,
@@ -593,7 +624,11 @@ function mostrarGrafico(value){
                             events: {
                                     click: function () {
                                         //alert(event.point.series.userOptions.name +' clicked\n');
-                                        loadAjaxData(data.taxa,value,"20<%= Date.today.strftime("%y") %>",data.qtd_dias_uteis);
+                                        if( (new Date().getMonth()+1 == 1) || (new Date().getMonth()+1 == 2 && new Date().getDate() <= 15 ) ){
+                                            loadAjaxData(data.taxa,value,new Date().getFullYear()-1,data.qtd_dias_uteis);
+                                        } else {
+                                            loadAjaxData(data.taxa,value,new Date().getFullYear(),data.qtd_dias_uteis);
+                                        }
                                     }
                                 }
                         }
@@ -612,7 +647,13 @@ function mostrarGrafico(value){
                 series: data.dados
             });
                 if (document.getElementById('metas') == null){
-                    var html = '<div id="metas"><div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2017" value="option1" onclick="metaSelecao()"> <label for="meta_2017"> Meta 2017 </label> </div> <div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2016" value="option1" onclick="metaSelecao()"> <label for="meta_2016"> Meta 2016 </label></div><div class="radio radio-inline radio-success"><input type="radio" name="radio" id="meta_2015" value="option1" onclick="metaSelecao()"> <label for="meta_2015"> Meta 2015 </label> </div></div>'  
+                    var html = '';
+                    if((new Date().getMonth()+1 == 1) || (new Date().getMonth()+1 == 2 && new Date().getDate() <= 15)){
+                        html = '<div id="metas"><div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2017" value="option1" onclick="metaSelecao()"> <label for="meta_2017"> Meta ' + (new Date().getFullYear()-1) + '</label> </div> <div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2016" value="option1" onclick="metaSelecao()"> <label for="meta_2016"> Meta ' +(new Date().getFullYear()-2)+ '</label></div><div class="radio radio-inline radio-success"><input type="radio" name="radio" id="meta_2015" value="option1" onclick="metaSelecao()"> <label for="meta_2015"> Meta '+(new Date().getFullYear()-3)+' </label> </div></div>'; 
+                    } else {
+                        html = '<div id="metas"><div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2017" value="option1" onclick="metaSelecao()"> <label for="meta_2017"> Meta ' + new Date().getFullYear() + '</label> </div> <div class="radio radio-inline radio-success"> <input type="radio" name="radio" id="meta_2016" value="option1" onclick="metaSelecao()"> <label for="meta_2016"> Meta ' +(new Date().getFullYear()-1)+ '</label></div><div class="radio radio-inline radio-success"><input type="radio" name="radio" id="meta_2015" value="option1" onclick="metaSelecao()"> <label for="meta_2015"> Meta '+(new Date().getFullYear()-2)+' </label> </div></div>'; 
+                        }
+                     
                     $("#radios_meta").append(html);
                 } 
             
@@ -621,7 +662,9 @@ function mostrarGrafico(value){
 }
 
 function mostrarProcessosPendentes(){
+
         var data = { column_key : document.getElementById('combo_vara').value , ano : "20<%= Date.today.strftime("%y") %>"};
+
         $.ajax({
             url : "/judicial/pendentes/processos",
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
