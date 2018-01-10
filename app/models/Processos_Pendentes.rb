@@ -4,11 +4,26 @@ class ProcessosPendentes
 
 		conn = BigDB.connection
 		@@consulta_pendentes_por_competencia = nil
-		if Date.today.strftime("%d").to_i <= 15
-			@@consulta_pendentes_por_competencia ||= conn.select_all "select pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE, sum(prtc_qtd_pendente_baixa_conh) as pendentes from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano.join(',')}) AND pedi_num_mes IN (To_Char(SYSDATE,'MM')-2) group by pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE order by 1, 2"
+		if(Date.today.strftime("%m").to_i == 1)
+			if Date.today.strftime("%d").to_i <= 15
+				@@consulta_pendentes_por_competencia ||= conn.select_all "select pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE, sum(prtc_qtd_pendente_baixa_conh) as pendentes from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano.join(',')}) AND pedi_num_mes IN (11) group by pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE order by 1, 2"
+			else
+				@@consulta_pendentes_por_competencia ||= conn.select_all "select pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE, sum(prtc_qtd_pendente_baixa_conh) as pendentes from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano.join(',')}) AND pedi_num_mes IN (12) group by pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE order by 1, 2"
+			end
+		elsif (Date.today.strftime("%m").to_i == 2)
+			if Date.today.strftime("%d").to_i <= 15
+				@@consulta_pendentes_por_competencia ||= conn.select_all "select pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE, sum(prtc_qtd_pendente_baixa_conh) as pendentes from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano.join(',')}) AND pedi_num_mes IN (12) group by pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE order by 1, 2"
+			else
+				@@consulta_pendentes_por_competencia ||= conn.select_all "select pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE, sum(prtc_qtd_pendente_baixa_conh) as pendentes from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano.join(',')}) AND pedi_num_mes IN (To_Char(SYSDATE,'MM')-1) group by pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE order by 1, 2"
+			end
 		else
-			@@consulta_pendentes_por_competencia ||= conn.select_all "select pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE, sum(prtc_qtd_pendente_baixa_conh) as pendentes from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano.join(',')}) AND pedi_num_mes IN (To_Char(SYSDATE,'MM')-1) group by pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE order by 1, 2"
+			if Date.today.strftime("%d").to_i <= 15
+				@@consulta_pendentes_por_competencia ||= conn.select_all "select pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE, sum(prtc_qtd_pendente_baixa_conh) as pendentes from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano.join(',')}) AND pedi_num_mes IN (To_Char(SYSDATE,'MM')-2) group by pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE order by 1, 2"
+			else
+				@@consulta_pendentes_por_competencia ||= conn.select_all "select pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE, sum(prtc_qtd_pendente_baixa_conh) as pendentes from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano.join(',')}) AND pedi_num_mes IN (To_Char(SYSDATE,'MM')-1) group by pedi_num_ano, orju_dsc_unidade_pai, orju_bsq_chave_unidade, ORJU_DSC_UNIDADE order by 1, 2"
+			end
 		end
+		
 		@competencias = Array.new
 		@total_competencias = Hash.new
 		#Pegar o Valor Total de Processos julgados por competências e armazena no Hash abaixo
@@ -198,19 +213,26 @@ class ProcessosPendentes
 	def self.get_processos_pendentes(ano)
 		conn = BigDB.connection
 		@@consulta_pendentes ||= conn.select_all "select pedi_num_ano, pedi_num_mes, pedi_dsc_mes, orju_dsc_unidade_pai, sum(prtc_qtd_pendente_baixa_conh) qtd_pendente_baixa_conh from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano.join(',')}) group by pedi_num_ano, pedi_num_mes, pedi_dsc_mes, orju_dsc_unidade_pai order by 1, 2"
-
-		@processos_pendentes = Hash.new
+		@lista_processos_pendentes = Array.new
 		@processos_pendentes_ano = Array.new
+		@count_insercao = 0
 		ano.each do |a|
 			@@consulta_pendentes.each_with_index do |row,i|
 				if(a==row["pedi_num_ano"])
 					@processos_pendentes_ano << row["qtd_pendente_baixa_conh"].to_i
 				end
 			end
-			@processos_pendentes["#{a}"] = @processos_pendentes_ano
+			if(@count_insercao == 0)
+				@lista_processos_pendentes << {name: "#{a}", data: @processos_pendentes_ano, color: '#8CD19E'}
+			elsif(@count_insercao == 1)
+				@lista_processos_pendentes << {name: "#{a}", data: @processos_pendentes_ano, color: '#8dd7e0'}
+			elsif(@count_insercao == 2)
+				@lista_processos_pendentes << {name: "#{a}", data: @processos_pendentes_ano, color: '#db6a29'}
+			end
 			@processos_pendentes_ano = []
+			@count_insercao += 1
 		end
-		return @processos_pendentes
+		return @lista_processos_pendentes
 	end
 
 end

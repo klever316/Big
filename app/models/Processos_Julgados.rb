@@ -195,18 +195,26 @@ class ProcessosJulgados
 	def self.get_processos_julgados(ano)
 		conexao = ProcessosJulgados.new
 		@@consulta_julgados ||= conexao.execute_sql "select pedi_num_ano, pedi_num_mes, pedi_dsc_mes, orju_dsc_unidade_pai, sum(prtc_qtd_julgado_conhecimento) qtd_julgado_conhecimento from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano.join(',')}) group by pedi_num_ano, pedi_num_mes, pedi_dsc_mes,  orju_dsc_unidade_pai  ORDER BY 1,2"
-		@processos_julgados = Hash.new
+		@lista_processos_julgados = Array.new
 		@processos_julgados_ano = Array.new
+		@count_insercao = 0
 		ano.each do |a|
 			@@consulta_julgados.each_with_index do |row,i|
 				if(a==row["pedi_num_ano"])
 					@processos_julgados_ano << row["qtd_julgado_conhecimento"].to_i
 				end
 			end
-			@processos_julgados["#{a}"] = @processos_julgados_ano
+			if(@count_insercao == 0)
+				@lista_processos_julgados << {name: "#{a}", data: @processos_julgados_ano, color: '#8CD19E'}
+			elsif(@count_insercao == 1)
+				@lista_processos_julgados << {name: "#{a}", data: @processos_julgados_ano, color: '#8dd7e0'}
+			elsif(@count_insercao == 2)
+				@lista_processos_julgados << {name: "#{a}", data: @processos_julgados_ano, color: '#db6a29'}
+			end
 			@processos_julgados_ano = []
+			@count_insercao += 1
 		end
-		return @processos_julgados
+		return @lista_processos_julgados
 	end
 
 	def execute_sql(sql)

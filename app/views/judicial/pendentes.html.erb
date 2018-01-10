@@ -163,21 +163,7 @@
       enabled: false
   },
 
-  series: [ {
-    name: '2015',
-    data: <%= @processos_pendentes["2015"] %>,
-    color: '#8CD19E'
-
-}, {
-    name: '2016',
-    data: <%= @processos_pendentes["2016"] %>,
-    color: '#8dd7e0'
-}, {
-    name: '2017',
-    data: <%= @processos_pendentes["2017"] %>,
-    color: '#db6a29'
-
-}]
+  series: <%= @processos_pendentes.to_json.html_safe %>
 });
 
 $('#width').on('input', function () {
