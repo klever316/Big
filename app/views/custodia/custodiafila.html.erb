@@ -15,25 +15,21 @@
             <% end %>
             </div>
             <br />
-            <!-->
             <div class="custodia_table">
             <table class="table datatable table-bordered dataTable no-footer", style="background-color: white">
                     <tr>
-                        <th>Fluxo de trabalho</th>
                         <th>Cód. Fila</th>
                         <th>Desc. Fila</th>
-                        <th>Processo</th>
-                        <th>Entrada</th>
-                        <th>Saída</th>
+                        <th>Nº de Processos</th>
+                        <th>Estouro</th>
                     </tr>
-                     <% @processo_custodia.each do |row| %>
+                     <% @lista_filas.each do |row| %>
                     <tr>
-                        <td><%= row["cdfluxotrabalho"] %></td>
                         <td><%= row["cdfila"] %></td>
-                        <td><%= row["defila"] %></td>
-                        <td><%= row["nuprocesso"] %></td>
-                        <td><%= row["dtentrada"] %></td>
-                        <td><%= row["dtsaida"] %></td>
+                        <td><%= link_to row["defila"], {:controller => "custodia", :action => "custodiaprocessos", :cdfila => row["cdfila"] }%>
+</td>
+                        <td><%= row["processos"] %></td>
+                        <td><%= row["estouro"] %></td>
                     </tr>
                     <% end %>
             </table>

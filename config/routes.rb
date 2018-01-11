@@ -34,6 +34,8 @@ Myapp::Application.routes.draw do
 
   # Custódia
   match  "custodia/custodiafila", via: [:get, :post]
+  get "custodia/custodiaprocessos"
+  post "custodia/dadosprocesso"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

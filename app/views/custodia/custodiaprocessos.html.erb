@@ -1,0 +1,92 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12" >
+            <div class="text-center m-t-lg">
+                <h1 style ="color: #257752; font-size: 30px; margin: -5px">
+                    <b>SiN - CUSTÓDIA</b>
+                </h1>    
+                <br></br>  
+            </div> 
+            <div class="custodia_table">
+            <table class="table datatable table-bordered dataTable no-footer", style="background-color: white">
+                    <tr>
+                        <th>Nº do Processo</th>
+                        <th>Data de Entrada</th>
+                        <th>Horas</th>
+                    </tr>
+                     <% @lista_processos.each do |row| %>
+                    <tr>
+                        <td><a onclick="showmodal(<%= row['nuprocesso'].html_safe %>)"><%= row["nuprocesso"] %></a></td>
+                        <td><%= row["dtentrada"] %></td>
+                        <td><%= row["horas"] %></td>
+                    </tr>
+                    <% end %>
+            </table>
+            </div>  
+        </div>
+       </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"  style="font-weight: 700;color: #F2594B;text-align: center;"><div id="modal_titulo_processos_julgados"></div>Teste</h4>
+
+                        </div>
+                        <div class="modal-body" style="font-size: 13px;padding: 10px 20px 0px 20px;">
+                            <div id="corpo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+
+<script type="text/javascript">
+
+    function showmodal(processo) {
+        var data = { processo_key : processo }
+        $.ajax({
+        url : "/custodia/dadosprocesso",
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        type : "post",
+        data : data,
+        success: function(data, textStatus, jqXHR) { 
+            $("#corpo").empty();
+            var html = "";
+            html += '<table class="table datatable table-bordered dataTable no-footer", style="background-color: white">';
+            html += '<tr>';
+            html += '<th>Cód. Fluxo</th>';
+            html += '<th>Cód. Fila</th>';
+            html += '<th>Nome da Fila</th>';
+            html += '<th>Nº do Processo</th>';
+            html += '<th>Data de Entrada</th>';
+            html += '<th>Data de Saída</th>';
+            html += '<th>Horas na Fila</th>';
+            html += '</tr>';
+            data.array.forEach(function(value){
+            html += '<tr>';
+            html += '<td>'+value.cdfluxotrabalho+'</td>';
+            html += '<td>'+value.cdfila+'</td>';
+            html += '<td>'+value.defila+'</td>';
+            html += '<td>'+value.nuprocesso+'</td>';
+            html += '<td>'+value.dtentrada+'</td>';
+            html += '<td>'+value.dtsaida+'</td>';
+            html += '<td>'+value.horasfila+'</td>';
+            html += '</tr>';
+            }); 
+            html += '</table>'
+            $("#corpo").append(html);
+            $("#myModal").modal("show");
+        }
+        });
+    }
+
+
+
+</script>
