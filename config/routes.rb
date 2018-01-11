@@ -31,6 +31,10 @@ Myapp::Application.routes.draw do
   post "judicial/julgados/processos" => "judicial#processos_julgados"
   post "judicial/baixados/processos" => "judicial#processos_baixados"
   post "judicial/pendentes/processos" => "judicial#processos_pendentes"
+
+  # Custódia
+  match  "custodia/custodiafila", via: [:get, :post]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

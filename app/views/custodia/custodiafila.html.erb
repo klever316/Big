@@ -1,0 +1,44 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12" >
+            <div class="text-center m-t-lg">
+                <h1 style ="color: #257752; font-size: 30px; margin: -5px">
+                    <b>SiN - CUSTÓDIA</b>
+                </h1>    
+                <br></br>  
+            </div> 
+            <div class="form" style="margin-left: 140px;margin-top:20px;margin-bottom: -10px">        
+            <%= form_for :custodiafila, :url => { :action => "custodiafila" }, :method => "POST" do |f| %>  
+                <%= f.label(:q, "Digite o número do processo:") %>
+                <%= f.text_field :body, :size=>"40" %>
+                <%= f.submit("Pesquisar") %>
+            <% end %>
+            </div>
+            <br />
+            <!-->
+            <div class="custodia_table">
+            <table class="table datatable table-bordered dataTable no-footer", style="background-color: white">
+                    <tr>
+                        <th>Fluxo de trabalho</th>
+                        <th>Cód. Fila</th>
+                        <th>Desc. Fila</th>
+                        <th>Processo</th>
+                        <th>Entrada</th>
+                        <th>Saída</th>
+                    </tr>
+                     <% @processo_custodia.each do |row| %>
+                    <tr>
+                        <td><%= row["cdfluxotrabalho"] %></td>
+                        <td><%= row["cdfila"] %></td>
+                        <td><%= row["defila"] %></td>
+                        <td><%= row["nuprocesso"] %></td>
+                        <td><%= row["dtentrada"] %></td>
+                        <td><%= row["dtsaida"] %></td>
+                    </tr>
+                    <% end %>
+            </table>
+            </div>  
+            </>      
+        </div>
+    </div>
+</div>

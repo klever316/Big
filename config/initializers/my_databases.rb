@@ -7,3 +7,8 @@ class BigDB < ActiveRecord::Base
     self.abstract_class = true
     establish_connection :database_big
 end
+
+class PG5DB < ActiveRecord::Base
+    self.abstract_class = true
+    establish_connection :db_custodia
+end
