@@ -29,7 +29,7 @@ class CustodiaController < ApplicationController
         conn = PG5DB.connection
 
         processos = conn.select_all "SELECT
-        nuprocesso, dtentrada, Trunc(24*(SYSDATE - dtentrada)) AS horas
+        nuprocesso, dtentrada, defila, Trunc(24*(SYSDATE - dtentrada)) AS horas
   FROM
         saj.ewflhistobjeto H JOIN SAJ.EFPGPROCESSO P ON P.CDOBJETO = H.CDOBJETO
         JOIN saj.ewflfilatrabalho FT ON H.cdfila = Ft.cdfila
@@ -43,7 +43,7 @@ class CustodiaController < ApplicationController
 
     def dadosprocesso
 
-        puts processo = params[:processo_key]
+        processo = params[:processo_key]
 
         conn = PG5DB.connection
         processo = conn.select_all "SELECT
@@ -53,7 +53,7 @@ class CustodiaController < ApplicationController
         JOIN saj.ewflfilatrabalho FT ON H.cdfila = Ft.cdfila
   WHERE
         cdfluxotrabalho = 1860
-        AND nuprocesso = '01972171620178060001'
+        AND nuprocesso = #{processo}
         AND h.cdfila NOT IN (425,207,9052,9106)
   ORDER BY dtentrada"
 
