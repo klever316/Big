@@ -1,0 +1,131 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12" >
+            <div class="text-center m-t-lg">
+                <h1 style ="color: #257752; font-size: 30px; margin: -5px">
+                    <b>SiN - CUSTÓDIA</b>
+                </h1>    
+                <br/><br/>  
+            </div> 
+            <div class="form-group" style="text-align: center">
+                <label style="font-size: 13px; display: inline;" > Nº do Processo: </label>
+                <input id="processo" type="text" data-mask=""  placeholder="Digite o Nº do Processo" class="form-control" style="width: 200px; height:30px ; font-size:13px; display: inline; vertical-align: middle;" />
+                <button class="btn btn-sm btn-primary" style="display: inline" onclick="getCustodiaProcessos(document.getElementById('processo').value.replace(/[.*+-]/g, ''))">
+                    <strong>Buscar</strong>
+                </button>
+            </div>
+            <br />
+            <div id="processoinvalido"></div>
+            <div class="custodia_table">
+                <table class="table datatable table-bordered dataTable no-footer" id="custodia_processos" style="background-color: white">
+                    <thead>
+                        <tr>
+                            <th>Cód. Fila</th>
+                            <th>Desc. Fila</th>
+                            <th>Nº de Processos</th>
+                            <th>Estouro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% @lista_filas.each do |row| %>
+                        <tr>
+                            <td><%= row["cdfila"] %></td>
+                            <td><%= link_to row["defila"], {:controller => "custodia", :action => "custodiaprocessos", :cdfila => row["cdfila"] }%></td>
+                            <td><%= row["processos"] %></td>
+                            <td><%= row["estouro"] %></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>  
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg" style="width: 90%">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"  style="font-weight: 700;color: #F2594B;text-align: center;"><div id="titulo_processo"></div></h4>
+
+                            </div>
+                            <div class="modal-body" style="font-size: 13px;padding: 10px 20px 0px 20px;">
+                            <div id="corpo"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#processo').mask('9999999-99.9999.9.99.9999');
+        var table = $('#custodia_processos').DataTable({
+            dom: "fB",
+            order: [[ 2, "des" ]],
+            pageLength: 50,
+            buttons: [
+            {
+                extend: 'copyHtml5', 
+                title: "Lista de Filas da Custódia"
+            },
+            {
+                extend: 'csv', 
+                title: "Lista de Filas da Custódia",
+                filename: "Filas Custodia"  
+            },
+            {
+                extend: 'pdfHtml5', 
+                title: "Lista de Filas da Custódia",
+                filename: "Filas Custodia" 
+            },
+            {
+                extend: 'print',
+                text: 'Imprimir',
+                className: "printChartButton",
+                title: "Lista de Filas da Custódia",
+                exportOptions: {
+                    modifier: {
+                        page: 'all'
+                    }
+                }
+            }
+            ],
+            language: {
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                },
+                "buttons" :{
+                    "copy" : "Copiar"
+                }
+            }
+        });
+    });
+</script>
+<style type="text/css">
+    .dataTables_filter {
+        float: left;
+        text-align: left;
+    }
+</style>
