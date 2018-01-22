@@ -47,15 +47,15 @@ class CustodiaController < ApplicationController
 
         conn = PG5DB.connection
         processo = conn.select_all "SELECT
-        cdfluxotrabalho, h.cdfila, ft.defila, nuprocesso, dtentrada, dtsaida, Trunc(Nvl(dtsaida,SYSDATE)- dtentrada) * 24 AS horasFila
-  FROM
-        saj.ewflhistobjeto H JOIN SAJ.EFPGPROCESSO P ON P.CDOBJETO = H.CDOBJETO
-        JOIN saj.ewflfilatrabalho FT ON H.cdfila = Ft.cdfila
-  WHERE
-        cdfluxotrabalho = 1860
-        AND nuprocesso = #{processo}
-        AND h.cdfila NOT IN (425,207,9052,9106)
-  ORDER BY dtentrada"
+      cdfluxotrabalho, h.cdfila, ft.defila, nuprocesso, dtentrada, dtsaida, trunc(24 * (Nvl(dtsaida,SYSDATE) - dtentrada)) as horasFila
+FROM
+      saj.ewflhistobjeto H JOIN SAJ.EFPGPROCESSO P ON P.CDOBJETO = H.CDOBJETO
+      JOIN saj.ewflfilatrabalho FT ON H.cdfila = Ft.cdfila
+WHERE
+      cdfluxotrabalho = 1860
+      AND nuprocesso = #{processo}
+      AND h.cdfila NOT IN (425,207,9052,9106)
+ORDER BY dtentrada"
 
         render :json => {array: processo}
 

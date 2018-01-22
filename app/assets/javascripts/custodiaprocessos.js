@@ -25,10 +25,14 @@
 	            html += '<td>'+value.cdfila+'</td>';
 	            html += '<td>'+value.defila+'</td>';
 	            html += '<td>'+format(value.nuprocesso,'#######-##.####.#.##.####')+'</td>';
-	            var x = new Date(value.dtentrada)
-	            html += '<td>'+ x.toLocaleString('pt-BR', { timeZone: 'UTC' }) +'</td>'
-	            var y = new Date(value.dtsaida);
-	            html += '<td>'+ y.toLocaleString('pt-BR', { timeZone: 'UTC' }) +'</td>';
+	            var x = new Date(value.dtentrada);
+	            html += '<td>'+ x.toLocaleString('pt-BR', { timeZone: 'UTC' }) +'</td>';
+	            if(value.dtsaida == null){
+	            	html += '<td>'+ 'Nulo' +'</td>'
+	            } else {
+	            	var y = new Date(value.dtsaida);
+	            	html += '<td>'+ y.toLocaleString('pt-BR', { timeZone: 'UTC' }) +'</td>';
+	            }
 	            html += '<td>'+value.horasfila+'</td>';
 	            html += '</tr>';
 	            }); 
