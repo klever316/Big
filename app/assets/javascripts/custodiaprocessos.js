@@ -31,7 +31,7 @@
                 var x = new Date(value.dtentrada);
                 html += '<td>'+ x.toLocaleString('pt-BR', { timeZone: 'UTC' }) +'</td>';
                 if(value.dtsaida == null){
-                    html += '<td>'+ 'Nulo' +'</td>'
+                    html += '<td>'+ 'Aguardando' +'</td>'
                 } else {
                     var y = new Date(value.dtsaida);
                     html += '<td>'+ y.toLocaleString('pt-BR', { timeZone: 'UTC' }) +'</td>';
