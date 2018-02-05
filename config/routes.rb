@@ -25,7 +25,6 @@ Myapp::Application.routes.draw do
   match "diretoria/percentualJulgadosApelacao" => "diretoria#percentualJulgadosApelacao", via: [:get, :post]
   match "diretoria/processosDigitalizados" => "diretoria#processosDigitalizados", via: [:get, :post]
   match "diretoria/percentualBaixados" => "diretoria#percentualBaixados", via: [:get, :post]
-  post "diretoria/metaProcessosPorDia"
   post "diretoria/taxaGrafico"
 
   post "judicial/julgados/processos" => "judicial#processos_julgados"

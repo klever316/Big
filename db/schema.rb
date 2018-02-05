@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180108194012) do
+ActiveRecord::Schema.define(version: 20180201162728) do
+
+  create_table "dia_utils", force: :cascade do |t|
+    t.integer "ano"
+    t.integer "mes_numero"
+    t.string "mes_nome"
+    t.integer "qtd_dias_uteis"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "metas_taxas", force: :cascade do |t|
     t.integer "ano"

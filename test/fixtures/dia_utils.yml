@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ano: 1
+  mes_numero: 1
+  mes_nome: MyString
+  qtd_dias_uteis: 1
+
+two:
+  ano: 1
+  mes_numero: 1
+  mes_nome: MyString
+  qtd_dias_uteis: 1

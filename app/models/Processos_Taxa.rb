@@ -311,5 +311,12 @@ class ProcessosTaxa
 			}]
 			return @serie, @consulta_taxa_vara
 	end
+
+	def self.get_total_novos
+		conn = BigDB.connection
+		@@total_novos = conn.select_all("SELECT Sum(6) as novos FROM (select pdrf.pedi_seq_chave, pdrf.pedi_sgl_mes_ano, orju.orju_dsc_segmento, orju.orju_bsq_chave_unidade, orju.orju_dsc_unidade, sum(prtc_qtd_pendente_baixa_conh) + sum(prtc_qtd_baixado_conhecimento) - nvl((select sum(prtc_qtd_pendente_baixa_conh) from dwfcb.pa_prtc_processo_taxa_cong prt1 where prt1.orju_seq_chave = prtc.orju_seq_chave and prt1.pedi_seq_chave_referencia = (select max(pdr1.pedi_seq_chave) from dwfcb.cd_pedi_periodo_diario pdr1 where pdr1.pedi_flg_mes_consolidado = '1' and pdr1.pedi_seq_chave < pdrf.pedi_seq_chave)), 0) prtc_qtd_novo_conh from dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017) group by pdrf.pedi_seq_chave, pdrf.pedi_sgl_mes_ano, prtc.orju_seq_chave, orju.orju_dsc_segmento, orju.orju_bsq_chave_unidade, orju.orju_dsc_unidade )")
+		@total_novos = @@total_novos
+		return @total_novos
+	end
 			
 end		

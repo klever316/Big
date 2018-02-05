@@ -1,0 +1,2 @@
+class DiaUtil < ApplicationRecord
+end

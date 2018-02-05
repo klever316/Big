@@ -235,4 +235,50 @@ class ProcessosPendentes
 		return @lista_processos_pendentes
 	end
 
+	def self.get_total_pendentes
+		conn = BigDB.connection
+		if Date.today.strftime("%d").to_i <= 15
+	  		if Date.today.strftime("%m").to_i == 1 || Date.today.strftime("%m").to_i == 2
+	  			@@total_pendentes ||= conn.select_all("select sum(prtc_qtd_pendente_baixa_conh) qtd_pendente_baixa_conh FROM dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju ON orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia WHERE orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{Date.current.year-1}) AND pedi_num_mes IN (11)")
+	  		else
+	  			@@total_pendentes ||= conn.select_all("select sum(prtc_qtd_pendente_baixa_conh) qtd_pendente_baixa_conh FROM dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju ON orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia WHERE orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{Date.current.year}) AND pedi_num_mes IN (To_Char(SYSDATE,'MM')-2)")
+	  		end
+	  	else
+	  		if Date.today.strftime("%m").to_i == 1
+	  			@@total_pendentes ||= conn.select_all("select sum(prtc_qtd_pendente_baixa_conh) qtd_pendente_baixa_conh FROM dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju ON orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia WHERE orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{Date.current.year-1}) AND pedi_num_mes IN (12)")
+	  		else
+	  			@@total_pendentes ||= conn.select_all("select sum(prtc_qtd_pendente_baixa_conh) qtd_pendente_baixa_conh FROM dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju ON orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia WHERE orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{Date.current.year}) AND pedi_num_mes IN (To_Char(SYSDATE,'MM')-1)")
+	  		end
+	  	end
+
+	  	@total_pendentes = @@total_pendentes
+	  	return @total_pendentes
+	end
+
+	def self.get_lista_processos_pendentes(chave_unidade, ano)
+		conn = BigDB.connection
+		@consulta_lista_processos = nil
+
+		if(Date.today.strftime("%m").to_i == 1)
+			if Date.today.strftime("%d").to_i <= 15
+				@consulta_lista_processos = conn.select_all  "select pedi_num_ano, ORJU_BSQ_CHAVE_UNIDADE, orju_dsc_unidade, PROC_DSC_PROCESSO_FORMATADO, SIPR_DSC_SITUACAO_PROCESSO, PROC_DAT_PROTOCOLO from dwfcb.pf_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia  join dwfcb.pd_proc_processo proc on proc.proc_seq_chave =  prtc.proc_seq_chave join dwfcb.pd_sipr_situacao_processo sit on sit.sipr_seq_chave  = prtc.sipr_seq_chave  where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano}) and pedi_num_mes IN (11) and orju_bsq_chave_unidade like '#{chave_unidade}' and PRTC_QTD_PENDENTE_BAIXA_CONH = 1" 
+			else
+				@consulta_lista_processos = conn.select_all  "select pedi_num_ano, ORJU_BSQ_CHAVE_UNIDADE, orju_dsc_unidade, PROC_DSC_PROCESSO_FORMATADO, SIPR_DSC_SITUACAO_PROCESSO, PROC_DAT_PROTOCOLO from dwfcb.pf_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia  join dwfcb.pd_proc_processo proc on proc.proc_seq_chave =  prtc.proc_seq_chave join dwfcb.pd_sipr_situacao_processo sit on sit.sipr_seq_chave  = prtc.sipr_seq_chave  where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano}) and pedi_num_mes IN (12) and orju_bsq_chave_unidade like '#{chave_unidade}' and PRTC_QTD_PENDENTE_BAIXA_CONH = 1" 
+			end
+		elsif (Date.today.strftime("%m").to_i == 2)
+			if Date.today.strftime("%d").to_i <= 15
+				@consulta_lista_processos = conn.select_all  "select pedi_num_ano, ORJU_BSQ_CHAVE_UNIDADE, orju_dsc_unidade, PROC_DSC_PROCESSO_FORMATADO, SIPR_DSC_SITUACAO_PROCESSO, PROC_DAT_PROTOCOLO from dwfcb.pf_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia  join dwfcb.pd_proc_processo proc on proc.proc_seq_chave =  prtc.proc_seq_chave join dwfcb.pd_sipr_situacao_processo sit on sit.sipr_seq_chave  = prtc.sipr_seq_chave  where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano}) and pedi_num_mes IN (12) and orju_bsq_chave_unidade like '#{chave_unidade}' and PRTC_QTD_PENDENTE_BAIXA_CONH = 1" 
+			else
+				@consulta_lista_processos = conn.select_all  "select pedi_num_ano, ORJU_BSQ_CHAVE_UNIDADE, orju_dsc_unidade, PROC_DSC_PROCESSO_FORMATADO, SIPR_DSC_SITUACAO_PROCESSO, PROC_DAT_PROTOCOLO from dwfcb.pf_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia  join dwfcb.pd_proc_processo proc on proc.proc_seq_chave =  prtc.proc_seq_chave join dwfcb.pd_sipr_situacao_processo sit on sit.sipr_seq_chave  = prtc.sipr_seq_chave  where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano}) and pedi_num_mes IN (To_Char(SYSDATE,'MM')-1) and orju_bsq_chave_unidade like '#{chave_unidade}' and PRTC_QTD_PENDENTE_BAIXA_CONH = 1" 
+			end
+		else
+			if Date.today.strftime("%d").to_i <= 15
+				@consulta_lista_processos = conn.select_all  "select pedi_num_ano, ORJU_BSQ_CHAVE_UNIDADE, orju_dsc_unidade, PROC_DSC_PROCESSO_FORMATADO, SIPR_DSC_SITUACAO_PROCESSO, PROC_DAT_PROTOCOLO from dwfcb.pf_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia  join dwfcb.pd_proc_processo proc on proc.proc_seq_chave =  prtc.proc_seq_chave join dwfcb.pd_sipr_situacao_processo sit on sit.sipr_seq_chave  = prtc.sipr_seq_chave  where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano}) and pedi_num_mes IN (To_Char(SYSDATE,'MM')-2) and orju_bsq_chave_unidade like '#{chave_unidade}' and PRTC_QTD_PENDENTE_BAIXA_CONH = 1" 
+			else
+				@consulta_lista_processos = conn.select_all  "select pedi_num_ano, ORJU_BSQ_CHAVE_UNIDADE, orju_dsc_unidade, PROC_DSC_PROCESSO_FORMATADO, SIPR_DSC_SITUACAO_PROCESSO, PROC_DAT_PROTOCOLO from dwfcb.pf_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia  join dwfcb.pd_proc_processo proc on proc.proc_seq_chave =  prtc.proc_seq_chave join dwfcb.pd_sipr_situacao_processo sit on sit.sipr_seq_chave  = prtc.sipr_seq_chave  where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano}) and pedi_num_mes IN (To_Char(SYSDATE,'MM')-1) and orju_bsq_chave_unidade like '#{chave_unidade}' and PRTC_QTD_PENDENTE_BAIXA_CONH = 1" 
+			end
+		end
+		return @consulta_lista_processos
+	end
+
 end

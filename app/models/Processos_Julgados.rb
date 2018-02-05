@@ -535,4 +535,18 @@ order by 1"
 		return @ano, @mes
 	end
 
+	def self.get_total_julgados
+		conn = BigDB.connection
+		@@total_julgados ||= conn.select_all("select sum(prtc_qtd_julgado_conhecimento) qtd_julgado_conhecimento FROM dwfcb.pa_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia WHERE orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (2017)")
+		@total_julgados = @@total_julgados
+		@@total_pendentes = nil
+		return @total_julgados
+	end
+
+	def self.get_lista_processos_julgados(chave_unidade, ano)
+		conn = BigDB.connection
+		@lista_processos = conn.select_all("select pedi_num_ano, ORJU_BSQ_CHAVE_UNIDADE, orju_dsc_unidade, PROC_DSC_PROCESSO_FORMATADO, SIPR_DSC_SITUACAO_PROCESSO, PROC_DAT_PROTOCOLO from dwfcb.pf_prtc_processo_taxa_cong prtc join dwfcb.pd_orju_orgao_julgador orju on orju.orju_seq_chave = prtc.orju_seq_chave join dwfcb.cd_pedi_periodo_diario pdrf on pdrf.pedi_seq_chave = prtc.pedi_seq_chave_referencia join dwfcb.pd_proc_processo proc on proc.proc_seq_chave =  prtc.proc_seq_chave join dwfcb.pd_sipr_situacao_processo sit on sit.sipr_seq_chave  = prtc.sipr_seq_chave	 where orju.orju_bsq_chave_segmento in ('1G', 'JFP') AND pedi_num_ano IN (#{ano}) and orju_bsq_chave_unidade like '#{chave_unidade}' and PRTC_QTD_JULGADO_CONHECIMENTO = 1")
+
+	end
+
 end
