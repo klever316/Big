@@ -96,14 +96,23 @@
             </li>
 
             <li class="<%= is_active_controller('custodia') %>">
-                 <a href=""><i class="fa fa-link" style="font-size:18px"></i><span class="nav-label">SiN-Custódia</span> <span class="fa arrow"></span></a>
+                <a href=""><i class="fa fa-taxi" style="font-size:18px"></i><span class="nav-label">SiN-Custódia</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
                         <li class="<%= is_active_action('custodiafila') %>" style="margin: 0px"><%= link_to "/custodia/custodiafila" do %>
-                            <p>Fila da Custódia</p>
+                            <p>Filas da Custódia</p>
                         <% end %>
                         </li>
                     </ul>    
-            </li>                                     
+            </li>
+            <li class="<%= is_active_controller('crime_organizado') %>">
+                <a href=""><i class="fa fa-link" style="font-size:18px"></i><span class="nav-label">SiN-Crime Organizado</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
+                        <li class="<%= is_active_action('painel_crime') %>" style="margin: 0px"><%= link_to "/crime_organizado/painel_crime" do %>
+                            <p>Painéis</p>
+                        <% end %>
+                        </li>
+                    </ul>
+            </li>            
         </ul>
     </div>
 </nav>
