@@ -4,7 +4,6 @@ require "Processos_Pendentes"
 require "Processos_Taxa"
 class DiretoriaController < ApplicationController
 
-	TOTAL_NOVOS = 
 	def taxa
 
 	  	@total_julgados = ProcessosJulgados.get_total_julgados
