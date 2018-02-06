@@ -31,7 +31,7 @@
                                     <% @lista_painel.each do |row| %>
                                     <tr>
                                         <td><a onclick="getCrimeProcessos('<%= row['cdforo'] %>')"><%= row["nmforo"] %></a></td>
-                                        <td><a onclick="getCrimeDetalhes('<%= row['cdsituacaoprocesso'] %>')"><%= row["desituacaoprocesso"] %></a></td>
+                                        <td><a onclick="getCrimeDetalhes('<%= row['cdsituacaoprocesso'] %>', '<%= row['cdforo'] %>' )"><%= row["desituacaoprocesso"] %></a></td>
                                         <td><%= row["total"] %></td>
                                     </tr>
                                     <% end %>
@@ -61,7 +61,7 @@
                                     <% @lista_reus.each do |row| %>
                                     <tr>
                                         <td><%= row["nmforo"] %></td>
-                                        <td><%= row["totalreus"] %></td>
+                                        <td><a onclick="getReusDetalhes('<%= row['cdforo'] %>')"><%= row["totalreus"] %></a></td>
                                     </tr>
                                     <% end %>
                                 </tbody>
