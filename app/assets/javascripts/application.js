@@ -10,6 +10,9 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+// require jquery
+// require jquery.turbolinks
+// require jquery_ujs
 //= require jquery/dist/jquery
 //= require bootstrap-sprockets
 //= require metisMenu/jquery.metisMenu
@@ -25,4 +28,5 @@
 //= require nprogress-turbolinks
 //= require nprogress-ajax
 //= require pace/pace.min.js
+// require turbolinks
 //= require_tree .
