@@ -506,4 +506,3 @@ function mostrarDetalhesTaxa(data_ajax,vara,ano, dias_uteis, metaAtual){
     $('#modal_titulo_processos_julgados').append('TAXA DE CONGESTIONAMENTO DO MÊS ATUAL<br/> ' + vara);
     $("#myModal").modal("show");
 };
-

@@ -36,6 +36,11 @@ Myapp::Application.routes.draw do
   get "custodia/custodiaprocessos"
   post "custodia/dadosprocesso"
 
+  # Crime Organizado
+  match  "crime_organizado/painel_crime", via: [:get, :post]
+  post "crime_organizado/detalheprocessos"
+  post "crime_organizado/detalhesituacao"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -10,5 +10,5 @@ end
 
 class PG5DB < ActiveRecord::Base
     self.abstract_class = true
-    establish_connection :db_custodia
+    establish_connection :db_pg5
 end

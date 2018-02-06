@@ -83,19 +83,19 @@
                 },
                 {
                     extend: 'csv', 
-                    title: "PROCESSOS BAIXADOS DA " + "<%= @lista_processos[0]['defila'] %>",
+                    title: "PROCESSOS DA FILA " + "<%= @lista_processos[0]['defila'] %>",
                     filename: "Processos - "  + "<%= @lista_processos[0]['defila'] %>"
                 },
                 {
                     extend: 'pdfHtml5', 
-                    title: "PROCESSOS BAIXADOS DA " + "<%= @lista_processos[0]['defila'] %>",
+                    title: "PROCESSOS DA FILA " + "<%= @lista_processos[0]['defila'] %>",
                     filename: "Processos - "  + "<%= @lista_processos[0]['defila'] %>"
                 },
                 {
                     extend: 'print',
                     text: 'Imprimir',
                     className: "printChartButton",
-                    title: "PROCESSOS BAIXADOS DA " + "<%= @lista_processos[0]['defila'] %>",
+                    title: "PROCESSOS DA FILA " + "<%= @lista_processos[0]['defila'] %>",
                     exportOptions: {
                         modifier: {
                             page: 'all'
