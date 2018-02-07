@@ -245,7 +245,7 @@ function addOptionsInFilter(val, label, select) {
   var option = document.createElement('option');
   option.value = val;
   option.label = label;
-  option.innerHTML = val;
+  option.innerHTML = label;
   select.appendChild(option);
 };
 
