@@ -8,39 +8,38 @@
                 <br></br>  
             </div> 
             <div class="custodia_table" >
-                <button class="btn btn-sm btn-primary"><%= link_to  custodia_custodiafila_path  do %>
+                <%= link_to custodia_custodiafila_path, class: 'btn btn-sm btn-primary' do %>
                     <strong style= "color:white;">Voltar</strong>
-                    
-                    <% end %>
-                </button>
-            <table class="table datatable table-bordered dataTable no-footer" id="custodia_processos" style="background-color: white">
-            <thead>
-                    <tr>
-                        <th>Nº do Processo</th>
-                        <th>Data de Entrada</th>
-                        <th>Horas</th>
-                    </tr>
+                <% end %>
+               
+                <table class="table datatable table-bordered dataTable no-footer" id="custodia_processos" style="background-color: white">
+                    <thead>
+                        <tr>
+                            <th>Nº do Processo</th>
+                            <th>Data de Entrada</th>
+                            <th>Horas</th>
+                        </tr>
                     </thead>
-                    <tbody>
-                     <% @lista_processos.each do |row| %>
-                    <tr>
-                        <td><a onclick="getCustodiaProcessos('<%= row['nuprocesso'] %>')"><%= row["nuprocesso"].gsub(/(\d{7})(\d{2})(\d{4})(\d{1})(\d{2})(\d{4})/, '\1-\2.\3.\4.\5.\6') %></a></td>
-                        <td><%= row["dtentrada"] %></td>
-                        <% if row["horas"] <= 23 %>
-                            <td style="background-color: #caffc1"><%= row["horas"] %></td>
-                        <% elsif row["horas"] >= 24 && row["horas"] <= 47 %>
-                            <td style="background-color: #fff9a5"><%= row["horas"] %></td>
-                        <% else %>
-                            <td style="background-color: #ffcece"><%= row["horas"] %></td>
-                        <% end %>
+                        <tbody>
+                            <% @lista_processos.each do |row| %>
+                                <tr>
+                                    <td><a onclick="getCustodiaProcessos('<%= row['nuprocesso'] %>')"><%= row["nuprocesso"].gsub(/(\d{7})(\d{2})(\d{4})(\d{1})(\d{2})(\d{4})/, '\1-\2.\3.\4.\5.\6') %></a></td>
+                                    <td><%= row["dtentrada"] %></td>
+                                    <% if row["horas"] <= 23 %>
+                                        <td style="background-color: #caffc1"><%= row["horas"] %></td>
+                                    <% elsif row["horas"] >= 24 && row["horas"] <= 47 %>
+                                        <td style="background-color: #fff9a5"><%= row["horas"] %></td>
+                                    <% else %>
+                                        <td style="background-color: #ffcece"><%= row["horas"] %></td>
+                                    <% end %>
 
-                    </tr>
-                    <% end %>
-                    </tbody>
-            </table>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                </table>
             </div>  
         </div>
-       </div>
+    </div>
        <table style="border: 1px solid; margin-bottom: 20px; border-collapse: separate; border-spacing: 5px 5px" cellspacing="0">
             <tr style="border-spacing: 5px">
                 <td style="background-color: #caffc1;height: 25px;width: 25px"></td>
@@ -56,6 +55,7 @@
             </tr>
        </table>
 </div>
+
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg" style="width: 90%">
         <div class="modal-content">
