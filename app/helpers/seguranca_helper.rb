@@ -1,0 +1,2 @@
+module SegurancaHelper
+end

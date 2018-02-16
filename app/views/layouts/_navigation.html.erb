@@ -63,20 +63,20 @@
                         </li>
                     </ul>
             </li>            
-
-            <li class="<%= is_active_controller('administrar') %>">
+            <!--
+            <li class="<%=# is_active_controller('administrar') %>">
                 <a href=""><i class="fa fa-book" style="font-size:18px"></i> <span class="nav-label">Área Administrativa</span> <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
-                        <li class="<%= is_active_action('pessoas') %>" style="margin: 0px"><%= link_to "/administrar/pessoas" do %>
+                    <ul class="nav nav-second-level collapse <%=# 'active' if current_page?('/') %>">
+                        <li class="<%=# is_active_action('pessoas') %>" style="margin: 0px"><%=# link_to "/administrar/pessoas" do %>
                             <p>Gestão de Pessoas</p>
-                        <% end %>
+                        <%# end %>
                         </li>
-                        <li class="<%= is_active_action('patrimonio') %>" style="margin: 0px"><%= link_to "/administrar/patrimonio" do %>
+                        <li class="<%=# is_active_action('patrimonio') %>" style="margin: 0px"><%=# link_to "/administrar/patrimonio" do %>
                             <p>Gestão de Patrimônio</p>
-                        <% end %>
+                        <%# end %>
                         </li>
                     </ul>
-            </li>
+            </li>-->
 
             <li class="<%= is_active_controller('coman') %>">
                 <a href=""><i class="fa fa-gavel" style="font-size:18px"></i> <span class="nav-label">Ceman</span> <span class="fa arrow"></span></a>
@@ -88,6 +88,7 @@
                         <li class="<%= is_active_action('coman_maracanau') %>" style="margin: 0px"><%= link_to "/coman/coman_maracanau" do %>
                            <p>Ceman Maracanau</p>
                         <% end %>
+                        </li>
                         <li class="<%= is_active_action('coman_juizado_da_mulher') %>" style="margin: 0px"><%= link_to "/coman/coman_juizado_da_mulher" do %>
                             <p>Ceman Juizado da Mulher</p>
                         <% end %>
@@ -112,7 +113,21 @@
                         <% end %>
                         </li>
                     </ul>
-            </li>                                      
+            </li>
+
+            <li class="<%= is_active_controller('seguranca') %>">
+                <a href=""><i class="fa fa-lock" style="font-size:20px"></i><span class="nav-label">Segurança</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
+                        <li class="<%= is_active_action('salavitima') %>" style="margin: 0px"><%= link_to "/seguranca/salavitima" do %>
+                            <p>Sala de Acolhimento da Vítima</p>
+                        <% end %>
+                        </li>
+                        <li class="<%= is_active_action('controleacesso') %>" style="margin: 0px"><%= link_to "/seguranca/controleacesso" do %>
+                            <p>Controle de Acesso</p>
+                        <% end %>
+                        </li>
+                    </ul>
+            </li>                                         
         </ul>
     </div>
 </nav>

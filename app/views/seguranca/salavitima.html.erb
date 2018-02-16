@@ -1,0 +1,45 @@
+<h1>Seguranca#salavitima</h1>
+<p>Find me in app/views/seguranca/salavitima.html.erb</p>
+
+
+Date Inicial: <input type="text" class='form-control datepicker' onchange="qualquernomeai()" style="width: 200px; height:30px ; font-size:13px; display: inline; vertical-align: middle;" />
+Date Final: <input type="text" class='form-control datepicker2' style="width: 200px; height:30px ; font-size:13px; display: inline; vertical-align: middle;" />
+<br />	
+
+<script type="text/javascript">
+  
+$(document).ready(function(){
+    $('.datepicker').datepicker({
+    	autoclose: true,
+    	format: "dd/mm/yyyy",
+    	startDate: "-0d",
+    	endDate: "+19d",
+    	language: "pt-BR"
+    });
+	$('.datepicker').datepicker('setDate', new Date());
+    $('.datepicker2').datepicker({
+    	autoclose: true,
+	    format: "dd/mm/yyyy",
+	    language: "pt-BR"
+	});
+  });
+  function qualquernomeai(){
+  	var date1 = parseDMY($('.datepicker').val());
+  	var date2 = parseDMY($('.datepicker').val());
+  	date2.setDate(date2.getDate() + 9);
+  	var date1String =  date1.getDate() + "/" + (date1.getMonth()+1) + "/" + date1.getFullYear();
+  	var date2String =  date2.getDate() + "/" + (date2.getMonth()+1) + "/" + date2.getFullYear();
+  	$(document).ready(function(){
+	  	$('.datepicker2').datepicker('setStartDate', date1String);
+	  	$('.datepicker2').datepicker('setEndDate', date2String);
+  	});
+  }     
+
+  function parseDMY(value) {
+    var date = value.split("/");
+    var d = parseInt(date[0], 10),
+        m = parseInt(date[1], 10),
+        y = parseInt(date[2], 10);
+    return new Date(y, m - 1, d);
+}     
+</script>

@@ -50,6 +50,8 @@ GEM
       execjs
     bcrypt (3.1.11)
     bindex (0.5.0)
+    bootstrap-datepicker-rails (1.7.1.1)
+      railties (>= 3.0)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -234,6 +236,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-oracle_enhanced-adapter (~> 1.8.0)
+  bootstrap-datepicker-rails
   bootstrap-sass (~> 3.3.6)
   bower-rails
   byebug
