@@ -28,5 +28,7 @@
 //= require nprogress-turbolinks
 //= require nprogress-ajax
 //= require pace/pace.min.js
+//= require bootstrap-datepicker
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js
 // require turbolinks
 //= require_tree .
