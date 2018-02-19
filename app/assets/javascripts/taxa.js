@@ -102,11 +102,7 @@ function carregarProcessosPendentesTaxa(data_ajax,key,name){
 
 function mostrarProcessosPendentesNaTaxa(){
         var data = { };
-        if( (new Date().getMonth()+1 == 1) || (new Date().getMonth()+1 == 2 && new Date().getDate() <= 15 ) ){
-            data = {column_key : document.getElementById('combo_vara').value , ano : new Date().getFullYear()-1}
-        } else {
-            data = {column_key : document.getElementById('combo_vara').value , ano : new Date().getFullYear()}
-        }
+        data = {column_key : document.getElementById('combo_vara').value , ano : new Date().getFullYear()}
 
         $.ajax({
             url : "/judicial/pendentes/processos",

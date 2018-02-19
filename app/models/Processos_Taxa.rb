@@ -247,7 +247,7 @@ class ProcessosTaxa
 					return @competencias, @varas
 				end
 
-	def self.taxaVara(cod)
+	def self.taxaVara(cod, ano)
 		conn = BigDB.connection
 		@consulta_taxa_vara = conn.select_all "select pedi_seq_chave, pedi_num_ano, pedi_dsc_mes, orju_bsq_chave_unidade, orju_dsc_unidade, sum(prtc_qtd_pendente_baixa_conh) as pendentes, sum(prtc_qtd_pendente_baixa_conh + prtc_qtd_baixado_conhecimento) as total,
        		sum(prtc_qtd_pendente_baixa_conh)/sum(prtc_qtd_pendente_baixa_conh + prtc_qtd_baixado_conhecimento) taxa
@@ -278,35 +278,36 @@ class ProcessosTaxa
                                                where pdr1.pedi_flg_mes_consolidado = '1')
         and orju.orju_bsq_chave_segmento in ('1G', 'JFP')
         and orju.orju_bsq_chave_unidade = #{cod}
+        and pedi_num_ano IN (#{ano.join(',')})
       group by pdrf.pedi_seq_chave, pdrf.pedi_bsq_chave, pdrf.pedi_num_ano, pdrf.pedi_num_ano, pdrf.pedi_dsc_mes, 
                prtc.copr_seq_chave, copr.copr_dsc_competencia, prtc.orju_seq_chave, 
                orju.orju_dsc_segmento, orju.orju_bsq_chave_unidade, orju.orju_dsc_unidade)
 		where (prtc_qtd_pendente_baixa_conh + prtc_qtd_baixado_conhecimento) > 0
 		group by pedi_seq_chave, orju_bsq_chave_unidade, orju_dsc_unidade, pedi_num_ano, pedi_dsc_mes
 		order by 1, 2"
-		@ano2015 = Array.new
-		@ano2016 = Array.new
-		@ano2017 = Array.new
+		@anoAtual = Array.new
+		@anoPassado = Array.new
+		@anoRetrasado = Array.new
 		@consulta_taxa_vara.each do |row|
-			if row["pedi_num_ano"] == 2015
-				@ano2015 << row["taxa"].to_f * 100
-			elsif row["pedi_num_ano"] == 2016
-				@ano2016 << row["taxa"].to_f * 100
-			elsif	row["pedi_num_ano"] == 2017
-				@ano2017 << row["taxa"].to_f * 100
+			if row["pedi_num_ano"] == ano[0]
+				@anoAtual << row["taxa"].to_f * 100
+			elsif row["pedi_num_ano"] == ano[1]
+				@anoPassado << row["taxa"].to_f * 100
+			elsif	row["pedi_num_ano"] == ano[2]
+				@anoRetrasado << row["taxa"].to_f * 100
 			end
 		end
 		@serie = [{
-				name: '2015',
-				data: @ano2015,
+				name: ano[0],
+				data: @anoAtual,
 				color: '#8CD19E'
 			},{
-				name: '2016',
-				data: @ano2016,
+				name: ano[1],
+				data: @anoPassado,
 				color: '#8dd7e0'
 			},{
-				name: '2017',
-				data: @ano2017,
+				name: ano[2],
+				data: @anoRetrasado,
 				color: '#db6a29'
 			}]
 			return @serie, @consulta_taxa_vara

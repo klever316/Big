@@ -28,7 +28,11 @@ class DiretoriaController < ApplicationController
 
 	def taxaGrafico
 		@key = params[:cod_competencia]
-		@dadosGrafico, @dadosTaxa = ProcessosTaxa.taxaVara(@key)
+		if(Date.today.strftime("%m").to_i == 1) || (Date.today.strftime("%m").to_i == 2 && Date.today.strftime("%d").to_i <= 15)
+			@dadosGrafico, @dadosTaxa = ProcessosTaxa.taxaVara(@key,[Date.current.year-3,Date.current.year-2,Date.current.year-1])
+		else
+			@dadosGrafico, @dadosTaxa = ProcessosTaxa.taxaVara(@key,[Date.current.year-2,Date.current.year-1,Date.current.year])
+		end
 		@dias_uteis_ano = nil
 		@qtd_dias_uteis = 0
 		if(Date.today.strftime("%m").to_i == 1) || ((Date.today.strftime("%m").to_i == 2) && (Date.today.strftime("%d").to_i <= 15))

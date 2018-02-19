@@ -69,7 +69,7 @@ class JudicialController < ApplicationController
 	def processos_pendentes
 		@chave_unidade = params[:column_key]
 		@ano = params[:ano]
-		@consulta_lista_processos = ProcessosPendentes.get_lista_processos_pendentes(@chave_unidade, @ano)		
+		@consulta_lista_processos = ProcessosPendentes.get_lista_processos_pendentes(@chave_unidade, @ano.to_i)		
 
 		render :json => {array: @consulta_lista_processos}
 	end
