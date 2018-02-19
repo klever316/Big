@@ -1,10 +1,28 @@
-<h1>Seguranca#salavitima</h1>
-<p>Find me in app/views/seguranca/salavitima.html.erb</p>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+        <div class="col-lg-12" >
+            <div class="text-center m-t-lg">
+                <h1 style ="color: #257752; font-size: 30px; margin: -5px">
+                    <b>Relatório de Vítimas</b>
+                </h1>    
+                <br /><br />
+            </div>
+            <div class="form-group" style="text-align: center">
+              Data Inicial: <input type="text" id="dt_inicio" class='form-control datepicker' onchange="convertdate()" style="width: 200px; height:30px ; font-size:13px; display: inline; vertical-align: middle;" />
+              Data Final: <input type="text" class='form-control datepicker2' style="width: 200px; height:30px ; font-size:13px; display: inline; vertical-align: middle;" />
 
+              <button id="btn_enviar" class="btn btn-sm btn-primary" style="display: inline">
+                <strong>Buscar</strong>
+              </button>  
+              <br />
+              <br />
+              <div id="dt_invalida"></div>
+            </div>
+        </div>
+  </div>
+  <div id="tabela"><div style="height: 520px"></div></div>
 
-Date Inicial: <input type="text" class='form-control datepicker' onchange="qualquernomeai()" style="width: 200px; height:30px ; font-size:13px; display: inline; vertical-align: middle;" />
-Date Final: <input type="text" class='form-control datepicker2' style="width: 200px; height:30px ; font-size:13px; display: inline; vertical-align: middle;" />
-<br />	
+</div>            	
 
 <script type="text/javascript">
   
@@ -17,15 +35,19 @@ $(document).ready(function(){
     	language: "pt-BR"
     });
 	$('.datepicker').datepicker('setDate', new Date());
-    $('.datepicker2').datepicker({
+  $('.datepicker2').datepicker({
     	autoclose: true,
 	    format: "dd/mm/yyyy",
 	    language: "pt-BR"
 	});
   });
-  function qualquernomeai(){
+  function convertdate(){
   	var date1 = parseDMY($('.datepicker').val());
   	var date2 = parseDMY($('.datepicker').val());
+    var date3 = parseDMY($('.datepicker2').val());
+    if(date1 > date3){
+        $('.datepicker2').datepicker('setDate', null);
+    }
   	date2.setDate(date2.getDate() + 9);
   	var date1String =  date1.getDate() + "/" + (date1.getMonth()+1) + "/" + date1.getFullYear();
   	var date2String =  date2.getDate() + "/" + (date2.getMonth()+1) + "/" + date2.getFullYear();
@@ -42,4 +64,12 @@ $(document).ready(function(){
         y = parseInt(date[2], 10);
     return new Date(y, m - 1, d);
 }     
+  
+  document.getElementById("btn_enviar").onclick = function() {sala_vitima($('.datepicker').val(),$('.datepicker2').val())};
+
+
+  $( document ).ajaxStart(function() {
+    $('<div class="modal-backdrop fade in"></div>').appendTo(document.body);
+  });
+
 </script>

@@ -107,7 +107,7 @@
                 $('#titulo_processo').append('Processo ' + format(data.array[0].nuprocesso, '#######-##.####.#.##.####'));
                 $("#myModal").modal("show");
             } else {
-                document.getElementById('processoinvalido').innerHTML = "<div class='alert alert-danger'>              <strong> Processo Inválido!</strong>            </div>";
+                $.notify("Processo Inválido", "error");
             }
 
 
