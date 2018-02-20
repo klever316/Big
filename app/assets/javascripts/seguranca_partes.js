@@ -135,7 +135,6 @@ function controle_acesso(dt_inicio, dt_final) {
                 html += '<th>Nome da Parte</th>';
                 html += '<th>Vara</th>';
                 html += '<th>Nº do Processo</th>';
-                html += '<th>Assunto</th>';
                 html += '<th>Tipo</th>';
                 html += '</tr>';
                 html += '</thead>'
@@ -147,7 +146,6 @@ function controle_acesso(dt_inicio, dt_final) {
                 html += '<td>'+value.nome+'</td>';
                 html += '<td>'+value.nmvara+'</td>';
                 html += '<td>'+format(value.nuprocesso,'#######-##.####.#.##.####')+'</td>';
-                html += '<td>'+ value.deassunto +'</td>'
                 html += '<td>'+value.decomptipoparte+'</td>';
                 html += '</tr>';
                 }); 
@@ -184,12 +182,11 @@ function controle_acesso(dt_inicio, dt_final) {
                             }
                         }
                         ],
-                        columnDefs : [{"width": "15%", "targets": 0 },
-                        {"width": "25%", "targets": 1 },
-                        {"width": "15%", "targets": 2 },
+                        columnDefs : [{"width": "18%", "targets": 0 },
+                        {"width": "30%", "targets": 1 },
+                        {"width": "22%", "targets": 2 },
                         {"width": "20%", "targets": 3 },
-                        {"width": "15%", "targets": 4 },
-                        {"width": "10%", "targets": 5 },
+                        {"width": "10%", "targets": 4 },
                         ],
                         language: {
                             "sEmptyTable": "Nenhum registro encontrado",
