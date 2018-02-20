@@ -16,11 +16,17 @@ class SegurancaController < ApplicationController
 
   def controleacesso
 
-  	dt_inicio = params[:dt_inicio_key]
+  end
 
-  	dt_final = params[:dt_final_key]
+  def controleacessoretorno
 
-  	#@lista_controle = Seguranca.controle_de_acesso(dt_inicio, dt_final)
+    dt_inicio = params[:dt_inicio_key]
 
+    dt_final = params[:dt_final_key]
+
+    @lista_controle = Seguranca.controle_de_acesso(dt_inicio, dt_final)
+
+    render :json => {lista_controle: @lista_controle}
+    
   end
 end

@@ -35,6 +35,10 @@ FROM
     JOIN saj.esajvara v ON v.cdforo = p.cdforo AND p.cdvara = v.cdvara AND v.cdvara IN (21,26,27,28,29,30,31,32,33,34,35,36,37,38,39,111,113)
 WHERE dtinicio BETWEEN  to_date('#{dt_inicio}','dd/mm/yyyy') AND to_date('#{dt_final} 23:59:59','dd/mm/yyyy HH24:MI:SS')
 ORDER BY  dtinicio"
+
+        @lista_controle = controle
+
+        return @lista_controle
 		
 	end
 
