@@ -47,6 +47,7 @@ function sala_vitima(dt_inicio, dt_final) {
                         {
                             extend: 'copyHtml5', 
                             title: "Relatório de Vítimas"
+                            
                         },
                         {
                             extend: 'csv', 
