@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  #Pundit
+  include Pundit
   rescue_from DeviseLdapAuthenticatable::LdapException do |exception|
     render :text => exception, :status => 500
   end
@@ -8,6 +10,10 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
 	before_action :configure_permitted_parameters, if: :devise_controller?
+
+  #Gerencia erros do Pundit
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  
 	def configure_permitted_parameters
 	# devise 4.3 .for method replaced by .permit
 	devise_parameter_sanitizer.permit(:sign_in, keys: [:username])
