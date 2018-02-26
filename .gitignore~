@@ -19,3 +19,4 @@ git config --global core.excludesfile '~/.gitignore_global'
 /yarn-error.log
 .byebug_history
 /config/database.yml
+/config/ldap.yml

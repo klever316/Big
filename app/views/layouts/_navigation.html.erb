@@ -105,6 +105,7 @@
                         </li>
                     </ul>    
             </li>
+            <% if current_user.full_access? %>
             <li class="<%= is_active_controller('crime_organizado') %>">
                 <a href=""><i class="fa fa-link" style="font-size:18px"></i><span class="nav-label">SiN-Crime Organizado</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
@@ -114,7 +115,7 @@
                         </li>
                     </ul>
             </li>
-
+            <% end %> 
             <li class="<%= is_active_controller('seguranca') %>">
                 <a href=""><i class="fa fa-lock" style="font-size:20px"></i><span class="nav-label">Segurança</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse <%= 'active' if current_page?('/') %>">
@@ -127,7 +128,7 @@
                         <% end %>
                         </li>
                     </ul>
-            </li>                                         
+            </li>                                          
         </ul>
     </div>
 </nav>
